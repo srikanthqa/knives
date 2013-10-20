@@ -1,0 +1,12 @@
+# Example Eclipse desktop
+# please put this file at /usr/share/applications/eclipse.desktop
+# You can need to fix Icon/Exec if there are any difference
+
+[Desktop Entry]
+Type=Application
+Name=Eclipse
+Comment=Eclipse Integrated Development Environment
+Icon=/opt/eclipse/icon.xpm
+Exec=eclipse
+Terminal=false
+Categories=Development;IDE;Java;

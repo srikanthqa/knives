@@ -1,0 +1,35 @@
+#!/bin/sh
+# Startup script for the Apache Web Server
+# Description: This file should be used to construct scripts to be 
+# placed in /etc/init.d
+# 
+# To make this as a service: update-rc.d apache2 default
+#
+# pidfile: $APACHE_HOME/logs/httpd.pid
+# config: $APACHE_HOME/conf/httpd.conf
+# USAGE: start|stop|restart|graceful-stop|graceful-restart
+
+APACHE2_USER=apache
+APACHE_HOME=/usr/local/apache2/
+APACHECTL=$APACHE_HOME/bin/apachectl
+SU="su --login  $GF_USER --command  "
+
+case "$1" in
+start)
+    $SU "$APACHECTL -k start"
+    ;;
+stop)
+    $SU "$APACHECTL -k stop"
+    ;;
+restart)
+    $SU "$APACHECTL -k restart"
+    ;;
+graceful-stop)
+    $SU "$APACHECTL -k graceful"
+    ;;
+graceful-stop)
+    $SU "$APACHECTL -k graceful-stop"
+    ;;
+\*)
+    echo "usage: $0 (start|stop|restart|graceful-stop|help)"
+esac

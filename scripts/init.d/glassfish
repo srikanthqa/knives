@@ -1,0 +1,34 @@
+#!/bin/sh
+# Platform Services for GlassFish
+# Description: This file should be used to construct scripts to be 
+# placed in /etc/init.d
+#
+# Set permission
+# -rwxr-xr-x 1 root root 635 May 12 07:41 /etc/init.d/glassfish
+#
+# To make this as a service: update-rc.d glassfish defaults
+#
+# https://blogs.oracle.com/foo/entry/run_glassfish_v3_as_a
+# USAGE: start|stop|restart
+
+GF_USER=glassfish
+GF_HOME=/opt/glassfish3/glassfish
+ASADMIN=$GF_HOME/bin/asadmin
+SU="sudo -u  $GF_USER "
+
+case "$1" in
+start)
+    $SU $ASADMIN start-domain
+    ;;
+stop)
+    $SU $ASADMIN stop-domain
+    ;;
+restart)
+    $SU $ASADMIN restart-domain
+    ;;
+status)
+    $SU $ASADMIN list-domains
+    ;;
+\*)
+    echo "usage: $0 (start|stop|restart|help)"
+esac
