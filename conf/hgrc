@@ -1,0 +1,30 @@
+[ui]
+username = xxxx
+
+[extensions]
+graphlog =
+fetch =
+churn =
+purge =
+convert =
+bookmarks =
+patchbomb =
+#inotify =
+color =
+mq =
+progress =
+children =
+zeroconf =
+
+[diff]
+git = true
+
+[alias]
+slog = log --template '{rev}:{node|short} {author} {desc|firstline}\n'
+qstatus = status --rev -2:.
+untrack = rm -Af
+refresh = addremove --similarity 100
+shelve = !$HG qnew shelf.patch && $HG qrefresh && $HG qpop
+unshelve = !$HG import --no-commit `$HG root`/.hg/patches/shelf.patch && $HG qdelete shelf.patch
+
+
