@@ -1,5 +1,7 @@
 /*
- * RepackJar uses
+ * RepackJar repacks an existing jar with new class files (replaced the old one)
+ * 
+ * @TODO: add support for same class name but different package
  */
 
  @Grapes([
