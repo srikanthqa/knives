@@ -1,5 +1,5 @@
 /*
- * TraceHttpRedirect used to print out all http 302 redirect when access a url
+ * TraceHttpRedirect prints out all http 302 redirect when access a url
  *
  * Example:
  *
