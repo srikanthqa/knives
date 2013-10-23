@@ -58,7 +58,8 @@ ant.jar( destfile: repackedJarFile) {
 	fileset( dir: unpackJarDir )
 }
 
-ant.delete(verbose: true, includeemptydirs: true) {
+ant.echo("Cleaning up")
+ant.delete(includeemptydirs: true) {
 	fileset( dir: unpackJarDir )
 }
 
