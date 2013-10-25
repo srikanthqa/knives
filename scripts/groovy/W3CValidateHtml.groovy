@@ -1,5 +1,5 @@
 @Grapes([
-	@Grab(group='org.apache.httpcomponents', module='fluent-hc', version='4.2.6')
+	@Grab(group='org.apache.httpcomponents', module='fluent-hc', version='4.3.1')
 ])
 
 import org.apache.http.client.fluent.Request
