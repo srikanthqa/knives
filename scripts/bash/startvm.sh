@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # After install vmware toolchain by running
 # sudo vmware-config-tools.pl 
