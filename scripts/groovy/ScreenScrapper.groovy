@@ -20,7 +20,7 @@ if (opt.h) {
 final def url = opt.u
 
 Browser.drive {
-    go "${url}"
+    go url
      
     $('a').allElements().each {
 		println it.getAttribute('href')
