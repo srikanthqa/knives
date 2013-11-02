@@ -4,7 +4,7 @@
  */
 
 @Grapes([
-	@Grab(group='rhino', module='js', version='1.7R4')
+	@Grab(group='org.mozilla', module='rhino', version='1.7R4')
 ])
 
 final def cli = new CliBuilder(usage: 'TrimJar <jar> <classpath>')
