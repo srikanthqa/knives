@@ -1,0 +1,17 @@
+ext {
+	proguardVersion = '4.10'
+}
+
+buildscript {
+	repositories {
+		mavenCentral()
+		
+	}
+	dependencies {
+		classpath 'net.sf.proguard:proguard-gradle:4.10'
+	}
+}
+
+task proguard(type: proguard.gradle.ProGuardTask) {
+	
+}
