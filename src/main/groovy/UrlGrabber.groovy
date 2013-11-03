@@ -29,5 +29,7 @@ Browser.drive {
 	$('img').allElements().each {
 		println it.getAttribute('src')
 	}
+	
+	quit()
 }
 
