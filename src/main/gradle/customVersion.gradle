@@ -1,0 +1,29 @@
+/* 
+ * Custom version tag on jar
+ * Source: http://mrhaki.blogspot.com/2010/10/gradle-goodness-custom-version-object.html
+ *
+ * version object only need to implement toString()
+ */
+
+apply plugin: 'java'
+
+version = new Version(major: 2, minor: 3, releaseType: 'beta', bugfix: 2)
+
+task listJars << {
+    println "Project version: $project.version"
+    configurations.archives.allArtifactFiles.files.each {
+        println "Artifact: $it.name"
+    }
+}
+listJars.dependsOn 'assemble'
+
+class Version {
+    int major
+    int minor
+    int bugfix
+    String releaseType
+ 
+    String toString() {
+        "$major.$minor-$releaseType${bugfix ?: ''}"
+    }
+}
