@@ -1,4 +1,8 @@
-knives
+knives - who need katana when you have a set of tiny deadly knives
 ======
 
-a repo of small and useful groovy scripts
+A repo contains small and useful scripts across several languages.
+
+Also, this is also my katana repo.
+
+
