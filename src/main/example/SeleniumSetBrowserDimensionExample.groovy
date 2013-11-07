@@ -12,7 +12,7 @@ final def driver = new FirefoxDriver()
 driver.manage().window().setSize(new Dimension(420, 700))
 //driver.manage().window().maximize()
 
-final def conf = new Configuration([ driver: {{ driver }])
+final def conf = new Configuration([ driver: { driver }])
 
 Browser.drive(conf) {
 
