@@ -64,15 +64,15 @@ if (geocodingContent.status == 'OK') {
 	reader.setInput(iis, true)
 	final ImageReadParam param = reader.getDefaultReadParam()
 	final Image image = reader.read(0, param)
-	
-	new SwingBuilder().edt {
-		frame(title: address, size:[height, width], show: true,
-			defaultCloseOperation: JFrame.EXIT_ON_CLOSE, resizable: false,
-			locationRelativeTo: null) {
-			
+	final def swing = new SwingBuilder()
+	final def frame = swing.frame(title: address, size:[height, width], 
+		show: true, 
+		defaultCloseOperation: JFrame.EXIT_ON_CLOSE, 
+		resizable: false,
+		locationRelativeTo: null) {
 			label(icon:imageIcon(image : image))
 		}
-	}
+		
 } else {
 	println geocodingContent.status
 }
