@@ -1,2 +1,2 @@
 include 'knives-gradle'
-include 'knives-scripts'
+include 'knives-script'

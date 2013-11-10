@@ -9,3 +9,7 @@
 *.war
 *.ear
 /bin
+/build
+
+# gradle
+.gradle
