@@ -1,0 +1,13 @@
+apply plugin: 'groovy'
+
+sourceSets {
+	main {
+		groovy {
+			srcDirs 'groovy', 'example'
+		}
+		
+		resources {
+			srcDirs 'resources', 'bash', 'init.d', 'gradle' 
+		}
+	}
+}

@@ -13,3 +13,6 @@
 
 # gradle
 .gradle
+
+# offline dependency
+lib

@@ -1,0 +1,9 @@
+repositories { 
+	flatDir { dirs 'lib' }
+}
+
+task dependOffline(type: Sync) {
+	from configurations.runtime
+	from configurations.compile
+	into "$rootDir/lib"
+}
