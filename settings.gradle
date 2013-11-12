@@ -1,3 +1,2 @@
 include 'knives-script'
-include 'knives-gradle'
 include 'knives-liquibase-example'
