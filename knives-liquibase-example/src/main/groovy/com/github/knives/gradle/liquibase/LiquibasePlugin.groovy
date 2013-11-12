@@ -20,6 +20,13 @@ public class LiquibasePlugin implements Plugin<Project> {
 		project.task('update', type: LiquibaseTask, group: LiquibasePlugin.GROUP) {
 			command = 'update'
 		}
+		
+		def databases = project.container(Database)
+		def changelogs = project.container(ChangeLog)
+		
+		project.configure(project) {
+			extensions.create('liquibase', LiquibaseExtension, databases, changelogs)
+		}
 	}
 
 }
