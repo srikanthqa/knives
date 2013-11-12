@@ -1,0 +1,30 @@
+apply plugin: 'maven'
+apply plugin: 'groovy'
+
+defaultTasks 'clean', 'install'
+
+sourceCompatibility = '1.7'
+targetCompatibility = '1.7'
+
+repositories {
+	mavenLocal()
+	mavenCentral()
+}
+
+ext {
+	junitVersion = '4.11'
+	liquibaseVersion = '1.9.5'
+}
+
+dependencies {
+	compile gradleApi()
+	compile localGroovy()
+
+	compile group: 'org.liquibase', name: 'liquibase-core', version: liquibaseVersion
+            
+	testCompile group: 'junit', name: 'junit', version: junitVersion
+}
+
+group = 'com.github.knives.gradle'
+version = '1.0.0-SNAPSHOT'
+ext.artifact = 'liquibase-example-plugin'
