@@ -10,7 +10,7 @@ public class LiquibasePlugin implements Plugin<Project> {
 	@Override
 	public void apply(final Project project) {
 		project.task('generateChangeLog', type: LiquibaseTask, group: LiquibasePlugin.GROUP) {
-			command = generateChangeLog
+			command = 'generateChangeLog'
 		}
 		
 		project.task('changeLogSync', type: LiquibaseTask, group: LiquibasePlugin.GROUP) {
