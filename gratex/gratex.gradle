@@ -1,5 +1,22 @@
+buildscript {
+	repositories {
+		mavenLocal()
+	}
+	dependencies {
+		classpath group: 'com.github.knives.gradle', name: 'gratex', version: '1.0.0-SNAPSHOT'
+	}
+}
+
 apply plugin: 'gratex'
 
-task hello << {
-	println "hello from the other build."
+gratex {
+	sourceSets {
+		integration {
+			doc {
+				srcDir 'src/integration/doc'
+			}
+		}
+	}
 }
+
+println gratex.sourceSets.integration.doc.files.toList()

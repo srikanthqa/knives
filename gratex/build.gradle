@@ -2,7 +2,7 @@ apply plugin: 'groovy'
 apply plugin: 'maven'
 apply plugin: 'eclipse'
 
-defaultTasks 'clean', 'test', 'install'
+defaultTasks 'clean', 'test', 'install', 'integrationTest'
 
 sourceCompatibility = '1.7'
 targetCompatibility = '1.7'
@@ -29,5 +29,4 @@ ext.artifact = 'gratex'
 
 task integrationTest(type: GradleBuild) {
 	buildFile = 'gratex.gradle'
-	tasks = ['hello']
 }
