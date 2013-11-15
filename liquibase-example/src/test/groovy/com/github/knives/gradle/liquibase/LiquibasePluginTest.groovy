@@ -9,13 +9,52 @@ import org.junit.Test
 class LiquibasePluginTest {
 	@Test
 	public void addLiquibasePlugin() {
-		Project project = ProjectBuilder.builder().build()
-		project.apply plugin: 'liquibase'
+		final Project project = ProjectBuilder.builder().build()
+		project.with {
+			apply plugin: 'liquibase'
+			
+			liquibase {
+				changelogs {
+					main {
+						
+					}	
+				}
+				
+				databases {
+					sandbox {
+						url = 'jdbc:h2:db/liquibase_workshop'
+						username = 'sa'
+						password = ''
+					}
+					
+					staging {
+						url = 'jdbc:mysql://staging.server/app_db'
+						username = 'dev_account'
+						password = 'abc'
+					}
+				}
+				
+				defaultDatabase = databases.sandbox
+			}
+			
+			task('test', type: LiquibaseTask) {
+				group = 'Liquibase'
+				command = 'test'
+			}
+			
+			
+		}
+		
 		
 		assertTrue(project.tasks.generateChangeLog instanceof LiquibaseTask)
 		assertTrue(project.tasks.changeLogSync instanceof LiquibaseTask)
 		assertTrue(project.tasks.update instanceof LiquibaseTask)
+		assertTrue(project.tasks.test instanceof LiquibaseTask)
 		
-		
+		assertTrue(project.liquibase instanceof LiquibaseExtension)
+		assertTrue(project.liquibase.defaultDatabase instanceof Database)
+		assertTrue(project.liquibase.databases.sandbox instanceof Database)
+		assertTrue(project.liquibase.databases.staging instanceof Database)
+		assertTrue(project.liquibase.changelogs.main instanceof ChangeLog)
 	}
 }
