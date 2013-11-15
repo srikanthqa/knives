@@ -10,13 +10,9 @@ class GratexPlugin implements Plugin<Project> {
 
 	@Override
 	public void apply(final Project project) {
-		
 		def docSourceSetFactory = new DocSourceSetFactory(project)
-		def docSourceSets = project.container(DocSourceSet, docSourceSetFactory) 
-		
-		project.configure(project) {
-			extensions.create(GratexExtension.NAME, GratexExtension, docSourceSets)
-		}
-		
+		def docSourceSetsContainer = project.container(DocSourceSet, docSourceSetFactory) 
+
+		project.extensions.create(GratexExtension.NAME, GratexExtension, docSourceSetsContainer)
 	}
 }

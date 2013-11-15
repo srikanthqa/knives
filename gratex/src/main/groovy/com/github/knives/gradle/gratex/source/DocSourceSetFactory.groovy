@@ -16,9 +16,9 @@ class DocSourceSetFactory implements NamedDomainObjectFactory<DocSourceSet> {
 	
 	@Override
 	public DocSourceSet create(String name) {
-		final String docSourceDisplayName = String.format("%s Doc sources", name);
+		final String docSourceDisplayName = String.format("%s doc sources", name);
 		final SourceDirectorySet doc = new DefaultSourceDirectorySet(docSourceDisplayName, project.getFileResolver())
-		return new DocSourceSet(name, doc)
+		return new DefaultDocSourceSet(name, doc)
 	}
 
 }
