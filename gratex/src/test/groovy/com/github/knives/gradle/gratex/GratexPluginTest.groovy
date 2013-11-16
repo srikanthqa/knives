@@ -34,15 +34,12 @@ class GratexPluginTest {
 			apply plugin: 'gratex'
 			
 			gratex {
-				
 				sourceSets {
 					main {
 						doc {
 							srcDirs 'src/main/doc'
-							include '**/*.tex'
 						}
 					}
-					
 				}
 			}
 		}
