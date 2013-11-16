@@ -1,0 +1,39 @@
+buildscript {
+	repositories {
+		mavenLocal()
+		mavenCentral()
+	}
+	dependencies {
+		classpath group: 'com.github.knives.gradle', name: 'liquibase-example', version: '1.0.0-SNAPSHOT'
+	}
+}
+
+apply plugin: 'liquibase'
+
+liquibase {
+	changelogs {
+		main {
+			file = file('changelog.xml')
+		}	
+	}
+	
+	databases {
+		sandbox {
+			url = 'jdbc:h2:db/liquibase_workshop'
+			username = 'sa'
+			password = ''
+		}
+		
+		staging {
+			url = 'jdbc:mysql://staging.server/app_db'
+			username = 'dev_account'
+			password = 'abc'
+		}
+	}
+	
+	defaultDatabase = databases.sandbox
+}
+
+generateChangeLog {
+	changeLog = liquibase.changelogs.main.file
+}

@@ -1,7 +1,8 @@
 apply plugin: 'maven'
 apply plugin: 'groovy'
+apply plugin: 'eclipse'
 
-defaultTasks 'clean', 'test', 'install'
+defaultTasks 'clean', 'test', 'install', 'integrationTest'
 
 sourceCompatibility = '1.7'
 targetCompatibility = '1.7'
@@ -27,4 +28,8 @@ dependencies {
 
 group = 'com.github.knives.gradle'
 version = '1.0.0-SNAPSHOT'
-ext.artifact = 'liquibase-example-plugin'
+
+task integrationTest(type: GradleBuild) {
+	buildFile = 'liquibase.gradle'
+	tasks = ['generateChangeLog']
+}

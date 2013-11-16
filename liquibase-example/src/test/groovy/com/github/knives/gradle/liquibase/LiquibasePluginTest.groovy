@@ -41,8 +41,6 @@ class LiquibasePluginTest {
 				group = 'Liquibase'
 				command = 'test'
 			}
-			
-			
 		}
 		
 		
