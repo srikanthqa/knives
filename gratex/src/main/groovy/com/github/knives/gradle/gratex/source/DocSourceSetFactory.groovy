@@ -4,20 +4,21 @@ import org.gradle.api.NamedDomainObjectFactory
 import org.gradle.api.Project
 import org.gradle.api.file.SourceDirectorySet
 import org.gradle.api.internal.file.DefaultSourceDirectorySet
+import org.gradle.api.internal.file.FileResolver
 import org.gradle.api.internal.project.ProjectInternal
 
 class DocSourceSetFactory implements NamedDomainObjectFactory<DocSourceSet> {
 
-	final ProjectInternal project
+	final private FileResolver fileResolver
 	
-	public DocSourceSetFactory(Project project) {
-		this.project = (ProjectInternal)project
+	public DocSourceSetFactory(FileResolver fileResolver) {
+		this.fileResolver = fileResolver
 	}
 	
 	@Override
 	public DocSourceSet create(String name) {
 		final String docSourceDisplayName = String.format("%s doc sources", name);
-		final SourceDirectorySet doc = new DefaultSourceDirectorySet(docSourceDisplayName, project.getFileResolver())
+		final SourceDirectorySet doc = new DefaultSourceDirectorySet(docSourceDisplayName, fileResolver)
 		return new DefaultDocSourceSet(name, doc)
 	}
 
