@@ -1,0 +1,31 @@
+apply plugin: 'groovy'
+apply plugin: 'maven'
+apply plugin: 'eclipse'
+
+defaultTasks 'clean', 'test', 'install', 'integrationTest'
+
+sourceCompatibility = '1.7'
+targetCompatibility = '1.7'
+
+repositories {
+	mavenLocal()
+	mavenCentral()
+}
+
+ext {
+	junitVersion = '4.11'
+}
+
+dependencies {
+	compile localGroovy()
+	compile gradleApi()
+			
+	testCompile group: 'junit', name: 'junit', version: junitVersion
+}
+
+group = 'com.github.knives.gradle'
+version = '1.0.0-SNAPSHOT'
+
+task integrationTest(type: GradleBuild) {
+	buildFile = 'gratex.gradle'
+}

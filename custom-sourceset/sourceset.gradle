@@ -1,0 +1,23 @@
+buildscript {
+	repositories {
+		mavenLocal()
+	}
+	dependencies {
+		classpath group: 'com.github.knives.gradle', name: 'custom-sourceset', version: '1.0.0-SNAPSHOT'
+	}
+}
+
+apply plugin: ''
+
+sourceSets {
+	main {
+		css {
+			srcDir 'src/main/css'
+		}
+		
+		js {
+			srcDir 'src/main/js'
+		}
+	}
+	
+}
