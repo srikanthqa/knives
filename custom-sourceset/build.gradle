@@ -27,5 +27,6 @@ group = 'com.github.knives.gradle'
 version = '1.0.0-SNAPSHOT'
 
 task integrationTest(type: GradleBuild) {
-	buildFile = 'gratex.gradle'
+	buildFile = 'sourceset.gradle'
+	tasks = ['printAllSource']
 }

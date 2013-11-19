@@ -7,17 +7,21 @@ buildscript {
 	}
 }
 
-apply plugin: ''
+apply plugin: 'custom-sourceset'
 
-sourceSets {
+import com.github.knives.gradle.custom.sourceset.CustomSourceSet
+
+sources {
 	main {
-		css {
+		custom {
 			srcDir 'src/main/css'
 		}
-		
-		js {
-			srcDir 'src/main/js'
-		}
 	}
-	
+}
+
+task printAllSource {
+	sources.main.all {
+		println it
+		println it.srcDirs
+	}
 }
