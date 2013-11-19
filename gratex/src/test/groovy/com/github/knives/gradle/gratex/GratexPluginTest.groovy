@@ -26,7 +26,7 @@ class GratexPluginTest {
 	public void testGratexPlugin() {
 		final Project project = ProjectBuilder.builder().withProjectDir(folder.root).build()
 		
-		def srcDir = folder.newFolder("src", "main", "doc")
+		def srcDir = folder.newFolder("src", "main", "docs")
 		// groovy does not create empty implicit
 		def testFile = (new File(srcDir, 'test.tex') << "").canonicalFile
 		
@@ -36,8 +36,8 @@ class GratexPluginTest {
 			gratex {
 				sourceSets {
 					main {
-						doc {
-							srcDirs 'src/main/doc'
+						docs {
+							
 						}
 					}
 				}
@@ -46,7 +46,7 @@ class GratexPluginTest {
 		
 		assertTrue(project.gratex.sourceSets.main instanceof DocSourceSet)
 		assertEquals("main", project.gratex.sourceSets.main.name)
-		assertEquals([testFile], project.gratex.sourceSets.main.doc.files.toList())
+		assertEquals([testFile], project.gratex.sourceSets.main.docs.files.toList())
 	}
 }
 

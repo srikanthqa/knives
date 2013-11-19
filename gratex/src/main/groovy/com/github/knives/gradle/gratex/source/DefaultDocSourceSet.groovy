@@ -6,11 +6,11 @@ import org.gradle.util.ConfigureUtil
 
 public class DefaultDocSourceSet implements DocSourceSet {
 	final private String name
-	final private SourceDirectorySet doc
+	final private SourceDirectorySet docs
 	
-	public DefaultDocSourceSet(String name, SourceDirectorySet doc) {
+	public DefaultDocSourceSet(String name, SourceDirectorySet docs) {
 		this.name = name
-		this.doc = doc
+		this.docs = docs
 	}
 	
 	@Override
@@ -19,8 +19,8 @@ public class DefaultDocSourceSet implements DocSourceSet {
 	}
 
 	@Override
-	public SourceDirectorySet getDoc() {
-		doc
+	public SourceDirectorySet getDocs() {
+		docs
 	}
 	
 	@Override
@@ -29,7 +29,8 @@ public class DefaultDocSourceSet implements DocSourceSet {
 	}
 
 	@Override
-	public void doc(final Closure configureClosure) {
-		doc.with configureClosure
+	public SourceDirectorySet docs(final Closure configureClosure) {
+		ConfigureUtil.configure(configureClosure, getDocs())
+		getDocs()
 	}
 }

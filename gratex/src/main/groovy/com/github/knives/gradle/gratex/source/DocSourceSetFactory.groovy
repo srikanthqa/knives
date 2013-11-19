@@ -19,6 +19,7 @@ class DocSourceSetFactory implements NamedDomainObjectFactory<DocSourceSet> {
 	public DocSourceSet create(String name) {
 		final String docSourceDisplayName = String.format("%s doc sources", name);
 		final SourceDirectorySet doc = new DefaultSourceDirectorySet(docSourceDisplayName, fileResolver)
+		doc.srcDir("src/${name}/docs")
 		return new DefaultDocSourceSet(name, doc)
 	}
 
