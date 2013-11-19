@@ -36,9 +36,10 @@ public class DefaultCustomSourceSet implements CustomSourceSet {
 		return getSource().getBuildDependencies();
 	}
 
+	/*
 	@Override
 	public SourceDirectorySet configure(Closure closure) {
 		return ConfigureUtil.configure(closure, getSource(), false);
 	}
-
+	*/
 }
