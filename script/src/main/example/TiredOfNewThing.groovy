@@ -6,7 +6,7 @@
  * 2. ommit new keyword together (but need to specify class)
  */
 
-@Newify 
+@Newify([])
 rubyLikeNew() {
 	assert Integer.new(42) == 42
 }

@@ -9,6 +9,11 @@
  * http://groovy.codehaus.org/Immutable+AST+Macro
  */
 
-@Immutable class Punter {
+import groovy.transform.Immutable
+
+@Immutable 
+class Punter {
 	String first, last
 }
+
+println new Punter(first: 'hello', last: 'world')
