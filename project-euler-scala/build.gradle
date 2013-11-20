@@ -1,0 +1,21 @@
+apply plugin: 'scala'
+apply plugin: 'maven'
+apply plugin: 'eclipse'
+
+defaultTasks 'clean', 'test'
+
+sourceCompatibility = '1.7'
+targetCompatibility = '1.7'
+
+repositories {
+	mavenLocal()
+	mavenCentral()
+}
+
+ext {
+	junitVersion = '4.11'
+}
+
+dependencies {
+	testCompile group: 'junit', name: 'junit', version: junitVersion
+}
