@@ -10,7 +10,7 @@ import org.eclipse.jgit.api.CloneCommand
 final def cli = new CliBuilder(usage: 'GitClone -u <url> -d <path/to/where/to/you/want>')
 cli.h( longOpt: 'help', required: false, 'show usage information' )
 cli.u( longOpt: 'url', argName: 'u', required: true, args: 1, 'absolute url path i.e. https://github.com/khaing211/knives.git' )
-cli.d( longOpt: 'dir', argName: 'd', required: true, args: 1, 'optional directory you want to clone into /tmp/12345')
+cli.d( longOpt: 'dir', argName: 'd', required: true, args: 1, 'directory you want to clone into /tmp/12345')
 //--------------------------------------------------------------------------
 final def opt = cli.parse(args)
 if (!opt) { return }
