@@ -9,9 +9,9 @@ import org.eclipse.jgit.revwalk.RevTree
 import org.eclipse.jgit.revwalk.RevWalk
 import org.eclipse.jgit.lib.ObjectId
 import org.eclipse.jgit.lib.Constants
+import org.eclipse.jgit.revwalk.RevSort
 
-
-final def cli = new CliBuilder(usage: 'GitClone -u <url> -d <path/to/where/to/you/want>')
+final def cli = new CliBuilder(usage: 'GitRevisionWalk -u <url> -d <path/to/where/to/you/want>')
 cli.h( longOpt: 'help', required: false, 'show usage information' )
 cli.d( longOpt: 'dir', argName: 'd', required: true, args: 1, 'repo directory')
 //--------------------------------------------------------------------------
@@ -28,6 +28,15 @@ final Git git = Git.open(gitWorkDir)
 final Repository repo = git.getRepository()
 final RevWalk revWalk = new RevWalk(repo)
 final ObjectId lastCommitId = repo.resolve(Constants.HEAD)
-final RevCommit commit = revWalk.parseCommit(lastCommitId)
+final RevCommit lastCommit = revWalk.parseCommit(lastCommitId)
 
-println commit.getFullMessage()
+
+revWalk.sort(RevSort.TOPO, true)
+revWalk.sort(RevSort.REVERSE, true)
+revWalk.markStart(lastCommit)
+
+RevCommit commit
+
+while ((commit = revWalk.next()) != null) {
+	println commit.getFullMessage()
+}
