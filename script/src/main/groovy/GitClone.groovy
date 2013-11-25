@@ -6,6 +6,7 @@ import org.eclipse.jgit.api.Git
 import org.eclipse.jgit.storage.file.FileRepositoryBuilder
 import org.eclipse.jgit.lib.Repository
 import org.eclipse.jgit.api.CloneCommand
+import org.eclipse.jgit.lib.TextProgressMonitor
 
 final def cli = new CliBuilder(usage: 'GitClone -u <url> -d <path/to/where/to/you/want>')
 cli.h( longOpt: 'help', required: false, 'show usage information' )
@@ -27,5 +28,6 @@ Git.cloneRepository()
 	.setCloneAllBranches(true)
 	.setURI(url)
 	.setDirectory(dir)
+	.setProgressMonitor(new TextProgressMonitor())
 	.call()
 

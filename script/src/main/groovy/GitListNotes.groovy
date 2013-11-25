@@ -1,11 +1,16 @@
+import java.io.File;
+
 @Grapes([
 	@Grab(group='org.eclipse.jgit', module='org.eclipse.jgit', version='3.1.0.201310021548-r')
 ])
 
+import org.eclipse.jgit.api.Git
+import org.eclipse.jgit.lib.ObjectLoader
 import org.eclipse.jgit.lib.Repository
+import org.eclipse.jgit.notes.Note
 import org.eclipse.jgit.storage.file.FileRepositoryBuilder
 
-final def cli = new CliBuilder(usage: 'FindGitRootDirectory -d <path/to/repository>')
+final def cli = new CliBuilder(usage: 'GitListNotes -d <path/to/repository>')
 cli.h( longOpt: 'help', required: false, 'show usage information' )
 cli.d( longOpt: 'dir', argName: 'd', required: true, args: 1, 'repo directory')
 //--------------------------------------------------------------------------
@@ -21,4 +26,13 @@ final Repository repository = builder.readEnvironment()
 		.findGitDir(new File(opt.d)) 
 		.build()
 		
-println repository.directory
+new Git(repository).notesList().call().each { final note ->
+	println "Note: ${note} ${note.getName()} ${note.getData().getName()}"
+	println "Content: "
+	
+	// displaying the contents of the note is done via a simple blob-read
+	ObjectLoader loader = repository.open(note.getData())
+	loader.copyTo(System.out)
+}
+
+repository.close()

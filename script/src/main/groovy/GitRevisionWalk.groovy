@@ -10,10 +10,11 @@ import org.eclipse.jgit.revwalk.RevWalk
 import org.eclipse.jgit.lib.ObjectId
 import org.eclipse.jgit.lib.Constants
 import org.eclipse.jgit.revwalk.RevSort
+import org.eclipse.jgit.storage.file.FileRepositoryBuilder
 
-final def cli = new CliBuilder(usage: 'GitRevisionWalk -u <url> -d <path/to/where/to/you/want>')
+final def cli = new CliBuilder(usage: 'GitRevisionWalk -u <url> -d <path/to/repository>')
 cli.h( longOpt: 'help', required: false, 'show usage information' )
-cli.d( longOpt: 'dir', argName: 'd', required: true, args: 1, 'repo directory')
+cli.d( longOpt: 'dir', argName: 'd', required: true, args: 1, 'repository directory')
 //--------------------------------------------------------------------------
 final def opt = cli.parse(args)
 if (!opt) { return }
@@ -22,10 +23,12 @@ if (opt.h) {
 	return
 }
 
-final def gitWorkDir = new File(opt.d)
+final FileRepositoryBuilder builder = new FileRepositoryBuilder()
 
-final Git git = Git.open(gitWorkDir)
-final Repository repo = git.getRepository()
+final Repository repo = builder.readEnvironment()
+		.findGitDir(new File(opt.d))
+		.build()
+		
 final RevWalk revWalk = new RevWalk(repo)
 final ObjectId lastCommitId = repo.resolve(Constants.HEAD)
 final RevCommit lastCommit = revWalk.parseCommit(lastCommitId)
