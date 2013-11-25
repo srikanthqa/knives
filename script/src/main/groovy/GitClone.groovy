@@ -22,16 +22,10 @@ if (opt.h) {
 final def url = opt.u
 final def dir = new File(opt.d)
 
-final FileRepositoryBuilder builder = new FileRepositoryBuilder()
-
-final Repository repository = builder.setGitDir(dir).readEnvironment().findGitDir().build()
-
-final Git git = new Git(repository)
-
-final CloneCommand clone = git.cloneRepository()
+Git.cloneRepository()
 	.setBare(false)
 	.setCloneAllBranches(true)
-	.setDirectory(dir)
 	.setURI(url)
-	
-clone.call()
+	.setDirectory(dir)
+	.call()
+
