@@ -8,6 +8,9 @@ import groovy.transform.Canonical
  * Model after the following blog
  * http://waelchatila.com/2006/01/13/1137143896635.html
  * 
+ * more about shutdown hook
+ * http://hellotojavaworld.blogspot.com/2010/11/runtimeaddshutdownhook.html
+ * 
  * Improvement:
  * 1. Use CountDownLatch instead of volatile
  * 2. And properly wait for all thread to shutdown rather than the dodgy Thread.sleep
