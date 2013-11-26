@@ -18,6 +18,7 @@ final String DEFAULT_USER = "guest"
 final String DEFAULT_PASS = "password"
 final boolean DEFAULT_READONLY = false
 final boolean DEFAULT_KEEP_TMPDIR_ON_EXIT = false
+final boolean DEFAULT_SECURE_FTP = false
 
 final def cli = new CliBuilder(usage: 'StartFtpServer')
 cli.h( longOpt: 'help', required: false, 'show usage information' )
@@ -27,7 +28,7 @@ cli.u( longOpt: 'user', argName: 'u', required: false, args: 1, "default user '$
 cli.j( longOpt: 'password', argName: 'j', required: false, args: 1, "default password '${DEFAULT_PASS}'")
 cli.r( longOpt: 'readonly', argName: 'r', "readonly default to ${DEFAULT_READONLY}")
 cli.k( longOpt: 'keeptmpdir', argName: 'k', "keep tmp directory on exit default to ${DEFAULT_KEEP_TMPDIR_ON_EXIT}")
-
+cli.s( longOpt: 'secure', argName: 's', "Using sftp default to ${DEFAULT_SECURE_FTP}")
 //--------------------------------------------------------------------------
 final def opt = cli.parse(args)
 if (!opt) { return }
@@ -48,6 +49,7 @@ final String directory = opt.d ? new File(opt.d).getCanonicalPath() :
 final String user = opt.u ? opt.u : DEFAULT_USER
 final String password = opt.j ? opt.j : DEFAULT_PASS
 final boolean readonly = opt.r ? true : DEFAULT_READONLY
+final boolean secure = opt.s ? true : DEFAULT_SECURE_FTP
 
 final FtpServerFactory serverFactory = new FtpServerFactory()
 final ListenerFactory factory = new ListenerFactory()
