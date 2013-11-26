@@ -3,11 +3,11 @@ apply plugin: 'groovy'
 sourceSets {
 	main {
 		groovy {
-			srcDirs 'groovy', 'example'
+			srcDirs 'groovy', 'example', 'springboot', 'gradle' 
 		}
 		
 		resources {
-			srcDirs 'resources', 'bash', 'init.d', 'gradle' 
+			srcDirs 'resources', 'bash', 'init.d'
 		}
 	}
 }
