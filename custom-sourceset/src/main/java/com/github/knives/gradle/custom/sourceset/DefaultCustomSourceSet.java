@@ -22,7 +22,7 @@ public class DefaultCustomSourceSet implements CustomSourceSet {
 	}
 
 	@Override
-	public void source(Action<SourceDirectorySet> action) {
+	public void source(Action<? super SourceDirectorySet> action) {
 		action.execute(source);
 	}
 	
