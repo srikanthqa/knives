@@ -1,11 +1,8 @@
 package com.github.knives.gradle.custom.sourceset;
 
-import groovy.lang.Closure;
-
 import org.gradle.api.Action;
 import org.gradle.api.file.SourceDirectorySet;
 import org.gradle.api.tasks.TaskDependency;
-import org.gradle.util.ConfigureUtil;
 
 public class DefaultCustomSourceSet implements CustomSourceSet {
 	final private SourceDirectorySet source;

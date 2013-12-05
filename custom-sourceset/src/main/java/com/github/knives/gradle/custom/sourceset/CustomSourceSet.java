@@ -1,8 +1,6 @@
 package com.github.knives.gradle.custom.sourceset;
 
-import org.gradle.api.file.SourceDirectorySet;
 import org.gradle.language.base.LanguageSourceSet;
-import org.gradle.util.Configurable;
 
 /**
  * 
@@ -14,7 +12,7 @@ import org.gradle.util.Configurable;
  *		main {
  *			custom {
  *				source {
- *					srcDir 'src/main/css'
+ *					srcDir 'src/main/custom'
  * 				}
  *			}
  *		}
@@ -25,7 +23,7 @@ import org.gradle.util.Configurable;
  * sources {
  *		main {
  *			custom {
- *				srcDir 'src/main/css'
+ *				srcDir 'src/main/custom'
  *			}
  *		}
  * }
