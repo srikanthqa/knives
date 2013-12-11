@@ -24,8 +24,6 @@ class GratexPluginTest {
 	
 	@Test
 	public void testGratexPlugin() {
-		final Project project = ProjectBuilder.builder().withProjectDir(folder.root).build()
-		
 		def srcDir = folder.newFolder("src", "main", "docs")
 		// groovy does not create empty implicit
 		def testFile = (new File(srcDir, 'test.tex') << "").canonicalFile
