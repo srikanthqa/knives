@@ -5,10 +5,10 @@ repositories {
 }
 
 ext {
-	junitVersion = junitVersion ? junitVersion : '4.11'
-	hamcrestVersion = hamcrestVersion ? hamcrestVersion : '1.3'
-	mockitoVersion = mockitoVersion ? mockitoVersion : '1.9.5'
-	objenesisVersion = objenesisVersion ? objenesisVersion : '2.1'
+	junitVersion = has('junitVersion') ? junitVersion : '4.11'
+	hamcrestVersion = has('hamcrestVersion') ? hamcrestVersion : '1.3'
+	mockitoVersion = has('mockitoVersion') ? mockitoVersion : '1.9.5'
+	objenesisVersion = has('objenesisVersion') ? objenesisVersion : '2.1'
 }
 
 dependencies {
