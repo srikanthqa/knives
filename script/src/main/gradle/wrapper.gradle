@@ -1,3 +1,7 @@
+ext {
+	wrapVersion = '1.8'
+}
+
 task wrapper(type: Wrapper) {
-	gradleVersion = '1.8'
+	gradleVersion = wrapVersion
 }
