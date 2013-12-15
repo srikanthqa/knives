@@ -8,19 +8,19 @@ import java.util.jar.JarEntry
 import java.util.jar.JarFile
 
 public class JarClassLoader extends ClassLoader {
-	private String jarFile = "jar/test.jar"; //Path to the jar file
+	final private String jarFile;
 	private Hashtable classes = new Hashtable<String, Class<?>>(); //used to cache already defined classes
 
-	public JarClassLoader() {
+	public JarClassLoader(String jarFile) {
 		super(JarClassLoader.class.getClassLoader()); //calls the parent class loader's constructor
+		this.jarFile = jarFile;
 	}
 
 	public Class<?> loadClass(String className) throws ClassNotFoundException {
 		return findClass(className);
 	}
 
-	public Class<?> findClass(String className) {
-		byte[] classByte;
+	public Class<?> findClass(final String className) {
 		Class<?> result = classes.get(className);
 
 		if (result != null) {
@@ -32,18 +32,12 @@ public class JarClassLoader extends ClassLoader {
 		} catch (Exception ignore) { } 
 
 		try {
-			JarFile jar = new JarFile(jarFile);
-			JarEntry entry = jar.getJarEntry(className + ".class");
-			InputStream is = jar.getInputStream(entry);
-			ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
-			int nextValue = is.read();
-			while (-1 != nextValue) {
-				byteStream.write(nextValue);
-				nextValue = is.read();
-			}
+			final JarFile jar = new JarFile(jarFile)
+			final JarEntry entry = jar.getJarEntry(className.replace('.', '/') + ".class")
+			final InputStream is = jar.getInputStream(entry)
 
-			classByte = byteStream.toByteArray();
-			result = defineClass(className, classByte, 0, classByte.length, null);
+			final byte[] classByte = is.getBytes();
+			result = defineClass(className, classByte, 0, classByte.length, null)
 			classes.put(className, result);
 			return result;
 		} catch (Exception e) {
@@ -51,4 +45,8 @@ public class JarClassLoader extends ClassLoader {
 		}
 	}
 
+	public static void main(String[] args) {
+		final JarClassLoader classLoader = new JarClassLoader(args[0])
+		println classLoader.findClass(args[1])
+	}
 }
