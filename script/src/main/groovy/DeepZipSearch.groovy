@@ -35,7 +35,7 @@ public class DeepZipSearch {
 	}
 	
 	private void handleFileDirectory(final File directory) {
-		
+		directory.eachFile { handleRawPath(it.canonicalPath) }
 	}
 	
 	private void handleRegularFile(final File regularFile) {
