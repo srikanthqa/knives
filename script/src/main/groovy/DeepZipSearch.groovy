@@ -5,6 +5,8 @@
 
 import java.util.zip.ZipEntry
 import java.util.zip.ZipFile
+import java.util.jar.JarEntry
+import java.util.jar.JarFile
 import org.apache.commons.io.FilenameUtils
 import org.objectweb.asm.ClassReader
 import org.objectweb.asm.ClassVisitor
@@ -17,18 +19,15 @@ import org.objectweb.asm.Opcodes
 public class DeepZipSearch {
 	final private static def ZIP_EXTENSION = 'zip'
 	final private static def JAR_EXTENSIONS = ['jar', 'war', 'ear']
-	final private static def ZIP_EXTENSIONS = [
-		ZIP_EXTENSION,
-		JAR_EXTENSIONS
-	].flatten()
+	final private static def ZIP_EXTENSIONS = [ZIP_EXTENSION, JAR_EXTENSIONS].flatten()
 	final private static def CLASS_EXTENSION = 'class'
 
 	final def paths
-	final def name
+	final def keywords
 
-	public DeepZipSearch(def paths, def name) {
+	public DeepZipSearch(def paths, def keywords) {
 		this.paths = paths
-		this.name = name
+		this.keywords = keywords
 	}
 
 	public void printSearchDetails() {
@@ -57,9 +56,11 @@ public class DeepZipSearch {
 		final def extension = FilenameUtils.getExtension(canonicalPath).toLowerCase()
 		final def baseName = FilenameUtils.getBaseName(canonicalPath)
 
-		if (extension in ZIP_EXTENSIONS) {
+		if (extension == ZIP_EXTENSION) {
 			handleZipFile(regularFile)
-		} else if (baseName == name) {
+		} else if (extension in JAR_EXTENSIONS) {
+			handleJarFile(regularFile)
+		} else if (baseName == keywords) {
 			if (extension == CLASS_EXTENSION) {
 				printClassDetail(regularFile)
 			} else {
@@ -70,8 +71,39 @@ public class DeepZipSearch {
 
 	private void handleZipFile(final File file) {
 		def zipFile = new ZipFile(file)
-		zipFile.entries().each { final ZipEntry entry ->
+		
+		internalHandleZipFile(zipFile)
+	}
+	
+	private void handleJarFile(final File file) {
+		def jarFile = new JarFile(file)
+		
+		internalHandleZipFile(jarFile)
+	}
+	
+	
+	private void internalHandleZipFile(final ZipFile zipFile) {
+		final LinkedList<String> extractQueue = new  LinkedList<String>();
+		
+		zipFile.entries().each { final JarEntry entry ->
+			if (entry.isDirectory() == false) {
+				final def canonicalPath = entry.getName()
+				final def baseName = FilenameUtils.getBaseName(canonicalPath)
+				final def extension = FilenameUtils.getExtension(canonicalPath).toLowerCase()
+				
+				if (extension in ZIP_EXTENSIONS) {
+					extractQueue.push(canonicalPath)
+				}
+			}
 		}
+		
+		extractQueue.each { final String name -> 
+			extractFileFromZipAndProcess(name)
+		}
+	}
+
+	private void extractFileFromZipAndProcess(final ZipFile zipFile) {
+		
 	}
 
 	private void printNonClassDetail(final File nonClassFile) {
@@ -82,7 +114,6 @@ public class DeepZipSearch {
 		final ClassReader reader = new ClassReader(classFile.getBytes())
 		final ClassPrinter classPrinter = new ClassPrinter();
 		reader.accept(classPrinter, 0);
-		
 	}
 
 	public class ClassPrinter extends ClassVisitor {
@@ -145,8 +176,8 @@ public class DeepZipSearch {
 			return
 		}
 
-		def name = opt.n
+		def keywords = opt.n
 		def paths = opt.arguments()
-		new DeepZipSearch(paths, name).printSearchDetails()
+		new DeepZipSearch(paths, keywords).printSearchDetails()
 	}
 }
