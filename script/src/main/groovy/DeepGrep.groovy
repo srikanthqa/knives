@@ -14,7 +14,11 @@ import org.objectweb.asm.FieldVisitor
 import org.objectweb.asm.MethodVisitor
 import org.objectweb.asm.Opcodes
 import groovy.transform.Canonical
-
+import java.lang.annotation.Documented
+import java.lang.annotation.Target
+import java.lang.annotation.ElementType
+import java.lang.annotation.RetentionPolicy
+import java.lang.annotation.Retention
 
 public class DeepGrep {
 	final private static def ZIP_EXTENSIONS = ['zip', 'jar', 'war', 'ear', 'sar']
@@ -187,26 +191,30 @@ public class DeepGrep {
 		public List<VirtualFile> getChildren() {
 			if (isContainer() == false) return []
 			
-			final def children = []
-			
 			if (file.isDirectory()) {
+				final def children = []
 				file.eachFile { children << new RegularVirtualFile(file: it) }
+				return children
 			} else {
 				final def zipFile = new ZipFile(file)
-				
-				zipFile.entries().each { final ZipEntry entry ->
-					
-					final String entryName = entry.getName()
-					final String rootZipFilePath = file.getCanonicalPath()
-					
-					children << new ZipEntryVirtualFile(zipFile: zipFile, 
-						entryName: entryName, rootZipFilePath: rootZipFilePath)
-				}
+				final String rootZipFilePath = file.getCanonicalPath()
+				return DeepGrep.createVirtualFile(zipFile, rootZipFilePath)
 			}
-			
-			return children
 		}
 	}
+	
+	public static def createVirtualFile(final ZipFile zipFile, final String rootZipFilePath) {
+		final def virtualFiles = []
+		
+		zipFile.entries().each { final ZipEntry entry ->
+			final String entryName = entry.getName()
+			virtualFiles << new ZipEntryVirtualFile(zipFile: zipFile,
+				entryName: entryName, rootZipFilePath: rootZipFilePath)
+		}
+		
+		return virtualFiles
+	}
+	
 	
 	@Canonical
 	public static class ZipEntryVirtualFile implements VirtualFile {
@@ -253,22 +261,15 @@ public class DeepGrep {
 			if (zipFile.getEntry(entryName).isDirectory()) return []
 			
 			final def extractFile = File.createTempFile(DeepGrep.class.getName() + '-' + getBaseName(), getExtension())
+			
 			extractFile << zipFile.getInputStream(zipFile.getEntry(entryName))
-			
-			final def zipFile = new ZipFile(extractFile)
-			final def children = []
-			
-			zipFile.entries().each { final ZipEntry entry ->
-				final String entryName = entry.getName()
-				
-				children << new ZipEntryVirtualFile(zipFile: zipFile, 
-					entryName: entryName, rootZipFilePath: getCanonicalPath())
-			}
 			
 			// remove the file afterward
 			extractFile.deleteOnExit()
 			
-			return children
+			final def zipFile = new ZipFile(extractFile)
+
+			return DeepGrep.createVirtualFile(zipFile, getCanonicalPath())
 		}
 	}
 	
