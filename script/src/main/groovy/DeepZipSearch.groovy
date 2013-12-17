@@ -1,7 +1,6 @@
 @Grapes([
 	@Grab(group='commons-io', module='commons-io', version='2.4'),
-	@Grab(group='org.ow2.asm', module='asm', version='4.2'),
-	@Grab(group='com.google.guava', module='guava', version='15.0')
+	@Grab(group='org.ow2.asm', module='asm', version='4.2')
 ])
 
 import java.util.zip.ZipEntry
@@ -14,7 +13,6 @@ import org.objectweb.asm.Attribute
 import org.objectweb.asm.FieldVisitor
 import org.objectweb.asm.MethodVisitor
 import org.objectweb.asm.Opcodes
-import com.google.common.collect.ImmutableList
 import groovy.transform.Canonical
 
 
@@ -24,98 +22,60 @@ public class DeepZipSearch {
 
 	final private def paths
 	final private def keywords
-	final private File tmpDir
+	final private VirtualFileFactory virtualFileFactory
 
 	public DeepZipSearch(def paths, def keywords) {
 		this.paths = paths
 		this.keywords = keywords
+		this.virtualFileFactory = new VirtualFileFactory()
 	}
 
 	public void printSearchDetails() {
 		paths.each { handleRawPath(it) }
 	}
 	
-	public void match(final VirtualFile virtualFile) {
+	public boolean match(final VirtualFile virtualFile) {
 		// TODO: implement matching function here
+		return true
 	}
 
-	private void handleRawPath(String path) {
-		final def pathFile = new File(path)
-		if (pathFile.exists()) {
-			if (pathFile.isDirectory()) {
-				handleFileDirectory(pathFile)
-			} else {
-				handleRegularFile(pathFile)
-			}
+	public void print(final VirtualFile virtualFile) {
+		if (virtualFile.getExtension() == CLASS_EXTENSION) {
+			printClassDetail(virtualFile)
 		} else {
-			println "$path does not exists"
+			printNonClassDetail(virtualFile)
 		}
 	}
-
-	private void handleFileDirectory(final File directory) {
-		directory.eachFile { handleRawPath(it.canonicalPath) }
-	}
-
-	private void handleRegularFile(final File regularFile) {
-		final def canonicalPath = regularFile.canonicalPath
-		final def extension = FilenameUtils.getExtension(canonicalPath).toLowerCase()
-		final def baseName = FilenameUtils.getBaseName(canonicalPath)
-
-		if (extension in ZIP_EXTENSIONS) {
-			handleZipFile(regularFile)
-		} else if (baseName == keywords) {
-			if (extension == CLASS_EXTENSION) {
-				printClassDetail(regularFile)
+	
+	private void handleRawPath(final String path) {
+		final VirtualFile initialVirtualFile = virtualFileFactory.createVirtualFile(path)
+		final LinkedList<VirtualFile> toBeProcessedVirtualFiles = new LinkedList<VirtualFile>()
+		toBeProcessedVirtualFiles.push(initialVirtualFile)
+		
+		while (toBeProcessedVirtualFiles.isEmpty() == false) {
+			final VirtualFile processedVirtualFile = toBeProcessedVirtualFiles.removeFirst()
+			
+			if (processedVirtualFile.isContainer()) {
+				toBeProcessedVirtualFiles.addAll(processedVirtualFile.getChildren())
 			} else {
-				printNonClassDetail(regularFile)
-			}
-		}
-	}
-
-	
-	private void handleZipFile(final File file) {
-		def zipFile = new ZipFile(file)
-		
-		final LinkedList<String> extractQueue = new  LinkedList<String>();
-		
-		zipFile.entries().each { final ZipEntry entry ->
-			if (entry.isDirectory() == false) {
-				final def canonicalPath = entry.getName()
-				final def baseName = FilenameUtils.getBaseName(canonicalPath)
-				final def extension = FilenameUtils.getExtension(canonicalPath).toLowerCase()
-				
-				println canonicalPath
-				
-				if (baseName == keywords) {
-					
-				}
-				
-				if (extension in ZIP_EXTENSIONS) {
-					extractQueue.push(canonicalPath)
+				if (match(processedVirtualFile)) {
+					print(processedVirtualFile)
 				}
 			}
 		}
-		
-		extractQueue.each { final String name -> 
-			extractFileFromZipAndProcess(zipFile, name)
-		}
 	}
 	
-	private void extractFileFromZipAndProcess(final ZipFile zipFile, final String entryName) {
-		println entryName
-		//zipFile.getInputStream(zipFile.getEntry(entryName))
+	private void printNonClassDetail(final VirtualFile virtualFile) {
+		println virtualFile.getCanonicalPath()
 	}
 
-	private void printNonClassDetail(final File nonClassFile) {
-		println nonClassFile.canonicalPath
-	}
-
-	private void printClassDetail(final File classFile) {
-		final ClassReader reader = new ClassReader(classFile.getBytes())
+	private void printClassDetail(final VirtualFile virtualFile) {
+		final ClassReader reader = new ClassReader(virtualFile.getBytes())
 		final ClassPrinter classPrinter = new ClassPrinter();
 		reader.accept(classPrinter, 0);
 	}
 
+	// TODO: pretty print class detail
 	public class ClassPrinter extends ClassVisitor {
 		public ClassPrinter() {
 			super(Opcodes.ASM4);
@@ -188,7 +148,7 @@ public class DeepZipSearch {
 	
 	@Canonical
 	public static class RegularVirtualFile implements VirtualFile {
-		final private File file
+		private File file
 		
 		@Override
 		public byte[] getBytes() {
@@ -225,16 +185,30 @@ public class DeepZipSearch {
 		
 		@Override
 		public List<VirtualFile> getChildren() {
-			if (isContainer() == false) return ImmutableList.<VirtualFile>of()
+			if (isContainer() == false) return []
 			
+			final def children = []
+			
+			if (file.isDirectory()) {
+				file.eachFile { children << new RegularVirtualFile(file: it) }
+			} else {
+				final def zipFile = new ZipFile(file)
+				
+				zipFile.entries().each { final ZipEntry entry ->
+					children << new ZipEntryVirtualFile(zipFile: zipFile, 
+						entryName: entry.getName(), rootZipFilePath: file.canonicalPath)
+				}
+			}
+			
+			return children
 		}
 	}
 	
 	@Canonical
 	public static class ZipEntryVirtualFile implements VirtualFile {
-		final private ZipFile zipFile
-		final private String entryName
-		final private String rootZipFilePath
+		private ZipFile zipFile
+		private String entryName
+		private String rootZipFilePath
 		
 		@Override
 		public byte[] getBytes() {
@@ -271,9 +245,62 @@ public class DeepZipSearch {
 		
 		@Override
 		public List<VirtualFile> getChildren() {
-			if (isContainer() == false) return ImmutableList.<VirtualFile>of()
+			if (isContainer() == false) return []
+			if (zipFile.getEntry(entryName).isDirectory()) return []
 			
-			// TODO: extract and create ZipEntryVirtualFile 
+			final def extractFile = File.createTempFile(getBaseName(), getExtension())
+			extractFile << zipFile.getInputStream(zipFile.getEntry(entryName))
+			
+			final def zipFile = new ZipFile(extractFile)
+			final def children = []
+			
+			zipFile.entries().each { final ZipEntry entry ->
+				children << new ZipEntryVirtualFile(zipFile: zipFile,
+					entryName: entry.getName(), rootZipFilePath: file.canonicalPath)
+			}
+			
+			return children
+		}
+	}
+	
+	@Canonical
+	public static class NullVirtualFile implements VirtualFile {
+		private String path
+		
+		@Override
+		public byte[] getBytes() { return new byte[0] }
+		public String getContent() { return "" }
+		
+		@Override
+		public String getCanonicalPath() {
+			return path
+		} 
+		
+		@Override
+		public String getBaseName() {
+			return FilenameUtils.getBaseName(getCanonicalPath())
+		}
+		
+		@Override
+		public String getExtension() {
+			return FilenameUtils.getExtension(getCanonicalPath()).toLowerCase()
+		}
+		
+		@Override
+		public boolean isContainer() { return false }
+		
+		@Override
+		public List<VirtualFile> getChildren() { return [] }
+	}
+	
+	public static class VirtualFileFactory {
+		public VirtualFile createVirtualFile(String path) {
+			final def file = new File(path)
+			if (file.exists() == false) {
+				return new NullVirtualFile(path: path)
+			} else {
+				return new RegularVirtualFile(file: file)
+			}
 		}
 	}
 	
