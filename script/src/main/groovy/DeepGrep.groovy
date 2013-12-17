@@ -16,7 +16,7 @@ import org.objectweb.asm.Opcodes
 import groovy.transform.Canonical
 
 
-public class DeepZipSearch {
+public class DeepGrep {
 	final private static def ZIP_EXTENSIONS = ['zip', 'jar', 'war', 'ear', 'sar']
 	final private static def CLASS_EXTENSION = 'class'
 
@@ -24,7 +24,7 @@ public class DeepZipSearch {
 	final private def keywords
 	final private VirtualFileFactory virtualFileFactory
 
-	public DeepZipSearch(def paths, def keywords) {
+	public DeepGrep(def paths, def keywords) {
 		this.paths = paths
 		this.keywords = keywords
 		this.virtualFileFactory = new VirtualFileFactory()
@@ -195,8 +195,12 @@ public class DeepZipSearch {
 				final def zipFile = new ZipFile(file)
 				
 				zipFile.entries().each { final ZipEntry entry ->
+					
+					final String entryName = entry.getName()
+					final String rootZipFilePath = file.getCanonicalPath()
+					
 					children << new ZipEntryVirtualFile(zipFile: zipFile, 
-						entryName: entry.getName(), rootZipFilePath: file.canonicalPath)
+						entryName: entryName, rootZipFilePath: rootZipFilePath)
 				}
 			}
 			
@@ -248,16 +252,21 @@ public class DeepZipSearch {
 			if (isContainer() == false) return []
 			if (zipFile.getEntry(entryName).isDirectory()) return []
 			
-			final def extractFile = File.createTempFile(getBaseName(), getExtension())
+			final def extractFile = File.createTempFile(DeepGrep.class.getName() + '-' + getBaseName(), getExtension())
 			extractFile << zipFile.getInputStream(zipFile.getEntry(entryName))
 			
 			final def zipFile = new ZipFile(extractFile)
 			final def children = []
 			
 			zipFile.entries().each { final ZipEntry entry ->
-				children << new ZipEntryVirtualFile(zipFile: zipFile,
-					entryName: entry.getName(), rootZipFilePath: file.canonicalPath)
+				final String entryName = entry.getName()
+				
+				children << new ZipEntryVirtualFile(zipFile: zipFile, 
+					entryName: entryName, rootZipFilePath: getCanonicalPath())
 			}
+			
+			// remove the file afterward
+			extractFile.deleteOnExit()
 			
 			return children
 		}
@@ -305,7 +314,7 @@ public class DeepZipSearch {
 	}
 	
 	public static void main(String[] args) {
-		final def cli = new CliBuilder(usage: 'DeepZipSearch -n <name> [path/to/jars|directory|file]')
+		final def cli = new CliBuilder(usage: 'DeepGrep -n <name> [path/to/jars|directory|file]')
 		cli.h( longOpt: 'help', required: false, 'show usage information' )
 		cli.n( longOpt: 'name', args: 1, required: true, 'search class by name')
 
@@ -319,6 +328,6 @@ public class DeepZipSearch {
 
 		def keywords = opt.n
 		def paths = opt.arguments()
-		new DeepZipSearch(paths, keywords).printSearchDetails()
+		new DeepGrep(paths, keywords).printSearchDetails()
 	}
 }
