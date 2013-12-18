@@ -86,6 +86,9 @@ public class DeepGrep {
 		
 		static String BASE_OBJECT = "java.lang.Object"
 		static String BASE_ANNOTATION = "java.lang.annotation.Annotation"
+		static String INDENT = StringUtils.repeat(" ", 2)
+		static String CONSTRUCTOR = "<init>"
+		
 		
 		public ClassPrinter() {
 			super(Opcodes.ASM4);
@@ -130,15 +133,25 @@ public class DeepGrep {
 		public FieldVisitor visitField(int access, String name, String desc,
 				String signature, Object value) {
 			
-			// TODO: 
+			final def modifiers = translateFieldAccessToModifier(access)
+			
+			print INDENT
+			print (modifiers*.getValue().join(" "))
+			println " ${name}"
+			
 			return null;
 		}
 				
 		public MethodVisitor visitMethod(int access, String name,
 				String desc, String signature, String[] exceptions) {
 				
-			// TODO: 
-				
+			final def modifiers = translateMethodAccessToModifiers(access)
+			print INDENT
+			print (modifiers*.getValue().join(" "))
+			println " ${name}(...)"
+			
+			// TODO: fulfill the method signature
+			
 			return null;
 		}
 				
@@ -161,7 +174,7 @@ public class DeepGrep {
 			SYNCHRONIZED("synchronized"),
 			VOLATILE("volatile"),
 			BRIDGE("bridge"),
-			VARAGS("varags"),
+			VARARGS("varargs"),
 			TRANSIENT("transient"),
 			NATIVE("native"),
 			INTERFACE("interface"),
@@ -182,75 +195,53 @@ public class DeepGrep {
 			public getValue() { return value }
 		}
 		
-		static def MODIFIERS = [:]
+		static def CLASS_OPCODES = [:]
 		static {
-			MODIFIERS[Opcodes.ACC_PUBLIC] = JavaModifier.PUBLIC
-			MODIFIERS[Opcodes.ACC_PRIVATE] = JavaModifier.PRIVATE
-			MODIFIERS[Opcodes.ACC_PROTECTED] = JavaModifier.PROTECTED
-			MODIFIERS[Opcodes.ACC_STATIC] = JavaModifier.STATIC
-			MODIFIERS[Opcodes.ACC_FINAL] = JavaModifier.FINAL
-			MODIFIERS[Opcodes.ACC_SUPER] = JavaModifier.SUPER
-			MODIFIERS[Opcodes.ACC_SYNCHRONIZED] = JavaModifier.SYNCHRONIZED
-			MODIFIERS[Opcodes.ACC_VOLATILE] = JavaModifier.VOLATILE
-			MODIFIERS[Opcodes.ACC_BRIDGE] = JavaModifier.BRIDGE
-			MODIFIERS[Opcodes.ACC_VARARGS] = JavaModifier.VARAGS
-			MODIFIERS[Opcodes.ACC_TRANSIENT] = JavaModifier.TRANSIENT
-			MODIFIERS[Opcodes.ACC_NATIVE] = JavaModifier.NATIVE
-			MODIFIERS[Opcodes.ACC_INTERFACE] = JavaModifier.INTERFACE
-			MODIFIERS[Opcodes.ACC_ABSTRACT] = JavaModifier.ABSTRACT
-			MODIFIERS[Opcodes.ACC_SYNTHETIC] = JavaModifier.SYNTHETIC
-			MODIFIERS[Opcodes.ACC_STRICT] = JavaModifier.STRICT
-			MODIFIERS[Opcodes.ACC_ANNOTATION] = JavaModifier.ANNOTATION
-			MODIFIERS[Opcodes.ACC_ENUM] = JavaModifier.ENUM
-			MODIFIERS[Opcodes.ACC_DEPRECATED] = JavaModifier.DEPRECATED
+			CLASS_OPCODES[Opcodes.ACC_PUBLIC] = JavaModifier.PUBLIC
+			CLASS_OPCODES[Opcodes.ACC_PRIVATE] = JavaModifier.PRIVATE
+			CLASS_OPCODES[Opcodes.ACC_PROTECTED] = JavaModifier.PROTECTED
+			CLASS_OPCODES[Opcodes.ACC_FINAL] = JavaModifier.FINAL
+			CLASS_OPCODES[Opcodes.ACC_INTERFACE] = JavaModifier.INTERFACE
+			CLASS_OPCODES[Opcodes.ACC_ABSTRACT] = JavaModifier.ABSTRACT
+			CLASS_OPCODES[Opcodes.ACC_ANNOTATION] = JavaModifier.ANNOTATION
+			CLASS_OPCODES[Opcodes.ACC_ENUM] = JavaModifier.ENUM
+			CLASS_OPCODES[Opcodes.ACC_DEPRECATED] = JavaModifier.DEPRECATED
 		}
 		
-		static def CLASS_OPCODES = [
-			Opcodes.ACC_PUBLIC,
-			Opcodes.ACC_PRIVATE,
-			Opcodes.ACC_PROTECTED,
-			Opcodes.ACC_FINAL,
-			Opcodes.ACC_INTERFACE,
-			Opcodes.ACC_ABSTRACT,
-			Opcodes.ACC_ANNOTATION,
-			Opcodes.ACC_ENUM,
-			Opcodes.ACC_DEPRECATED,
-		]
+		static def METHOD_OPCODES = [:]
+		static {
+			METHOD_OPCODES[Opcodes.ACC_PUBLIC] = JavaModifier.PUBLIC
+			METHOD_OPCODES[Opcodes.ACC_PRIVATE] = JavaModifier.PRIVATE
+			METHOD_OPCODES[Opcodes.ACC_PROTECTED] = JavaModifier.PROTECTED
+			METHOD_OPCODES[Opcodes.ACC_STATIC] = JavaModifier.STATIC
+			METHOD_OPCODES[Opcodes.ACC_FINAL] = JavaModifier.FINAL
+			METHOD_OPCODES[Opcodes.ACC_SYNCHRONIZED] = JavaModifier.SYNCHRONIZED
+			METHOD_OPCODES[Opcodes.ACC_BRIDGE] = JavaModifier.BRIDGE
+			METHOD_OPCODES[Opcodes.ACC_VARARGS] = JavaModifier.VARARGS
+			METHOD_OPCODES[Opcodes.ACC_NATIVE] = JavaModifier.NATIVE
+			METHOD_OPCODES[Opcodes.ACC_ABSTRACT] = JavaModifier.ABSTRACT
+		}
 		
-		static def METHOD_OPCODES = [
-			Opcodes.ACC_PUBLIC,
-			Opcodes.ACC_PRIVATE,
-			Opcodes.ACC_PROTECTED,
-			Opcodes.ACC_STATIC,
-			Opcodes.ACC_FINAL,
-			Opcodes.ACC_SYNCHRONIZED,
-			Opcodes.ACC_BRIDGE,
-			Opcodes.ACC_VARARGS,
-			Opcodes.ACC_NATIVE,
-			Opcodes.ACC_ABSTRACT
-		]
-		
-		static def FIELD_OPCODES = [
-			Opcodes.ACC_PUBLIC,
-			Opcodes.ACC_PRIVATE,
-			Opcodes.ACC_PROTECTED,
-			Opcodes.ACC_STATIC,
-			Opcodes.ACC_FINAL,
-			Opcodes.ACC_VOLATILE,
-			Opcodes.ACC_TRANSIENT,
-			Opcodes.ACC_SYNTHETIC
-		]
+		static def FIELD_OPCODES = [:]
+		static {
+			FIELD_OPCODES[Opcodes.ACC_PUBLIC] = JavaModifier.PUBLIC
+			FIELD_OPCODES[Opcodes.ACC_PRIVATE] = JavaModifier.PRIVATE
+			FIELD_OPCODES[Opcodes.ACC_PROTECTED] = JavaModifier.PROTECTED
+			FIELD_OPCODES[Opcodes.ACC_STATIC] = JavaModifier.STATIC
+			FIELD_OPCODES[Opcodes.ACC_FINAL] = JavaModifier.FINAL
+			FIELD_OPCODES[Opcodes.ACC_VOLATILE] = JavaModifier.VOLATILE
+			FIELD_OPCODES[Opcodes.ACC_TRANSIENT] = JavaModifier.TRANSIENT
+			FIELD_OPCODES[Opcodes.ACC_SYNTHETIC] = JavaModifier.SYNTHETIC
+		}
 		
 		private List<JavaModifier> translateClassAccessToModifiers(int classAccess) {
 			def modifiers = []
 			
-			CLASS_OPCODES.each { opcode -> 
+			CLASS_OPCODES.each { opcode, modifier -> 
 				if ((classAccess & opcode) != 0) { 
-					modifiers << MODIFIERS[opcode]
+					modifiers << modifier
 				}
 			}
-			
-			
 			
 			// tweak, interface is actually an abstract class
 			if (JavaModifier.INTERFACE in modifiers) {
@@ -269,6 +260,30 @@ public class DeepGrep {
 			// interface when have annotation
 			if (JavaModifier.ANNOTATION in modifiers) {
 				modifiers.remove(JavaModifier.INTERFACE)
+			}
+			
+			return modifiers
+		}
+		
+		private List<JavaModifier> translateMethodAccessToModifiers(int methodAccess) {
+			def modifiers = []
+			
+			METHOD_OPCODES.each { opcode, modifier ->
+				if ((methodAccess & opcode) != 0) {
+					modifiers << modifier
+				}
+			}
+			
+			return modifiers
+		}
+		
+		private List<JavaModifier> translateFieldAccessToModifier(int fieldAccess) {
+			def modifiers = []
+			
+			FIELD_OPCODES.each { opcode, modifier ->
+				if ((fieldAccess & opcode) != 0) {
+					modifiers << modifier
+				}
 			}
 			
 			return modifiers
