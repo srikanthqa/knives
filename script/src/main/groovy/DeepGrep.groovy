@@ -84,6 +84,9 @@ public class DeepGrep {
 
 	static class ClassPrinter extends ClassVisitor {
 		
+		static String BASE_OBJECT = "java.lang.Object"
+		static String BASE_ANNOTATION = "java.lang.annotation.Annotation"
+		
 		public ClassPrinter() {
 			super(Opcodes.ASM4);
 		}
@@ -91,18 +94,23 @@ public class DeepGrep {
 		public void visit(int version, int access, String name,
 				String signature, String superName, String[] interfaces) {
 				
-			print translateAccessToModifier(access)
+			final def modifiers = translateClassAccessToModifiers(access)
+			final boolean isAnnotation = (JavaModifier.ANNOTATION in modifiers)
+			
+			print (modifiers*.getValue().join(" "))
 			print " "
 			print normalizeFullQualifiedClassName(name)
 			
 			if (StringUtils.isBlank(superName) == false) {
-				print " extends "
-				print normalizeFullQualifiedClassName(superName)
+				final String fullyQualifiedSuperName = normalizeFullQualifiedClassName(superName)
+				if (BASE_OBJECT != fullyQualifiedSuperName) {
+					print " extends ${fullyQualifiedSuperName}"
+				}
 			}
 			
-			if (interfaces.size() > 0) {
+			if (isAnnotation == false && interfaces != null && interfaces.size() > 0) {
 				print " implements "
-				print (interfaces.collect {  normalizeFullQualifiedClassName(it) }).join(" ")
+				print ((interfaces.collect {  normalizeFullQualifiedClassName(it) } ).join(", "))
 			}
 			
 			println " {"
@@ -143,49 +151,58 @@ public class DeepGrep {
 			return name.replace('/', '.')
 		}
 		
-		static enum JAVA_MODIFIER {
-			PUBLIC,
-			PRIVATE,
-			PROTECTED,
-			STATIC,
-			FINAL,
-			SUPER,
-			SYNCHRONIZED,
-			VOLATILE,
-			BRIDGE,
-			VARAGS,
-			TRANSIENT,
-			NATIVE,
-			INTERFACE,
-			ABSTRACT,
-			SYNTHETIC,
-			STRICT,
-			ANNOTATION,
-			ENUM,
-			DEPRECATED
+		static enum JavaModifier {
+			PUBLIC("public"),
+			PRIVATE("private"),
+			PROTECTED("protected"),
+			STATIC("static"),
+			FINAL("final"),
+			SUPER("super"),
+			SYNCHRONIZED("synchronized"),
+			VOLATILE("volatile"),
+			BRIDGE("bridge"),
+			VARAGS("varags"),
+			TRANSIENT("transient"),
+			NATIVE("native"),
+			INTERFACE("interface"),
+			ABSTRACT("abstract"),
+			SYNTHETIC("synthetic"),
+			STRICT("strict"),
+			ANNOTATION("@interface"),
+			ENUM("enum"),
+			DEPRECATED("@Deprecated"),
+			CLASS("class");
+			
+			final String value
+			
+			private JavaModifier(String value) {
+				this.value = value
+			}
+			
+			public getValue() { return value }
 		}
 		
 		static def MODIFIERS = [:]
 		static {
-			MODIFIERS[Opcodes.ACC_PUBLIC] = JAVA_MODIFIER.PUBLIC
-			MODIFIERS[Opcodes.ACC_PRIVATE] = JAVA_MODIFIER.PRIVATE
-			MODIFIERS[Opcodes.ACC_PROTECTED] = JAVA_MODIFIER.PROTECTED
-			MODIFIERS[Opcodes.ACC_STATIC] = JAVA_MODIFIER.STATIC
-			MODIFIERS[Opcodes.ACC_FINAL] = JAVA_MODIFIER.FINAL
-			MODIFIERS[Opcodes.ACC_SUPER] = JAVA_MODIFIER.SUPER
-			MODIFIERS[Opcodes.ACC_SYNCHRONIZED] = JAVA_MODIFIER.SYNCHRONIZED
-			MODIFIERS[Opcodes.ACC_VOLATILE] = JAVA_MODIFIER.VOLATILE
-			MODIFIERS[Opcodes.ACC_BRIDGE] = JAVA_MODIFIER.BRIDGE
-			MODIFIERS[Opcodes.ACC_VARARGS] = JAVA_MODIFIER.VARAGS
-			MODIFIERS[Opcodes.ACC_TRANSIENT] = JAVA_MODIFIER.TRANSIENT
-			MODIFIERS[Opcodes.ACC_NATIVE] = JAVA_MODIFIER.NATIVE
-			MODIFIERS[Opcodes.ACC_INTERFACE] = JAVA_MODIFIER.INTERFACE
-			MODIFIERS[Opcodes.ACC_ABSTRACT] = JAVA_MODIFIER.ABSTRACT
-			MODIFIERS[Opcodes.ACC_SYNTHETIC] = JAVA_MODIFIER.SYNTHETIC
-			MODIFIERS[Opcodes.ACC_STRICT] = JAVA_MODIFIER.STRICT
-			MODIFIERS[Opcodes.ACC_ANNOTATION] = JAVA_MODIFIER.ANNOTATION
-			MODIFIERS[Opcodes.ACC_ENUM] = JAVA_MODIFIER.ENUM
-			MODIFIERS[Opcodes.ACC_DEPRECATED] = JAVA_MODIFIER.DEPRECATED
+			MODIFIERS[Opcodes.ACC_PUBLIC] = JavaModifier.PUBLIC
+			MODIFIERS[Opcodes.ACC_PRIVATE] = JavaModifier.PRIVATE
+			MODIFIERS[Opcodes.ACC_PROTECTED] = JavaModifier.PROTECTED
+			MODIFIERS[Opcodes.ACC_STATIC] = JavaModifier.STATIC
+			MODIFIERS[Opcodes.ACC_FINAL] = JavaModifier.FINAL
+			MODIFIERS[Opcodes.ACC_SUPER] = JavaModifier.SUPER
+			MODIFIERS[Opcodes.ACC_SYNCHRONIZED] = JavaModifier.SYNCHRONIZED
+			MODIFIERS[Opcodes.ACC_VOLATILE] = JavaModifier.VOLATILE
+			MODIFIERS[Opcodes.ACC_BRIDGE] = JavaModifier.BRIDGE
+			MODIFIERS[Opcodes.ACC_VARARGS] = JavaModifier.VARAGS
+			MODIFIERS[Opcodes.ACC_TRANSIENT] = JavaModifier.TRANSIENT
+			MODIFIERS[Opcodes.ACC_NATIVE] = JavaModifier.NATIVE
+			MODIFIERS[Opcodes.ACC_INTERFACE] = JavaModifier.INTERFACE
+			MODIFIERS[Opcodes.ACC_ABSTRACT] = JavaModifier.ABSTRACT
+			MODIFIERS[Opcodes.ACC_SYNTHETIC] = JavaModifier.SYNTHETIC
+			MODIFIERS[Opcodes.ACC_STRICT] = JavaModifier.STRICT
+			MODIFIERS[Opcodes.ACC_ANNOTATION] = JavaModifier.ANNOTATION
+			MODIFIERS[Opcodes.ACC_ENUM] = JavaModifier.ENUM
+			MODIFIERS[Opcodes.ACC_DEPRECATED] = JavaModifier.DEPRECATED
 		}
 		
 		static def CLASS_OPCODES = [
@@ -193,7 +210,6 @@ public class DeepGrep {
 			Opcodes.ACC_PRIVATE,
 			Opcodes.ACC_PROTECTED,
 			Opcodes.ACC_FINAL,
-			Opcodes.ACC_SUPER,
 			Opcodes.ACC_INTERFACE,
 			Opcodes.ACC_ABSTRACT,
 			Opcodes.ACC_ANNOTATION,
@@ -225,23 +241,37 @@ public class DeepGrep {
 			Opcodes.ACC_SYNTHETIC
 		]
 		
-		private List<String> translateAccessToModifierList(int access) {
+		private List<JavaModifier> translateClassAccessToModifiers(int classAccess) {
 			def modifiers = []
-			MODIFIERS.each { opcode, modifier ->
-				if ((access & opcode) != 0) {
-					modifiers << modifier
+			
+			CLASS_OPCODES.each { opcode -> 
+				if ((classAccess & opcode) != 0) { 
+					modifiers << MODIFIERS[opcode]
 				}
 			}
-			return modifiers
-		}
-		
-		private String translateAccessToModifier(int access) {
-			def modifiers = translateAccessToModifierList(access)
-			if (JAVA_MODIFIER.INTERFACE in modifiers) {
-				modifiers.remove(JAVA_MODIFIER.ABSTRACT)
+			
+			
+			
+			// tweak, interface is actually an abstract class
+			if (JavaModifier.INTERFACE in modifiers) {
+				modifiers.remove(JavaModifier.ABSTRACT)
 			}
 			
-			return modifiers*.name()*.toLowerCase().join(" ")
+			def defaultType = [JavaModifier.INTERFACE, JavaModifier.ENUM, JavaModifier.ANNOTATION]
+			
+			// tweak, there is no class in Opcodes, because it is by default
+			// everything is a class
+			if (modifiers.intersect(defaultType).isEmpty()) {
+				modifiers << JavaModifier.CLASS
+			}
+			
+			// tweak, both annotation and interface show up, so we have to remove
+			// interface when have annotation
+			if (JavaModifier.ANNOTATION in modifiers) {
+				modifiers.remove(JavaModifier.INTERFACE)
+			}
+			
+			return modifiers
 		}
 	}
 
