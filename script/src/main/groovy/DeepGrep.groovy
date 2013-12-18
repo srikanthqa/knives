@@ -1,7 +1,8 @@
 @Grapes([
 	@Grab(group='commons-io', module='commons-io', version='2.4'),
 	@Grab(group='org.ow2.asm', module='asm', version='4.2'),
-	@Grab(group='org.ow2.asm', module='asm-util', version='4.2')
+	@Grab(group='org.ow2.asm', module='asm-util', version='4.2'),
+	@Grab(group='org.apache.commons', module='commons-lang3', version='3.1')
 ])
 
 import java.util.zip.ZipEntry
@@ -20,6 +21,7 @@ import java.lang.annotation.Target
 import java.lang.annotation.ElementType
 import java.lang.annotation.RetentionPolicy
 import java.lang.annotation.Retention
+import org.apache.commons.lang3.StringUtils
 
 public class DeepGrep {
 	final private static def ZIP_EXTENSIONS = ['zip', 'jar', 'war', 'ear', 'sar']
@@ -37,19 +39,6 @@ public class DeepGrep {
 
 	public void printSearchDetails() {
 		paths.each { handleRawPath(it) }
-	}
-	
-	public boolean match(final VirtualFile virtualFile) {
-		// TODO: implement matching function here
-		return true
-	}
-
-	public void print(final VirtualFile virtualFile) {
-		if (virtualFile.getExtension() == CLASS_EXTENSION) {
-			printClassDetail(virtualFile)
-		} else {
-			printNonClassDetail(virtualFile)
-		}
 	}
 	
 	private void handleRawPath(final String path) {
@@ -70,6 +59,19 @@ public class DeepGrep {
 		}
 	}
 	
+	public boolean match(final VirtualFile virtualFile) {
+		// TODO: implement matching function here
+		return true
+	}
+
+	public void print(final VirtualFile virtualFile) {
+		if (virtualFile.getExtension() == CLASS_EXTENSION) {
+			printClassDetail(virtualFile)
+		} else {
+			printNonClassDetail(virtualFile)
+		}
+	}
+	
 	private void printNonClassDetail(final VirtualFile virtualFile) {
 		println virtualFile.getCanonicalPath()
 	}
@@ -80,50 +82,166 @@ public class DeepGrep {
 		reader.accept(classPrinter, 0);
 	}
 
-	// TODO: pretty print class detail
-	public class ClassPrinter extends ClassVisitor {
+	static class ClassPrinter extends ClassVisitor {
+		
 		public ClassPrinter() {
 			super(Opcodes.ASM4);
 		}
+		
 		public void visit(int version, int access, String name,
 				String signature, String superName, String[] interfaces) {
-			println "$name extends $superName  {"
-		}
-		public void visitSource(String source, String debug) {
+				
+			print translateAccessToModifier(access)
+			print " "
+			print normalizeFullQualifiedClassName(name)
 			
-		}
-		
-		public void visitOuterClass(String owner, String name, String desc) {
+			if (StringUtils.isBlank(superName) == false) {
+				print " extends "
+				print normalizeFullQualifiedClassName(superName)
+			}
 			
-		}
-		
-		public AnnotationVisitor visitAnnotation(String desc, boolean visible) {
-			return null;
-		}
-		
-		public void visitAttribute(Attribute attr) {
+			if (interfaces.size() > 0) {
+				print " implements "
+				print (interfaces.collect {  normalizeFullQualifiedClassName(it) }).join(" ")
+			}
 			
+			println " {"
 		}
+				
+		public void visitSource(String source, String debug) { }
+		
+		public void visitOuterClass(String owner, String name, String desc) { }
+		
+		public AnnotationVisitor visitAnnotation(String desc, boolean visible) { return null }
+		
+		public void visitAttribute(Attribute attr) { }
 		
 		public void visitInnerClass(String name, String outerName,
-				String innerName, int access) {
-				
-		}
+				String innerName, int access) { }
+			
 		public FieldVisitor visitField(int access, String name, String desc,
 				String signature, Object value) {
-				
-			println " ${desc} ${name} "
+			
+			// TODO: 
 			return null;
 		}
+				
 		public MethodVisitor visitMethod(int access, String name,
 				String desc, String signature, String[] exceptions) {
 				
-			println " $name$desc";
-			
+			// TODO: 
+				
 			return null;
 		}
+				
 		public void visitEnd() {
 			println "}"
+		}
+		
+		
+		private String normalizeFullQualifiedClassName(String name) {
+			return name.replace('/', '.')
+		}
+		
+		static enum JAVA_MODIFIER {
+			PUBLIC,
+			PRIVATE,
+			PROTECTED,
+			STATIC,
+			FINAL,
+			SUPER,
+			SYNCHRONIZED,
+			VOLATILE,
+			BRIDGE,
+			VARAGS,
+			TRANSIENT,
+			NATIVE,
+			INTERFACE,
+			ABSTRACT,
+			SYNTHETIC,
+			STRICT,
+			ANNOTATION,
+			ENUM,
+			DEPRECATED
+		}
+		
+		static def MODIFIERS = [:]
+		static {
+			MODIFIERS[Opcodes.ACC_PUBLIC] = JAVA_MODIFIER.PUBLIC
+			MODIFIERS[Opcodes.ACC_PRIVATE] = JAVA_MODIFIER.PRIVATE
+			MODIFIERS[Opcodes.ACC_PROTECTED] = JAVA_MODIFIER.PROTECTED
+			MODIFIERS[Opcodes.ACC_STATIC] = JAVA_MODIFIER.STATIC
+			MODIFIERS[Opcodes.ACC_FINAL] = JAVA_MODIFIER.FINAL
+			MODIFIERS[Opcodes.ACC_SUPER] = JAVA_MODIFIER.SUPER
+			MODIFIERS[Opcodes.ACC_SYNCHRONIZED] = JAVA_MODIFIER.SYNCHRONIZED
+			MODIFIERS[Opcodes.ACC_VOLATILE] = JAVA_MODIFIER.VOLATILE
+			MODIFIERS[Opcodes.ACC_BRIDGE] = JAVA_MODIFIER.BRIDGE
+			MODIFIERS[Opcodes.ACC_VARARGS] = JAVA_MODIFIER.VARAGS
+			MODIFIERS[Opcodes.ACC_TRANSIENT] = JAVA_MODIFIER.TRANSIENT
+			MODIFIERS[Opcodes.ACC_NATIVE] = JAVA_MODIFIER.NATIVE
+			MODIFIERS[Opcodes.ACC_INTERFACE] = JAVA_MODIFIER.INTERFACE
+			MODIFIERS[Opcodes.ACC_ABSTRACT] = JAVA_MODIFIER.ABSTRACT
+			MODIFIERS[Opcodes.ACC_SYNTHETIC] = JAVA_MODIFIER.SYNTHETIC
+			MODIFIERS[Opcodes.ACC_STRICT] = JAVA_MODIFIER.STRICT
+			MODIFIERS[Opcodes.ACC_ANNOTATION] = JAVA_MODIFIER.ANNOTATION
+			MODIFIERS[Opcodes.ACC_ENUM] = JAVA_MODIFIER.ENUM
+			MODIFIERS[Opcodes.ACC_DEPRECATED] = JAVA_MODIFIER.DEPRECATED
+		}
+		
+		static def CLASS_OPCODES = [
+			Opcodes.ACC_PUBLIC,
+			Opcodes.ACC_PRIVATE,
+			Opcodes.ACC_PROTECTED,
+			Opcodes.ACC_FINAL,
+			Opcodes.ACC_SUPER,
+			Opcodes.ACC_INTERFACE,
+			Opcodes.ACC_ABSTRACT,
+			Opcodes.ACC_ANNOTATION,
+			Opcodes.ACC_ENUM,
+			Opcodes.ACC_DEPRECATED,
+		]
+		
+		static def METHOD_OPCODES = [
+			Opcodes.ACC_PUBLIC,
+			Opcodes.ACC_PRIVATE,
+			Opcodes.ACC_PROTECTED,
+			Opcodes.ACC_STATIC,
+			Opcodes.ACC_FINAL,
+			Opcodes.ACC_SYNCHRONIZED,
+			Opcodes.ACC_BRIDGE,
+			Opcodes.ACC_VARARGS,
+			Opcodes.ACC_NATIVE,
+			Opcodes.ACC_ABSTRACT
+		]
+		
+		static def FIELD_OPCODES = [
+			Opcodes.ACC_PUBLIC,
+			Opcodes.ACC_PRIVATE,
+			Opcodes.ACC_PROTECTED,
+			Opcodes.ACC_STATIC,
+			Opcodes.ACC_FINAL,
+			Opcodes.ACC_VOLATILE,
+			Opcodes.ACC_TRANSIENT,
+			Opcodes.ACC_SYNTHETIC
+		]
+		
+		private List<String> translateAccessToModifierList(int access) {
+			def modifiers = []
+			MODIFIERS.each { opcode, modifier ->
+				if ((access & opcode) != 0) {
+					modifiers << modifier
+				}
+			}
+			return modifiers
+		}
+		
+		private String translateAccessToModifier(int access) {
+			def modifiers = translateAccessToModifierList(access)
+			if (JAVA_MODIFIER.INTERFACE in modifiers) {
+				modifiers.remove(JAVA_MODIFIER.ABSTRACT)
+			}
+			
+			return modifiers*.name()*.toLowerCase().join(" ")
 		}
 	}
 
