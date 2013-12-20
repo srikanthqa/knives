@@ -67,8 +67,10 @@ public class DeepGrep {
 	}
 	
 	public boolean match(final VirtualFile virtualFile) {
-		// TODO: implement matching function here
-		return true
+		if (virtualFile.getCanonicalPath().matches(keywords)) return true
+		if (virtualFile.getBaseName().matches(keywords)) return true
+		if (virtualFile.getExtension().equalsIgnoreCase(keywords)) return true
+		return false
 	}
 
 	public void print(final VirtualFile virtualFile) {
