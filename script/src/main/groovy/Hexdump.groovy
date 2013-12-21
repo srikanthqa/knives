@@ -138,4 +138,24 @@ public class Hexdump {
 
 		return buffer;
 	}
+	
+	public static main(String[] args) {
+		final def cli = new CliBuilder(usage: 'Hexdump [path/to/file]')
+		cli.h( longOpt: 'help', required: false, 'show usage information' )
+
+		//--------------------------------------------------------------------------
+		final def opt = cli.parse(args)
+		if (!opt) { return }
+		if (opt.h) {
+			cli.usage();
+			return
+		}
+		
+		opt.arguments().each {
+			def file = new File(it)
+			if (file.exists() == true && file.isDirectory() == false) {
+				println dumpHexString(file.getBytes())
+			}
+		}
+	}
 }
