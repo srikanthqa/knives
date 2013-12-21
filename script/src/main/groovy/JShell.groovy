@@ -16,7 +16,7 @@ import jline.console.completer.Completer;
 import jline.console.completer.FileNameCompleter;
 import jline.console.completer.StringsCompleter;
 
-final def cli = new CliBuilder(usage: 'MyShell <none/simple/files> [trigger <trigger>] [mask <mask>]')
+final def cli = new CliBuilder(usage: 'JShell <none/simple/files> [trigger <trigger>] [mask <mask>]')
 cli.h( longOpt: 'help', required: false, 'show usage information' )
 cli.n( longOpt: 'none', required: false, '(default) no completers' )
 cli.s( longOpt: 'simple', required: false, 'a simple completer that completes "foo, bar, and baz"' )
