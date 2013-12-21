@@ -16,87 +16,59 @@ import jline.console.completer.Completer;
 import jline.console.completer.FileNameCompleter;
 import jline.console.completer.StringsCompleter;
 
-void usage() {
-	println """Usage: java ${this.getClass().getName()} [none/simple/files/dictionary [trigger mask]]"
-	none - no completers
-	simple - a simple completer that completes "foo, bar, and baz"
-	files - a completer that completes file names"
-	classes - a completer that completes java class names
-	trigger - a special word which causes it to assume the next line is a password
-	mask - is the character to print in place of the actual password character
-	color - colored prompt and feedback");
-	E.g - java ${this.getClass().getName()} simple su '*' 
-		will use the simple completer with 'su' triggering the use of '*' as a password mask."""
+final def cli = new CliBuilder(usage: 'MyShell <none/simple/files> [trigger <trigger>] [mask <mask>]')
+cli.h( longOpt: 'help', required: false, 'show usage information' )
+cli.n( longOpt: 'none', required: false, '(default) no completers' )
+cli.s( longOpt: 'simple', required: false, 'a simple completer that completes "foo, bar, and baz"' )
+cli.f( longOpt: 'files', required: false, 'a completer that completes file names' )
+cli.c( longOpt: 'color', required: false, 'colored prompt and feedback' )
+cli.t( longOpt: 'trigger', required: false, args: 1, 'a special word which causes it to assume the next line is a password' )
+cli.m( longOpt: 'mask', required: false, args: 1, 'the character to print in place of the actual password character' )
+
+//--------------------------------------------------------------------------
+final def opt = cli.parse(args)
+if (!opt) { return }
+if (opt.h) {
+	cli.usage();
+	return
 }
 
-try {
-	Character mask = null;
-	String trigger = null;
-	boolean color = false;
+boolean color = false;
 
-	ConsoleReader reader = new ConsoleReader();
+final ConsoleReader reader = new ConsoleReader();
+reader.setPrompt("prompt> ");
 
-	reader.setPrompt("prompt> ");
+final String trigger = opt.t
+final Character mask = opt.m ? opt.m.charAt(0) : null
 
-	if ((args == null) || (args.length == 0)) {
-		usage();
+final List<Completer> completors = new LinkedList<Completer>();
 
-		return;
-	}
-
-	List<Completer> completors = new LinkedList<Completer>();
-
-	if (args.length > 0) {
-		if (args[0].equals("none")) {
-		}
-		else if (args[0].equals("files")) {
-			completors.add(new FileNameCompleter());
-		}
-		else if (args[0].equals("simple")) {
-			completors.add(new StringsCompleter("foo", "bar", "baz"));
-		}
-		else if (args[0].equals("color")) {
-			color = true;
-			reader.setPrompt("\u001B[1mfoo\u001B[0m@bar\u001B[32m@baz\u001B[0m> ");
-		}
-		else {
-			usage();
-
-			return;
-		}
-	}
-
-	if (args.length == 3) {
-		mask = args[2].charAt(0);
-		trigger = args[1];
-	}
-
-	for (Completer c : completors) {
-		reader.addCompleter(c);
-	}
-
-	String line;
-	PrintWriter out = new PrintWriter(reader.getOutput());
-
-	while ((line = reader.readLine()) != null) {
-		if (color){
-			out.println("\u001B[33m======>\u001B[0m\"" + line + "\"");
-
-		} else {
-			out.println("======>\"" + line + "\"");
-		}
-		out.flush();
-
-		// If we input the special word then we will mask
-		// the next line.
-		if ((trigger != null) && (line.compareTo(trigger) == 0)) {
-			line = reader.readLine("password> ", mask);
-		}
-		if (line.equalsIgnoreCase("quit") || line.equalsIgnoreCase("exit")) {
-			break;
-		}
-	}
+if (opt.f) { completors.add(new FileNameCompleter()) }
+if (opt.s) { completors.add(new StringsCompleter("foo", "bar", "baz")) }
+if (opt.c) {
+	color = true
+	reader.setPrompt("\u001B[1mfoo\u001B[0m@bar\u001B[32m@baz\u001B[0m> ")
 }
-catch (Throwable t) {
-	t.printStackTrace();
+
+completors.each { reader.addCompleter(it) }
+
+String line
+PrintWriter out = new PrintWriter(reader.getOutput())
+
+while ((line = reader.readLine()) != null) {
+	if (color){
+		out.println("\u001B[33m======>\u001B[0m\"" + line + "\"");
+	} else {
+		out.println("======>\"" + line + "\"");
+	}
+	out.flush();
+
+	// If we input the special word then we will mask
+	// the next line.
+	if ((trigger != null) && (line.compareTo(trigger) == 0)) {
+		line = reader.readLine("password> ", mask);
+	}
+	if (line.equalsIgnoreCase("quit") || line.equalsIgnoreCase("exit")) {
+		break;
+	}
 }
