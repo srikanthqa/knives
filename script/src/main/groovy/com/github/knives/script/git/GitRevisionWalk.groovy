@@ -1,4 +1,4 @@
-package com.github.knives.script
+package com.github.knives.script.git
 import org.eclipse.jgit.api.Git
 import org.eclipse.jgit.lib.Repository
 import org.eclipse.jgit.revwalk.RevCommit

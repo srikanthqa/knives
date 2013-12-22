@@ -1,4 +1,4 @@
-package com.github.knives.script
+package com.github.knives.script.asm
 /**
  * Copy and paste from the following link
  * 
