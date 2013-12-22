@@ -18,7 +18,3 @@ sources {
 		}
 	}
 }
-
-task printAllSource {
-	println sources.main.custom.source.srcDirs
-}

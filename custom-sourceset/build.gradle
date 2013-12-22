@@ -30,10 +30,3 @@ task integrationTest(type: GradleBuild) {
 	buildFile = 'sourceset.gradle'
 	tasks = ['printAllSource']
 }
-
-task printGroovySource {
-	println sources.main.java.source.srcDirs
-	println sources.main.resources.source.srcDirs
-	println sources
-	println sourceSets
-}
