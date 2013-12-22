@@ -6,7 +6,7 @@ import java.util.zip.ZipFile
 
 import org.apache.commons.io.FilenameUtils
 
-import com.github.knives.script.DeepGrep
+import com.github.knives.script.deep.DeepGrep;
 
 @Canonical
 class ZipEntryVirtualFile implements VirtualFile {
@@ -61,7 +61,7 @@ class ZipEntryVirtualFile implements VirtualFile {
 		
 		final def zipFile = new ZipFile(extractFile)
 
-		return DeepGrep.createVirtualFile(zipFile, getCanonicalPath())
+		return VirtualFileFactory.createVirtualFile(zipFile, getCanonicalPath())
 	}
 
 }

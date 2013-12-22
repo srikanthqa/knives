@@ -8,7 +8,6 @@ import org.gradle.api.tasks.wrapper.Wrapper
 def description = 'Pattern: "mainExec <Main-Class> [args]": Executes the main class with class as configurations.compile and built jar'
 tasks.addRule(description) { final String taskName ->
 	final String[] tokens = taskName.split(" ")
-	println tokens.toString()
 	final String prefix = "mainExec"
 	if (tokens[0].equals(prefix) && !tasks.findByName(taskName) && tokens.length >= 2) {
 		Task mainExec = task(taskName, type: JavaExec) {

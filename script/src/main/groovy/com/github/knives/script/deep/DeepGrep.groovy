@@ -1,4 +1,4 @@
-package com.github.knives.script
+package com.github.knives.script.deep
 import java.util.zip.ZipEntry
 import java.util.zip.ZipFile
 
@@ -20,12 +20,10 @@ public class DeepGrep {
 
 	final private def paths
 	final private def keywords
-	final private VirtualFileFactory virtualFileFactory
 
 	public DeepGrep(def paths, def keywords) {
 		this.paths = paths
 		this.keywords = keywords
-		this.virtualFileFactory = new VirtualFileFactory()
 	}
 
 	public void printSearchDetails() {
@@ -33,7 +31,7 @@ public class DeepGrep {
 	}
 	
 	private void handleRawPath(final String path) {
-		final VirtualFile initialVirtualFile = virtualFileFactory.createVirtualFile(path)
+		final VirtualFile initialVirtualFile = VirtualFileFactory.createVirtualFile(path)
 		final LinkedList<VirtualFile> toBeProcessedVirtualFiles = new LinkedList<VirtualFile>()
 		toBeProcessedVirtualFiles.push(initialVirtualFile)
 		
@@ -309,19 +307,6 @@ public class DeepGrep {
 			println indent
 		}
 	}
-	
-	public static def createVirtualFile(final ZipFile zipFile, final String rootZipFilePath) {
-		final def virtualFiles = []
-		
-		zipFile.entries().each { final ZipEntry entry ->
-			final String entryName = entry.getName()
-			virtualFiles << new ZipEntryVirtualFile(zipFile: zipFile,
-				entryName: entryName, rootZipFilePath: rootZipFilePath)
-		}
-		
-		return virtualFiles
-	}
-	
 	
 	public static void main(String[] args) {
 		final def cli = new CliBuilder(usage: 'DeepGrep -n <name> [path/to/jars|directory|file]')
