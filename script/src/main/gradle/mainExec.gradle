@@ -1,0 +1,18 @@
+import groovy.lang.Closure
+import org.codehaus.groovy.tools.GroovyClass
+import org.gradle.api.Project
+import org.gradle.api.Rule
+import org.gradle.api.tasks.wrapper.Wrapper
+
+// gradle "mainExec mainClass"
+tasks.addRule('Pattern: "mainExec <Main-Class>": Executes the main class from configurations.compile or jar') { String taskName ->
+	final String prefix = "mainExec"
+	if (taskName.startsWith(prefix) && taskName.length() >= prefix.length() && !tasks.findByName(taskName)) {
+		Task mainExec = task(taskName, type: JavaExec) {
+			classpath = configurations.compile + tasks.jar.outputs.files
+			main = (taskName-prefix).trim()
+		}
+		
+		mainExec.dependsOn jar
+	}
+}

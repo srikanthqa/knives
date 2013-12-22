@@ -1,7 +1,7 @@
 apply plugin: 'groovy'
 apply plugin: 'maven'
 
-defaultTasks 'clean', 'jarWithDependencies'
+defaultTasks 'install'
 
 sourceCompatibility = '1.7'
 targetCompatibility = '1.7'
@@ -11,12 +11,14 @@ repositories {
 	mavenCentral()
 	
 	maven { url 'https://oss.sonatype.org/content/groups/public' }
+	/*
 	maven { url 'http://repository.jboss.org/maven2-brew/' }
 	maven { url 'http://repository.jboss.org/nexus/content/groups/public/' }
 	maven { url 'https://repository.jboss.org/nexus/content/repositories/deprecated/' }
+	*/
 }
 
-//apply from: 'src/main/gradle/proguard.gradle'
+apply from: 'src/main/gradle/mainExec.gradle'
 
 ext {
 	groovyAllVersion = '2.2.1'
@@ -47,9 +49,12 @@ ext {
 	sshdVersion = '0.9.0'
 	proguardVersion = '4.10'
 	bouncyCastleVersion = '1.49'
+	groovyVersion = '2.2.1'
+	commonsCliVersion = '1.2'
 }
 
 dependencies {
+	compile group: 'org.codehaus.groovy', name: 'groovy-all', version: groovyVersion
 	compile group: 'org.antlr', name: 'antlr4', version: antlrVersion
 	compile group: 'org.antlr', name: 'antlr4-runtime', version: antlrVersion
 	compile group: 'org.ow2.asm', name: 'asm', version: asmVersion
@@ -75,9 +80,6 @@ dependencies {
 	compile group: 'commons-codec', name: 'commons-codec', version: commonsCodec
 	compile group: 'com.icegreen', name: 'greenmail', version: iceGreenVersion
 	compile group: 'org.apache.ftpserver', name: 'ftpserver-core', version: ftpServerVersion
-	compile group: 'com.thinkaurelius.titan', name: 'titan-core', version: titanVersion
-	compile group: 'org.hornetq', name: 'hornetq-jms-server', version: hornetVersion
-	compile group: 'org.hornetq', name: 'hornetq-commons', version: hornetVersion
 	compile group: 'javax.activation', name: 'activation', version: javaxActivationVersion
 	compile group: 'javax.mail', name: 'mail', version: javaxMailVersion
 	compile group: 'dumbster', name: 'dumbster', version: dumbsterVersion
@@ -85,10 +87,11 @@ dependencies {
 	compile group: 'org.apache.httpcomponents', name: 'httpclient', version: httpcomponentsVersion
 	compile group: 'net.sf.proguard', name: 'proguard-base', version: proguardVersion
 	compile group: 'org.bouncycastle', name: 'bcprov-jdk15on', version: bouncyCastleVersion
+	compile group: 'commons-cli', name: 'commons-cli', version: commonsCliVersion
+	
+	//compile group: 'org.hornetq', name: 'hornetq-jms-server', version: hornetVersion
+	//compile group: 'org.hornetq', name: 'hornetq-commons', version: hornetVersion
+	//compile group: 'com.thinkaurelius.titan', name: 'titan-core', version: titanVersion
 }
 
-task jarWithDependencies(type: Jar, dependsOn: 'build') {
-	from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
-	from { compileGroovy.destinationDir }
-	appendix = 'with-dependencies'
-}
+
