@@ -1,13 +1,30 @@
 apply plugin: 'groovy'
+apply plugin: 'maven'
 
-sourceSets {
-	main {
-		groovy {
-			srcDirs 'groovy', 'example', 'springboot', 'gradle' 
-		}
-		
-		resources {
-			srcDirs 'resources', 'bash', 'init.d'
-		}
-	}
+defaultTasks 'install'
+
+sourceCompatibility = '1.7'
+targetCompatibility = '1.7'
+
+repositories {
+	mavenLocal()
+	mavenCentral()
+}
+
+ext {
+	groovyAllVersion = '2.2.1'
+	ivyVersion = '2.3.0'
+}
+
+configurations {
+	groovyClasspath
+}
+
+dependencies {
+	compile group: 'org.codehaus.groovy', name: 'groovy-all', version: groovyAllVersion
+	groovyClasspath group: 'org.apache.ivy', name: 'ivy', version: ivyVersion
+}
+
+compileGroovy {
+	groovyClasspath = configurations.groovyClasspath
 }

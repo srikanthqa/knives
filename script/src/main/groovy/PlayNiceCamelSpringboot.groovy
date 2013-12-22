@@ -1,10 +1,5 @@
 @Grapes([
-	@Grab(group='org.springframework.boot', module='spring-boot-starter-web', version='0.5.0.M6'),
-	@GrabExclude(group='org.springframework.boot', module='spring-boot-starter-tomcat'),
-	@Grab(group='org.springframework.boot', module='spring-boot-starter-jetty', version='0.5.0.M6'),
-	@Grab(group='javax.servlet', module='javax.servlet-api', version='3.1.0', force = true)
-	//@Grab(group='org.eclipse.jetty', module='jetty-util', version='9.0.6.v20130930', force=true),
-	//@Grab(group='org.eclipse.jetty', module='jetty-servlet', version='9.0.6.v20130930', force=true)
+	@Grab(group='org.springframework.boot', module='spring-boot-starter-web', version='0.5.0.M6')
 ])
 
 import java.util.Arrays
@@ -32,11 +27,5 @@ public class WebApp {
 			System.out.println(beanName);
 		}
 	}
-	
-	@Bean
-	public JettyEmbeddedServletContainerFactory jettyEmbeddedServletContainerFactory() {
-		return new JettyEmbeddedServletContainerFactory()
-	}
-
 }
 

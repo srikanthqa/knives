@@ -8,10 +8,6 @@ import java.util.jar.JarFile
 import java.util.jar.Manifest
 import java.net.URL
 import org.apache.http.client.fluent.Request
-import org.apache.ivy.core.report.ResolveReport
-import org.apache.ivy.core.module.id.ModuleRevisionId
-import org.apache.ivy.Ivy
-import org.apache.ivy.core.resolve.ResolveOptions
 
 final def cli = new CliBuilder(usage: 'ReadManifest <path/to/file|url/to/file>')
 cli.h( longOpt: 'help', required: false, 'show usage information' )
