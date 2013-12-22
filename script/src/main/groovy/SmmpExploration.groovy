@@ -1,12 +1,3 @@
-@Grapes([
-	@GrabResolver(name='sonatype-oss', root='https://oss.sonatype.org/content/groups/public'),
-	@Grab(group='org.opensmpp', module='opensmpp-core', version='3.0.0'),
-	@Grab(group='org.opensmpp', module='opensmpp-sim', version='3.0.0'),
-	@Grab(group='org.opensmpp', module='opensmpp-client', version='3.0.0'),
-	@Grab(group='org.opensmpp', module='opensmpp-client', version='3.0.0'),
-	@Grab(group='commons-codec', module='commons-codec', version='1.8')
-])
-
 import org.smpp.pdu.SubmitSM
 import org.smpp.pdu.Address
 import org.smpp.Data

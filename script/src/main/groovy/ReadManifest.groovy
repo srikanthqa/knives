@@ -1,7 +1,3 @@
-@Grapes([
-	@Grab(group='org.apache.httpcomponents', module='fluent-hc', version='4.3.1')
-])
-
 import groovy.transform.Field
 import java.io.File
 import java.util.jar.JarFile

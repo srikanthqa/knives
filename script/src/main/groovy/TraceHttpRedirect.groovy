@@ -6,10 +6,6 @@
  * groovy TraceHttpRedirect.groovy -u http://google.com
  */
 
-@Grapes([
-	@Grab(group='org.apache.httpcomponents', module='httpclient', version='4.3')
-])
-
 import java.io.IOException
 
 import org.apache.http.HttpResponse

@@ -1,11 +1,3 @@
-@Grapes([
-	@Grab(group='commons-io', module='commons-io', version='2.4'),
-	@Grab(group='org.ow2.asm', module='asm', version='4.2'),
-	@Grab(group='org.ow2.asm', module='asm-util', version='4.2'),
-	@Grab(group='org.ow2.asm', module='asm-tree', version='4.2'),
-	@Grab(group='org.apache.commons', module='commons-lang3', version='3.1')
-])
-
 import java.util.zip.ZipEntry
 import java.util.zip.ZipFile
 import org.apache.commons.io.FilenameUtils

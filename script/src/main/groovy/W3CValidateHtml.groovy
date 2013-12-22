@@ -1,7 +1,3 @@
-@Grapes([
-	@Grab(group='org.apache.httpcomponents', module='fluent-hc', version='4.3.1')
-])
-
 import org.apache.http.client.fluent.Request
 
 final def cli = new CliBuilder(usage: 'W3CValidateHtml')

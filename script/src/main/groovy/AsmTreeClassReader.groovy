@@ -2,11 +2,6 @@
  * Copy and paste with minor tweak to show example how to use asm tree api
  * http://www.geekyarticles.com/2011/10/manipulating-java-class-files-with-asm_13.html
  */
-@Grapes([
-	@Grab(group='org.ow2.asm', module='asm', version='4.2'),
-	@Grab(group='org.ow2.asm', module='asm-util', version='4.2'),
-	@Grab(group='org.ow2.asm', module='asm-tree', version='4.2')
-])
 
 import org.objectweb.asm.ClassReader
 import org.objectweb.asm.tree.ClassNode

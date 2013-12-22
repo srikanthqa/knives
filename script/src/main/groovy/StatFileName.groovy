@@ -1,7 +1,3 @@
-@Grapes([
-	@Grab(group='commons-io', module='commons-io', version='2.4')
-])
-			
 import org.apache.commons.io.FilenameUtils
 
 // http://commons.apache.org/proper/commons-io/apidocs/org/apache/commons/io/FilenameUtils.html

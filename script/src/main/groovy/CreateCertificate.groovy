@@ -1,7 +1,3 @@
-@Grapes([
-	@Grab(group='org.bouncycastle', module='bcprov-jdk15on', version='1.49')
-])
-
 /**
  * http://waheedtechblog.blogspot.com/2012/10/how-to-create-self-signed-certificates.html
  */

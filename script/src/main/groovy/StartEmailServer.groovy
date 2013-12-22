@@ -1,7 +1,3 @@
-@Grapes([
-	@Grab(group='com.icegreen', module='greenmail', version='1.3.1b')
-])
-
 import groovy.transform.Canonical
 import com.icegreen.greenmail.util.GreenMail
 import com.icegreen.greenmail.util.ServerSetup

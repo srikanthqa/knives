@@ -1,8 +1,3 @@
-@Grapes([
-	@Grab(group='org.apache.sshd', module='sshd-core', version='0.9.0'),
-	@Grab(group='org.slf4j', module='slf4j-simple', version='1.7.5')
-])
-
 final int DEFAULT_PORT = 8022
 
 

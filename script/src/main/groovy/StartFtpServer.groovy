@@ -1,9 +1,3 @@
-@Grapes([
-	@Grab(group='org.apache.ftpserver', module='ftpserver-core', version='1.0.6'),
-	@Grab(group='com.google.guava', module='guava', version='15.0'),
-	@Grab(group='org.slf4j', module='slf4j-simple', version='1.7.5')
-])
-
 import org.apache.ftpserver.FtpServerFactory
 import org.apache.ftpserver.FtpServer
 import org.apache.ftpserver.listener.ListenerFactory

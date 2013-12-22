@@ -1,7 +1,3 @@
-@Grapes([
-	@Grab(group='org.apache.httpcomponents', module='fluent-hc', version='4.3.1')
-])
-
 /**
  * ShowMap show a gui display the map for the supplied address
  * 

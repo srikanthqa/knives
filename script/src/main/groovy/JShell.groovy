@@ -5,10 +5,6 @@
  * To create your own console
  */
 
-@Grapes([
-	@Grab(group='jline', module='jline', version='2.11')
-])
-
 import java.util.LinkedList;
 import java.util.List;
 import jline.console.ConsoleReader;

@@ -9,11 +9,6 @@
  * groovy ShortenUrl.groovy -u http://google.com
  */
 
-@Grapes([
-	@Grab(group='org.apache.httpcomponents', module='fluent-hc', version='4.3.1')
-])
-
-
 import org.apache.http.client.fluent.Request
 import org.apache.http.entity.ContentType
 import groovy.json.JsonSlurper

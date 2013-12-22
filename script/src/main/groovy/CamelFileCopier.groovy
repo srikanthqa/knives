@@ -1,8 +1,3 @@
-@Grapes([
-	@Grab(group='org.apache.camel', module='camel-core', version='2.12.1'),
-	@Grab(group='org.slf4j', module='slf4j-simple', version='1.7.5')
-])
-
 import org.apache.camel.CamelContext
 import org.apache.camel.impl.DefaultCamelContext
 import org.apache.camel.builder.RouteBuilder

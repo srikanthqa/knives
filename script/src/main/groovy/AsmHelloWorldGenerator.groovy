@@ -12,12 +12,6 @@
  * Hello World!
  */
 
-@Grapes([
-	@Grab(group='org.ow2.asm', module='asm', version='4.2'),
-	@Grab(group='org.ow2.asm', module='asm-util', version='4.2'),
-	@Grab(group='org.ow2.asm', module='asm-tree', version='4.2')
-])
-
 import org.objectweb.asm.ClassWriter
 import org.objectweb.asm.Opcodes
 import org.objectweb.asm.tree.ClassNode

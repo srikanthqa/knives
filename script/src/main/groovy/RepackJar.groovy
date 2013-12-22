@@ -4,10 +4,6 @@
  * @TODO: add support for same class name but different package
  */
 
- @Grapes([
-	 @Grab(group='com.google.guava', module='guava', version='15.0')
- ])
- 
 import com.google.common.io.Files
 
 final def cli = new CliBuilder(usage: 'RepackJar <class files/directory>')

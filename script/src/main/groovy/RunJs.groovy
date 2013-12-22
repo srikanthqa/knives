@@ -3,10 +3,6 @@
  * commandline using rhino javascript engine
  */
 
-@Grapes([
-	@Grab(group='org.mozilla', module='rhino', version='1.7R4')
-])
-
 final def cli = new CliBuilder(usage: 'TrimJar <jar> <classpath>')
 cli.h( longOpt: 'help', required: false, 'show usage information' )
 cli.j( longOpt: 'js', argName: 'j', required: true, args: 1, 'javascript to run' )

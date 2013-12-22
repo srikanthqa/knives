@@ -1,9 +1,3 @@
-@Grapes([
-	@Grab(group='javax.activation', module='activation', version='1.1.1', force=true),
-	@Grab(group='javax.mail', module='mail', version='1.4.4', force=true),
-	@Grab(group='dumbster', module='dumbster', version='1.6', transitive=false)
-])
-
 import com.dumbster.smtp.SimpleSmtpServer
 import groovy.transform.Canonical
 

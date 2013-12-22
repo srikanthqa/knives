@@ -1,13 +1,3 @@
-@Grapes([
-	@GrabResolver(name='jboss-maven2-brew', root='http://repository.jboss.org/maven2-brew/'),
-	@GrabResolver(name='jboss-public-repository-group', root='http://repository.jboss.org/nexus/content/groups/public/'),
-	@GrabResolver(name='jboss-deprecated', root='https://repository.jboss.org/nexus/content/repositories/deprecated/'),
-	@Grab(group='org.hornetq', module='hornetq-jms-server', version='2.3.11.Final'),
-	@Grab(group='org.hornetq', module='hornetq-commons', version='2.3.11.Final'),
-	@Grab(group='com.google.guava', module='guava', version='15.0'),
-])
-			
-
 import org.hornetq.jms.server.config.JMSConfiguration
 import org.hornetq.jms.server.config.impl.JMSConfigurationImpl
 import org.hornetq.jms.server.embedded.EmbeddedJMS

@@ -2,8 +2,7 @@
  * http://cs.dvc.edu/HowTo_ReadJars.html
  */
 
-import java.io.*;
-import java.util.jar.*;
+import java.util.jar.*
 
 if (args.length != 2) {
 	System.out.println("Please provide a JAR filename and file to read");
