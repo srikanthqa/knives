@@ -1,4 +1,4 @@
-package com.github.knives.script
+package com.github.knives.script.stub
 /*
 import org.hornetq.jms.server.config.JMSConfiguration
 import org.hornetq.jms.server.config.impl.JMSConfigurationImpl

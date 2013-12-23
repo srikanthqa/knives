@@ -1,4 +1,4 @@
-package com.github.knives.script
+package com.github.knives.script.stub
 import com.dumbster.smtp.SimpleSmtpServer
 import groovy.transform.Canonical
 

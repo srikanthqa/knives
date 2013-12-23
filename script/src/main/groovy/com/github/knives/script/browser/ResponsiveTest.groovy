@@ -1,4 +1,4 @@
-package com.github.knives.script
+package com.github.knives.script.browser
 /**
  * TODO: add user agent, some site don't support responsive unless you have user agent
  * TODO: add cli to pass in the dimension

@@ -1,4 +1,4 @@
-package com.github.knives.script
+package com.github.knives.script.stub
 import org.apache.ftpserver.FtpServerFactory
 import org.apache.ftpserver.FtpServer
 import org.apache.ftpserver.listener.ListenerFactory

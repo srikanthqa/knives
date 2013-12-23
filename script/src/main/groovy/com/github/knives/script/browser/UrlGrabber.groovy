@@ -1,4 +1,4 @@
-package com.github.knives.script
+package com.github.knives.script.browser
 import geb.Browser
 
 final def cli = new CliBuilder(usage: 'ScreenScapper')

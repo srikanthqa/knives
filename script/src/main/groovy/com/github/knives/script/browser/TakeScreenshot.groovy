@@ -1,4 +1,4 @@
-package com.github.knives.script
+package com.github.knives.script.browser
 import geb.Browser
 import geb.Configuration
 import geb.report.ScreenshotReporter

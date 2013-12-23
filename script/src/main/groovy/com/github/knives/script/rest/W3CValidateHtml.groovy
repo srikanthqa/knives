@@ -1,4 +1,4 @@
-package com.github.knives.script
+package com.github.knives.script.rest
 import org.apache.http.client.fluent.Request
 
 final def cli = new CliBuilder(usage: 'W3CValidateHtml')

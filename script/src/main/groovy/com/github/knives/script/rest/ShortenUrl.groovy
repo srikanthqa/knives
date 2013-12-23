@@ -1,4 +1,4 @@
-package com.github.knives.script
+package com.github.knives.script.rest
 /*
  * ShortenUrl shorten the url by using
  * google service through google api

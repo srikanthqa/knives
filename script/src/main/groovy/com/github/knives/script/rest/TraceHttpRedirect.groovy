@@ -1,4 +1,4 @@
-package com.github.knives.script
+package com.github.knives.script.rest
 /*
  * TraceHttpRedirect prints out all http 302 redirect when access a url
  *

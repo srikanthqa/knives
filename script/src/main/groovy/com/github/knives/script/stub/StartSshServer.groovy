@@ -1,4 +1,4 @@
-package com.github.knives.script
+package com.github.knives.script.stub
 final int DEFAULT_PORT = 8022
 
 

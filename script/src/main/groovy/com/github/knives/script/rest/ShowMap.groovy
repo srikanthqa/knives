@@ -1,4 +1,4 @@
-package com.github.knives.script
+package com.github.knives.script.rest
 /**
  * ShowMap show a gui display the map for the supplied address
  * 

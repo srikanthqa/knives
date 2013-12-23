@@ -1,4 +1,4 @@
-package com.github.knives.script
+package com.github.knives.script.stub
 import groovy.transform.Canonical
 import com.icegreen.greenmail.util.GreenMail
 import com.icegreen.greenmail.util.ServerSetup

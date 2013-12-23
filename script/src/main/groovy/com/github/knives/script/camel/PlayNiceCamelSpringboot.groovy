@@ -1,4 +1,4 @@
-package com.github.knives.script
+package com.github.knives.script.camel
 import java.util.Arrays
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration
