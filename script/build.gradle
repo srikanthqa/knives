@@ -19,6 +19,7 @@ repositories {
 }
 
 apply from: 'src/main/gradle/mainExec.gradle'
+apply from: 'src/main/gradle/basicTestUtils.gradle'
 
 ext {
 	groovyAllVersion = '2.2.1'
