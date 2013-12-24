@@ -70,17 +70,19 @@ public class DeepGrep {
 	
 	private void printClassDetail(final VirtualFile virtualFile) {
 		println virtualFile.getCanonicalPath()
-		final ClassReader reader = new ClassReader(virtualFile.getBytes())
-		
-		final ClassNode classNode = new ClassNode()
-		reader.accept(classNode, 0)
-		
-		printClass(classNode)
-		printFields(classNode)
-		printMethods(classNode)
-		printEndBracket()
-		
-		println()
+		try {
+			final ClassReader reader = new ClassReader(virtualFile.getBytes())
+			
+			final ClassNode classNode = new ClassNode()
+			reader.accept(classNode, 0)
+			
+			printClass(classNode)
+			printFields(classNode)
+			printMethods(classNode)
+			printEndBracket()
+			
+			println()
+		} catch (Exception ignore) { println "Unable to read class file" }
 	}
 	
 	static String BASE_OBJECT = "java.lang.Object"

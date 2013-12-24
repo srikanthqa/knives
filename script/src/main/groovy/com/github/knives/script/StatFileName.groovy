@@ -25,5 +25,6 @@ opt.arguments().each { final filename ->
 		println filename.getBaseName()
 		println filename.getExtension()
 		println filename.removeExtension()
+		println filename.normalize()
 	}
 }

@@ -15,7 +15,5 @@ tasks.addRule(description) { final String taskName ->
 			main = tokens[1]
 			args = tokens.length > 2 ? tokens[2..-1] : []
 		}
-		
-		mainExec.dependsOn jar
 	}
 }
