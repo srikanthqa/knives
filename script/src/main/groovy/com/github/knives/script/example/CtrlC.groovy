@@ -1,4 +1,4 @@
-package com.github.knives.script
+package com.github.knives.script.example
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 import groovy.transform.Canonical
