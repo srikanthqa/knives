@@ -5,7 +5,17 @@ import java.util.zip.ZipFile
 import org.apache.commons.io.FilenameUtils
 
 class VirtualFileFactory {
+	private static String USER_WORKING_DIR = 'user.dir'
+	
+	
 	public static VirtualFile createVirtualFile(final String path) {
+		final def absolutePath = path.startsWith('/').with {
+			if (it) return path
+			return FilenameUtils.concat(System.getProperty(USER_WORKING_DIR) , path)
+		}
+		
+		println absolutePath
+		
 		final def fragments = fragmentize(path)
 		final def file = new File(fragments.get(0))
 		
