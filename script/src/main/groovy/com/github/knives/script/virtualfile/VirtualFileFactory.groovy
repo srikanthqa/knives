@@ -97,4 +97,8 @@ class VirtualFileFactory {
 		
 		return virtualFiles
 	}
+	
+	static int getChildrenCount(final ZipFile zipFile) {
+		return zipFile.entries().size()
+	}
 }

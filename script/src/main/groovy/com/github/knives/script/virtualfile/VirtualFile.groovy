@@ -26,4 +26,8 @@ public interface VirtualFile {
 	// return the list of VirtualFile children of isContainer()
 	// return empty if it is not
 	public List<VirtualFile> getChildren()
+	
+	// return fast performance count for each concrete class of VirtualFile interface
+	// at least better than getChildren().size(). 
+	public int getChildrenCount()
 }

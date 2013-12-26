@@ -64,4 +64,9 @@ class ZipEntryVirtualFile implements VirtualFile {
 		return VirtualFileFactory.createVirtualFile(zipFile, getCanonicalPath())
 	}
 
+	// TODO: default implementation for now
+	@Override
+	public int getChildrenCount() {
+		return getChildren().size();
+	}
 }

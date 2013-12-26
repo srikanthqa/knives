@@ -41,4 +41,8 @@ class NullVirtualFile implements VirtualFile {
 	public List<VirtualFile> getChildren() {
 		return []
 	}
+	@Override
+	public int getChildrenCount() {
+		return 0;
+	}
 }

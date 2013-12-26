@@ -1,5 +1,6 @@
 package com.github.knives.script.deep
 
+import com.github.knives.script.Hash
 import com.github.knives.script.virtualfile.VirtualFile
 import com.github.knives.script.virtualfile.VirtualFileFactory
 
@@ -18,7 +19,8 @@ class DeepCompare {
 			final def equalies = stacks.collect { final LinkedList<VirtualFile> stack ->
 				final VirtualFile virtualFile = stack.peekFirst()
 				
-				[virtualFile.isContainer()]
+				[isContainer: virtualFile.isContainer(),
+				 md5: virtualFile.isContainer() ? Hash.md5(virtualFile.getBytes()) : null ]
 			}
 			
 			break

@@ -1,4 +1,4 @@
-package com.github.knives.script
+package com.github.knives.script.zip
 import groovy.io.FileType
 import groovy.transform.InheritConstructors
 
