@@ -7,11 +7,6 @@ import org.apache.commons.io.FilenameUtils
 class VirtualFileFactory {
 	private static String USER_WORKING_DIR = 'user.dir'
 	
-	private static String getAbsolutePath(final String path) {
-		if (path.startsWith('/')) return path
-		return FilenameUtils.concat(System.getProperty(USER_WORKING_DIR) , path)
-	}
-	
 	public static VirtualFile createVirtualFile(final String path) {
 		final def absolutePath = getAbsolutePath(path)
 		final def fragments = fragmentize(absolutePath)
@@ -43,8 +38,10 @@ class VirtualFileFactory {
 		return virtualFile
 	}
 	
-	// TODO: assuming linux separator for now
-	// TODO: handle relative path
+	private static String getAbsolutePath(final String path) {
+		return FilenameUtils.concat(System.getProperty(USER_WORKING_DIR) , path)
+	}
+	
 	// Always return at least one elements
 	private static List<String> fragmentize(String path) {
 		final def tokens = []
@@ -86,7 +83,10 @@ class VirtualFileFactory {
 		return fragments
 	}
 	
-	public static List<VirtualFile> createVirtualFile(final ZipFile zipFile, final String rootZipFilePath) {
+	/**
+	 * Only visible by package, this is a refactor method from RegularVirtualFile and ZipEntryVirtualFile 
+	 */
+	static List<VirtualFile> createVirtualFile(final ZipFile zipFile, final String rootZipFilePath) {
 		final def virtualFiles = []
 		
 		zipFile.entries().each { final ZipEntry entry ->

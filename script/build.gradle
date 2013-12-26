@@ -53,6 +53,7 @@ ext {
 	groovyVersion = '2.2.1'
 	commonsCliVersion = '1.2'
 	minaVersion = '2.0.7'
+	wekaVersion = '3.6.10'
 }
 
 configurations {
@@ -97,7 +98,8 @@ dependencies {
 	compile group: 'org.bouncycastle', name: 'bcprov-jdk15on', version: bouncyCastleVersion
 	compile group: 'commons-cli', name: 'commons-cli', version: commonsCliVersion
 	compile group: 'org.apache.mina', name: 'mina-statemachine', version: minaVersion
-
+	compile group: 'nz.ac.waikato.cms.weka', name: 'weka-stable', version: wekaVersion
+	
 	//compile group: 'org.hornetq', name: 'hornetq-jms-server', version: hornetVersion
 	//compile group: 'org.hornetq', name: 'hornetq-commons', version: hornetVersion
 	//compile group: 'com.thinkaurelius.titan', name: 'titan-core', version: titanVersion
