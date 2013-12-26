@@ -5,11 +5,24 @@ import com.github.knives.script.virtualfile.VirtualFileFactory
 
 class DeepCompare {
 	
-	public void compare(final String leftPath, final String rightPath) {
-		VirtualFile leftVirtualFile = VirtualFileFactory.createVirtualFile(leftPath)
-		VirtualFile rightVirtualFile = VirtualFileFactory.createVirtualFile(rightPath)
+	public void compare(final def paths) {
 		
+		final def stacks = paths.collect {
+			final def stack = [] as LinkedList<VirtualFile>
+			stack.push(VirtualFileFactory.createVirtualFile(it))
+			return stack
+		}
 		
+		while (true) {
+			
+			final def equalies = stacks.collect { final LinkedList<VirtualFile> stack ->
+				final VirtualFile virtualFile = stack.peekFirst()
+				
+				[virtualFile.isContainer()]
+			}
+			
+			break
+		}
 	}
 	
 	public static void main(String[] args) {
@@ -19,14 +32,11 @@ class DeepCompare {
 		//--------------------------------------------------------------------------
 		final def opt = cli.parse(args)
 		if (!opt) { return }
-		if (opt.h || opt.arguments().size() < 2) {
+		if (opt.h || opt.arguments().size() != 2) {
 			cli.usage();
 			return
 		}
 		
-		def leftPath =  opt.arguments().get(0)
-		def rightPath = opt.arguments().get(1)
-		
-		new DeepCompare().compare(leftPath, rightPath)
+		new DeepCompare().compare(opt.arguments())
 	}
 }
