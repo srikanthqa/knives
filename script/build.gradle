@@ -30,7 +30,7 @@ ext {
 	slf4jVersion = '1.7.5'
 	commonsIoVersion = '2.4'
 	commonsLangVersion = '3.1'
-	commonsCodec = '1.8'
+	commonsCodecVersion = '1.8'
 	jgitVersion = '3.1.0.201310021548-r'
 	jlineVersion = '2.11'
 	springBootVersion = '0.5.0.M6'
@@ -54,6 +54,7 @@ ext {
 	commonsCliVersion = '1.2'
 	minaVersion = '2.0.7'
 	wekaVersion = '3.6.10'
+	commonsCompressVersion = '1.6'
 }
 
 configurations {
@@ -86,7 +87,7 @@ dependencies {
 	compile group: 'org.opensmpp', name: 'opensmpp-sim', version: openSmppVersion
 	compile group: 'org.opensmpp', name: 'opensmpp-client', version: openSmppVersion
 	compile group: 'org.opensmpp', name: 'opensmpp-client', version: openSmppVersion
-	compile group: 'commons-codec', name: 'commons-codec', version: commonsCodec
+	compile group: 'commons-codec', name: 'commons-codec', version: commonsCodecVersion
 	compile group: 'com.icegreen', name: 'greenmail', version: iceGreenVersion
 	compile group: 'org.apache.ftpserver', name: 'ftpserver-core', version: ftpServerVersion
 	compile group: 'javax.activation', name: 'activation', version: javaxActivationVersion
@@ -99,6 +100,7 @@ dependencies {
 	compile group: 'commons-cli', name: 'commons-cli', version: commonsCliVersion
 	compile group: 'org.apache.mina', name: 'mina-statemachine', version: minaVersion
 	compile group: 'nz.ac.waikato.cms.weka', name: 'weka-stable', version: wekaVersion
+	compile group: 'org.apache.commons', name: 'commons-compress', version: commonsCompressVersion
 	
 	//compile group: 'org.hornetq', name: 'hornetq-jms-server', version: hornetVersion
 	//compile group: 'org.hornetq', name: 'hornetq-commons', version: hornetVersion
