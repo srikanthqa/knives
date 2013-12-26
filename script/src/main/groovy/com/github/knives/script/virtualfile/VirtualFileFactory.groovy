@@ -7,20 +7,18 @@ import org.apache.commons.io.FilenameUtils
 class VirtualFileFactory {
 	private static String USER_WORKING_DIR = 'user.dir'
 	
+	private static String getAbsolutePath(final String path) {
+		if (path.startsWith('/')) return path
+		return FilenameUtils.concat(System.getProperty(USER_WORKING_DIR) , path)
+	}
 	
 	public static VirtualFile createVirtualFile(final String path) {
-		final def absolutePath = path.startsWith('/').with {
-			if (it) return path
-			return FilenameUtils.concat(System.getProperty(USER_WORKING_DIR) , path)
-		}
-		
-		println absolutePath
-		
-		final def fragments = fragmentize(path)
+		final def absolutePath = getAbsolutePath(path)
+		final def fragments = fragmentize(absolutePath)
 		final def file = new File(fragments.get(0))
 		
 		if (file.exists() == false) {
-			return new NullVirtualFile(path: path)
+			return new NullVirtualFile(path: absolutePath)
 		} 
 		
 		VirtualFile virtualFile = new RegularVirtualFile(file: file)
@@ -36,7 +34,7 @@ class VirtualFileFactory {
 			}
 			
 			if (matchedVirtualFiles.isEmpty()) {
-				return new NullVirtualFile(path: path)
+				return new NullVirtualFile(path: absolutePath)
 			}
 			
 			virtualFile = matchedVirtualFiles.first()

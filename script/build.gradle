@@ -55,7 +55,13 @@ ext {
 	minaVersion = '2.0.7'
 }
 
+configurations {
+	groovyClasspath
+}
+
 dependencies {
+	groovyClasspath group: 'org.apache.ivy', name: 'ivy', version: ivyVersion
+	
 	compile group: 'org.codehaus.groovy', name: 'groovy-all', version: groovyVersion
 	compile group: 'org.antlr', name: 'antlr4', version: antlrVersion
 	compile group: 'org.antlr', name: 'antlr4-runtime', version: antlrVersion
@@ -92,10 +98,11 @@ dependencies {
 	compile group: 'commons-cli', name: 'commons-cli', version: commonsCliVersion
 	compile group: 'org.apache.mina', name: 'mina-statemachine', version: minaVersion
 
-	
 	//compile group: 'org.hornetq', name: 'hornetq-jms-server', version: hornetVersion
 	//compile group: 'org.hornetq', name: 'hornetq-commons', version: hornetVersion
 	//compile group: 'com.thinkaurelius.titan', name: 'titan-core', version: titanVersion
 }
 
-
+compileGroovy {
+	groovyClasspath = configurations.groovyClasspath
+}
