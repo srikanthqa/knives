@@ -45,7 +45,7 @@ class ScanVfs {
 				}
 				
 				if (wrappedFileObject.getType().hasChildren()) {
-					queue.addAll(wrappedFileObject.getChildren())
+					stack.addAll(wrappedFileObject.getChildren())
 				}
 			}
 		}
