@@ -18,19 +18,19 @@ class ScanVfs {
 			return
 		}
 		
-		
-		final def localFile = new File(opt.arguments().get(0))
+		final def fileName = opt.arguments().get(0)
+		final def localFile = new File(fileName)
 		if (localFile.exists() == false) {
-			println "${opt.arguments().get(0)} does not exist"
+			println "${fileName} does not exist"
 			return
 		}
 		
 		final FileSystemManager fsManager = VFS.getManager()
 		final FileObject fileObject = fsManager.toFileObject(localFile)
-		final def queue = [fileObject] as LinkedList<FileObject>
+		final def stack = [fileObject] as LinkedList<FileObject>
 		
-		while (queue.isEmpty() == false) {
-			final FileObject currentFileObject = queue.remove()
+		while (stack.isEmpty() == false) {
+			final FileObject currentFileObject = stack.removeLast()
 			final FileName currentFileName = currentFileObject.getName()
 			
 			println currentFileName.getFriendlyURI()
