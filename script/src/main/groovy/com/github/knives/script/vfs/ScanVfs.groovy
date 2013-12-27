@@ -19,11 +19,14 @@ class ScanVfs {
 		}
 		
 		
+		final def localFile = new File(opt.arguments().get(0))
+		if (localFile.exists() == false) {
+			println "${opt.arguments().get(0)} does not exist"
+			return
+		}
+		
 		final FileSystemManager fsManager = VFS.getManager()
-		// TODO: hack add in file:// because gradle screw up mainExec
-		// cannot execute the following command
-		// gradle "mainExec com.github.knives.script.vfs.ScanVfs file:///tmp"
-		final FileObject fileObject = fsManager.resolveFile( 'file://' + opt.arguments().get(0) )
+		final FileObject fileObject = fsManager.toFileObject(localFile)
 		final def queue = [fileObject] as LinkedList<FileObject>
 		
 		while (queue.isEmpty() == false) {
