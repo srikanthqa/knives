@@ -6,8 +6,6 @@ import org.apache.commons.vfs2.FileSystemManager
 import org.apache.commons.vfs2.VFS
 
 class ScanVfs {
-	final public static def ZIP_EXTENSIONS = ['zip', 'jar', 'war', 'ear', 'sar']
-	
 	static main(args) {
 		final def cli = new CliBuilder(usage: 'ScanVfs <url>')
 		cli.h( longOpt: 'help', required: false, 'show usage information' )
@@ -22,7 +20,6 @@ class ScanVfs {
 		
 		
 		final FileSystemManager fsManager = VFS.getManager()
-		
 		// TODO: hack add in file:// because gradle screw up mainExec
 		// cannot execute the following command
 		// gradle "mainExec com.github.knives.script.vfs.ScanVfs file:///tmp"
@@ -36,21 +33,18 @@ class ScanVfs {
 			println currentFileName.getFriendlyURI()
 			
 			if (currentFileObject.isReadable()) {
-				if (currentFileName.getExtension() in ZIP_EXTENSIONS) {
-					final def String aliasFileUri = 'zip:' + currentFileName.getFriendlyURI()
-					final FileObject aliasFileObject = fsManager.resolveFile( aliasFileUri )
-					
-					queue.addAll(aliasFileObject.getChildren())
-					
-				} else if (currentFileObject.getType().hasChildren()) {
-					queue.addAll(currentFileObject.getChildren())
+				final FileObject wrappedFileObject = currentFileObject.with { final FileObject tmpFileObject ->
+					if (fsManager.canCreateFileSystem(tmpFileObject)) {
+						return fsManager.createFileSystem(tmpFileObject)
+					} else {
+						return tmpFileObject
+					}
 				}
 				
-
+				if (wrappedFileObject.getType().hasChildren()) {
+					queue.addAll(wrappedFileObject.getChildren())
+				}
 			}
-
 		}
-		
 	}
-
 }
