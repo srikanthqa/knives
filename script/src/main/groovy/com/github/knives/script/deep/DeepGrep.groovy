@@ -42,13 +42,7 @@ public class DeepGrep {
 					print(currentFileObject)
 				}
 				
-				final FileObject wrappedFileObject = currentFileObject.with { final FileObject tmpFileObject ->
-					if (fsManager.canCreateFileSystem(tmpFileObject)) {
-						return fsManager.createFileSystem(tmpFileObject)
-					} else {
-						return tmpFileObject
-					}
-				}
+				final FileObject wrappedFileObject = DeepUtil.wrapFileObject(fsManager, currentFileObject)
 				
 				if (wrappedFileObject.getType().hasChildren()) {
 					stack.addAll(wrappedFileObject.getChildren())
