@@ -1,19 +1,22 @@
 package com.github.knives.script.deep
 
-import com.github.knives.script.Hash
-import com.github.knives.script.virtualfile.VirtualFile
-import com.github.knives.script.virtualfile.VirtualFileFactory
+import org.apache.commons.vfs2.FileObject
+import org.apache.commons.vfs2.FileSystemManager
+import org.apache.commons.vfs2.VFS
 
 class DeepCompare {
+	final private FileSystemManager fsManager = VFS.getManager()
 	
 	public void compare(final def paths) {
 		
 		final def stacks = paths.collect {
-			final def stack = [] as LinkedList<VirtualFile>
-			stack.push(VirtualFileFactory.createVirtualFile(it))
+			final def localFile = new File(it)
+			final FileObject fileObject = fsManager.toFileObject(localFile)
+			final def stack = [fileObject] as LinkedList<FileObject>
 			return stack
 		}
 		
+		/*
 		while (true) {
 			
 			final def equalies = stacks.collect { final LinkedList<VirtualFile> stack ->
@@ -25,6 +28,7 @@ class DeepCompare {
 			
 			break
 		}
+		*/
 	}
 	
 	public static void main(String[] args) {

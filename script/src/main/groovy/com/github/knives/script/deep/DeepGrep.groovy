@@ -1,28 +1,25 @@
 package com.github.knives.script.deep
-import java.util.zip.ZipEntry
-import java.util.zip.ZipFile
-
-import org.apache.commons.lang3.StringUtils
+import org.apache.commons.vfs2.FileContent
+import org.apache.commons.vfs2.FileName
+import org.apache.commons.vfs2.FileObject
+import org.apache.commons.vfs2.FileSystemManager
+import org.apache.commons.vfs2.VFS
 import org.objectweb.asm.ClassReader
-import org.objectweb.asm.Opcodes
-import org.objectweb.asm.Type
-import org.objectweb.asm.tree.AnnotationNode
 import org.objectweb.asm.tree.ClassNode
-import org.objectweb.asm.tree.FieldNode
-import org.objectweb.asm.tree.MethodNode
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 
 import com.github.knives.script.asm.ClassDecompiler
-import com.github.knives.script.asm.ClassDecompiler.JavaModifier
-import com.github.knives.script.virtualfile.VirtualFile
-import com.github.knives.script.virtualfile.VirtualFileFactory
-import com.github.knives.script.virtualfile.ZipEntryVirtualFile
 
 public class DeepGrep {
+	final private static Logger LOG = LoggerFactory.getLogger(DeepGrep.class)
+	
 	final private static def CLASS_EXTENSION = 'class'
 
 	final private def paths
 	final private def keywords
-
+	final private FileSystemManager fsManager = VFS.getManager()
+	
 	public DeepGrep(def paths, def keywords) {
 		this.paths = paths
 		this.keywords = keywords
@@ -33,47 +30,65 @@ public class DeepGrep {
 	}
 	
 	private void handleRawPath(final String path) {
-		final VirtualFile initialVirtualFile = VirtualFileFactory.createVirtualFile(path)
-		final LinkedList<VirtualFile> toBeProcessedVirtualFiles = new LinkedList<VirtualFile>()
-		toBeProcessedVirtualFiles.push(initialVirtualFile)
+		final def localFile = new File(path)
+		final FileObject fileObject = fsManager.toFileObject(localFile)
+		final def stack = [fileObject] as LinkedList<FileObject>
 		
-		while (toBeProcessedVirtualFiles.isEmpty() == false) {
-			final VirtualFile processedVirtualFile = toBeProcessedVirtualFiles.removeFirst()
-			
-			if (processedVirtualFile.isContainer()) {
-				toBeProcessedVirtualFiles.addAll(processedVirtualFile.getChildren())
-			} else {
-				if (match(processedVirtualFile)) {
-					print(processedVirtualFile)
+		while (stack.isEmpty() == false) {
+			final FileObject currentFileObject = stack.removeLast()
+			if (currentFileObject.exists() && currentFileObject.isReadable()) {
+				
+				if (match(currentFileObject)) {
+					print(currentFileObject)
+				}
+				
+				final FileObject wrappedFileObject = currentFileObject.with { final FileObject tmpFileObject ->
+					if (fsManager.canCreateFileSystem(tmpFileObject)) {
+						return fsManager.createFileSystem(tmpFileObject)
+					} else {
+						return tmpFileObject
+					}
+				}
+				
+				if (wrappedFileObject.getType().hasChildren()) {
+					stack.addAll(wrappedFileObject.getChildren())
 				}
 			}
 		}
 	}
 	
-	public boolean match(final VirtualFile virtualFile) {
-		if (virtualFile.getCanonicalPath().matches(keywords)) return true
-		if (virtualFile.getBaseName().matches(keywords)) return true
-		if (virtualFile.getExtension().equalsIgnoreCase(keywords)) return true
+	public boolean match(final FileObject fileObject) {
+		final FileName fileName = fileObject.getName()
+		
+		if (fileName.getPath().matches(keywords)) return true
+		if (fileName.getBaseName().matches(keywords)) return true
+		if (fileName.getExtension().equalsIgnoreCase(keywords)) return true
 		return false
 	}
 
-	public void print(final VirtualFile virtualFile) {
-		if (virtualFile.getExtension() == CLASS_EXTENSION) {
-			printClassDetail(virtualFile)
+	public void print(final FileObject fileObject) {
+		final FileName fileName = fileObject.getName()
+		
+		if (fileName.getExtension() == CLASS_EXTENSION) {
+			printClassDetail(fileObject)
 		} else {
-			printNonClassDetail(virtualFile)
+			printNonClassDetail(fileObject)
 		}
 	}
 	
-	private void printNonClassDetail(final VirtualFile virtualFile) {
-		println virtualFile.getCanonicalPath()
+	private void printNonClassDetail(final FileObject fileObject) {
+		final FileName fileName = fileObject.getName()
+		println fileName.getURI()
 	}
-
 	
-	private void printClassDetail(final VirtualFile virtualFile) {
-		println virtualFile.getCanonicalPath()
+	private void printClassDetail(final FileObject fileObject) {
+		final FileName fileName = fileObject.getName()
+		final FileContent fileContent = fileObject.getContent()
+		
+		println fileName.getURI()
+		
 		try {
-			final ClassReader reader = new ClassReader(virtualFile.getBytes())
+			final ClassReader reader = new ClassReader(fileContent.getInputStream().getBytes())
 			
 			final ClassNode classNode = new ClassNode()
 			reader.accept(classNode, 0)
