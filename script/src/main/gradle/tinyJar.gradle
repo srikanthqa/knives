@@ -1,0 +1,40 @@
+buildscript {
+	repositories {
+		mavenCentral()
+	}
+	
+	ext {
+		proguardVersion = '4.10'
+	}
+	
+	dependencies {
+		classpath group: 'net.sf.proguard', name: 'proguard-gradle', version: proguardVersion
+	}
+}
+
+/**
+ * NOTE: You have to place it under declared dependencies DSL
+ */
+task tinyJar(type: proguard.gradle.ProGuardTask) {
+	injars jar.archivePath
+	injars configurations.runtime.files
+	outjars project.libsDir.canonicalPath + '/' + project.name  + '-tiny.jar'
+	
+	keep """public class com.github.knives.script.deep.DeepGrep {
+	    public static void main(java.lang.String[]);
+	}"""
+
+	// http://stackoverflow.com/questions/17781664/proguard-for-shrinking-jar-not-correctly-picking-up-dependent-classes
+	// This is the magic line to keep all dependent classes
+	keepclassmembers 'class * { *;}'
+	
+	dontoptimize
+	dontobfuscate
+	dontpreverify
+	verbose
+	printseeds
+	dontwarn
+	dontnote
+	
+	dependsOn jar
+}

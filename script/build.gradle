@@ -109,6 +109,9 @@ dependencies {
 	//compile group: 'com.thinkaurelius.titan', name: 'titan-core', version: titanVersion
 }
 
+apply from: 'src/main/gradle/tinyJar.gradle'
+
+
 compileGroovy {
 	groovyClasspath = configurations.groovyClasspath
 }
