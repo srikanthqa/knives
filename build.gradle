@@ -1,5 +1,5 @@
 apply plugin: 'eclipse'
-apply from: 'script/src/main/gradle/wrapper.gradle'
+apply from: 'gradle/wrapper.gradle'
 
 ext {
 	wrapperVersion = '1.10'

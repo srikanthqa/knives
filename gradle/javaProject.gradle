@@ -1,8 +1,18 @@
 apply plugin: 'java'
+apply plugin: 'maven'
+
+defaultTasks 'clean', 'install'
+
+sourceCompatibility = '1.7'
+targetCompatibility = '1.7'
 
 repositories { 
 	mavenLocal()
 	mavenCentral() 
+}
+
+configurations {
+	compile.exclude group: 'commons-logging', module: 'commons-logging'
 }
 
 ext {

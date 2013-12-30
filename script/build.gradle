@@ -1,15 +1,8 @@
 apply plugin: 'groovy'
-apply plugin: 'maven'
-
-defaultTasks 'install'
-
-sourceCompatibility = '1.7'
-targetCompatibility = '1.7'
+apply from: "$rootDir/gradle/javaProject.gradle"
+apply from: 'src/main/gradle/mainExec.gradle'
 
 repositories {
-	mavenLocal()
-	mavenCentral()
-	
 	maven { url 'https://oss.sonatype.org/content/groups/public' }
 	/*
 	maven { url 'http://repository.jboss.org/maven2-brew/' }
@@ -18,8 +11,6 @@ repositories {
 	*/
 }
 
-apply from: 'src/main/gradle/mainExec.gradle'
-apply from: 'src/main/gradle/basicTestUtils.gradle'
 
 ext {
 	groovyAllVersion = '2.2.1'
@@ -60,8 +51,6 @@ ext {
 
 configurations {
 	groovyClasspath
-	
-	compile.exclude group: 'commons-logging', module: 'commons-logging'
 }
 
 dependencies {
