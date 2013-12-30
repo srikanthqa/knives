@@ -1,5 +1,5 @@
 ext {
-	wrapperVersion = has('wrapperVersion') ? wrapperVersion : '1.8'
+	wrapperVersion = has('wrapperVersion') ? wrapperVersion : '1.10'
 }
 
 task wrapper(type: Wrapper) {

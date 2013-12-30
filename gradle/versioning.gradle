@@ -15,6 +15,7 @@ task listJars << {
         println "Artifact: $it.name"
     }
 }
+
 listJars.dependsOn 'assemble'
 
 class Version {
