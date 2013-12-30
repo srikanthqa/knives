@@ -6,14 +6,10 @@ import org.apache.commons.vfs2.FileSystemManager
 import org.apache.commons.vfs2.VFS
 import org.objectweb.asm.ClassReader
 import org.objectweb.asm.tree.ClassNode
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
 
 import com.github.knives.script.asm.ClassDecompiler
 
 public class DeepGrep {
-	final private static Logger LOG = LoggerFactory.getLogger(DeepGrep.class)
-	
 	final private static def CLASS_EXTENSION = 'class'
 
 	final private def paths

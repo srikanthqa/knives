@@ -60,6 +60,8 @@ ext {
 
 configurations {
 	groovyClasspath
+	
+	compile.exclude group: 'commons-logging', module: 'commons-logging'
 }
 
 dependencies {
@@ -110,7 +112,6 @@ dependencies {
 }
 
 apply from: 'src/main/gradle/tinyJar.gradle'
-
 
 compileGroovy {
 	groovyClasspath = configurations.groovyClasspath
