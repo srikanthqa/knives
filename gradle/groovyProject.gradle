@@ -1,0 +1,8 @@
+apply plugin: 'groovy'
+apply from: "$rootDir/gradle/javaProject.gradle"
+
+tasks.withType(GroovyCompile) {
+	options.encoding = 'utf-8'
+	options.compilerArgs = ['-Xlint:-options']
+	groovyOptions.encoding = 'utf-8'
+}
