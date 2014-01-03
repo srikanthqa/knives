@@ -2,9 +2,11 @@ package com.github.knives.bean.jvm;
 
 import java.util.Arrays;
 import java.util.EnumSet;
+import java.util.List;
 import java.util.Set;
 
 public class JvmMethod {
+	final private List<JvmAnnotation> annotations;
 	final private Set<JvmKeyword> modifiers;
 	final private String returnType;
 	final private String name;

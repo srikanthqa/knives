@@ -1,9 +1,11 @@
 package com.github.knives.bean.jvm;
 
 import java.util.EnumSet;
+import java.util.List;
 import java.util.Set;
 
 public class JvmField {
+	final private List<JvmAnnotation> annotations;
 	final private Set<JvmKeyword> modifiers;
 	final private String type;
 	final private String name;
@@ -26,7 +28,7 @@ public class JvmField {
 		return name;
 	}
 
-	public JvmFieldBuilder create() {
+	public static JvmFieldBuilder create() {
 		return new JvmFieldBuilder();
 	}
 	

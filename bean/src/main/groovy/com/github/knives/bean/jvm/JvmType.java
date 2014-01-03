@@ -1,15 +1,18 @@
 package com.github.knives.bean.jvm;
 
 import java.util.EnumSet;
+import java.util.List;
 import java.util.Set;
-
-import com.github.knives.bean.jvm.JvmMethod.JvmMethodBuilder;
 
 public class JvmType {
 	final private Set<JvmKeyword> modifiers;
 	final private String name;
 	final private String extendedType;
 	final private String[] interfacedType;
+	
+	final private List<JvmAnnotation> annotations;
+	final private List<JvmMethod> methods;
+	final private List<JvmField> fields;
 	
 	private JvmType(Set<JvmKeyword> modifiers, String name,  String extendedType, String[] interfacedType) {
 		this.modifiers = modifiers;
@@ -32,6 +35,10 @@ public class JvmType {
 	
 	public String[] getInterfacedType() {
 		return interfacedType;
+	}
+	
+	public JvmTypeBuilder create() {
+		return new JvmTypeBuilder();
 	}
 	
 	public static class JvmTypeBuilder {
