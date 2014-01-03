@@ -4,14 +4,19 @@ import java.security.MessageDigest
 
 class Hash {
 	
-	public static String md5(byte[] bytes) {
-		final def md5 = MessageDigest.getInstance("MD5")
+	private static String digest(MessageDigest md, byte[] bytes) {
 		final def writer = new StringWriter()
-		
-		md5.update(bytes)
-		md5.digest().encodeHex().writeTo(writer)
-		
+		md.update(bytes)
+		md.digest().encodeHex().writeTo(writer)
 		return writer.toString()
+	}
+	
+	public static String sha1(byte[] bytes) {
+		return digest(MessageDigest.getInstance("SHA-1"), bytes)
+	}
+	
+	public static String md5(byte[] bytes) {
+		return digest(MessageDigest.getInstance("MD5"), bytes)
 	}
 	
 	public static void main(String[] args) {
