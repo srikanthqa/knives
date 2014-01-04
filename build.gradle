@@ -38,4 +38,5 @@ ext {
 	wekaVersion = '3.6.10'
 	commonsCompressVersion = '1.6'
 	commonsVfsVersion = '2.0'
+	commonsCollectionVersion = '3.2.1'
 }

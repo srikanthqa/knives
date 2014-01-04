@@ -1,8 +1,11 @@
 package com.github.knives.bean.jvm;
 
+import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
+
+import org.apache.commons.collections.list.UnmodifiableList;
 
 public class JvmField {
 	final private List<JvmAnnotation> annotations;
@@ -10,16 +13,14 @@ public class JvmField {
 	final private String type;
 	final private String name;
 	
-	private JvmField(Set<JvmKeyword> modifiers, String type, String name) {
+	@SuppressWarnings("unchecked")
+	private JvmField(List<JvmAnnotation> annotations, Set<JvmKeyword> modifiers, String type, String name) {
 		this.modifiers = modifiers;
-		this.type = type;
+		this.type = type; 
 		this.name = name;
+		this.annotations = UnmodifiableList.decorate(annotations);
 	}
 	
-	public Set<JvmKeyword> getModifiers() {
-		return modifiers;
-	}
-
 	public String getType() {
 		return type;
 	}
@@ -28,6 +29,14 @@ public class JvmField {
 		return name;
 	}
 
+	public List<JvmAnnotation> getAnnotations() {
+		return annotations;
+	}
+
+	public Set<JvmKeyword> getModifiers() {
+		return modifiers;
+	}	
+	
 	public static JvmFieldBuilder create() {
 		return new JvmFieldBuilder();
 	}
@@ -36,6 +45,7 @@ public class JvmField {
 		private Set<JvmKeyword> modifiers;
 		private String type;
 		private String name;
+		private List<JvmAnnotation> annotations = new ArrayList<JvmAnnotation>();
 		
 		private JvmFieldBuilder() { }
 		
@@ -54,6 +64,11 @@ public class JvmField {
 			return this;
 		}
 		
+		public JvmFieldBuilder annotate(JvmAnnotation annotation) {
+			annotations.add(annotation);
+			return this;
+		}
+		
 		public JvmFieldBuilder type(String type) {
 			this.type = type;
 			return this;
@@ -63,8 +78,7 @@ public class JvmField {
 			if (name == null) throw new IllegalArgumentException("name cannot be null");
 			if (type == null) throw new IllegalArgumentException("type cannot be null");
 			if (modifiers == null) modifiers = EnumSet.noneOf(JvmKeyword.class);
-			
-			return new JvmField(modifiers, type, name);
+			return new JvmField(annotations, modifiers, type, name);
 		}		
 	}
 	
@@ -72,6 +86,8 @@ public class JvmField {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result
+				+ ((annotations == null) ? 0 : annotations.hashCode());
 		result = prime * result
 				+ ((modifiers == null) ? 0 : modifiers.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
@@ -88,6 +104,11 @@ public class JvmField {
 		if (getClass() != obj.getClass())
 			return false;
 		JvmField other = (JvmField) obj;
+		if (annotations == null) {
+			if (other.annotations != null)
+				return false;
+		} else if (!annotations.equals(other.annotations))
+			return false;
 		if (modifiers == null) {
 			if (other.modifiers != null)
 				return false;

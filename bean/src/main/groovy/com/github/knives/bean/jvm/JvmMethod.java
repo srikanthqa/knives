@@ -1,9 +1,13 @@
 package com.github.knives.bean.jvm;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
+
+import org.apache.commons.collections.list.UnmodifiableList;
+
 
 public class JvmMethod {
 	final private List<JvmAnnotation> annotations;
@@ -12,11 +16,17 @@ public class JvmMethod {
 	final private String name;
 	final private String[] exceptionType;
 
-	private JvmMethod(Set<JvmKeyword> modifiers, String returnType, String name, String[] exceptionType) {
+	@SuppressWarnings("unchecked")
+	private JvmMethod(List<JvmAnnotation> annotations, Set<JvmKeyword> modifiers, String returnType, String name, String[] exceptionType) {
 		this.modifiers = modifiers;
 		this.name = name;
 		this.returnType = returnType;
 		this.exceptionType = exceptionType;
+		this.annotations = UnmodifiableList.decorate(annotations);
+	}
+	
+	public List<JvmAnnotation> getAnnotations() {
+		return annotations;
 	}
 	
 	public Set<JvmKeyword> getModifiers() {
@@ -43,7 +53,7 @@ public class JvmMethod {
 		private Set<JvmKeyword> modifiers;
 		private String returnType;
 		private String[] exceptionType;
-		
+		private List<JvmAnnotation> annotations = new ArrayList<JvmAnnotation>();
 		private JvmMethodBuilder() { }
 		
 		public JvmMethodBuilder name(String name) {
@@ -71,13 +81,18 @@ public class JvmMethod {
 			return this;
 		}
 		
+		public JvmMethodBuilder annotate(JvmAnnotation annotation) {
+			annotations.add(annotation);
+			return this;
+		}
+		
 		public JvmMethod build() {
 			if (name == null) throw new IllegalArgumentException("name cannot be null");
 			if (returnType == null) returnType = "void";
 			if (modifiers == null) modifiers = EnumSet.noneOf(JvmKeyword.class);
 			if (exceptionType == null) exceptionType = new String[]{};
 			
-			return new JvmMethod(modifiers, returnType, name, exceptionType);
+			return new JvmMethod(annotations, modifiers, returnType, name, exceptionType);
 		}
 	}
 	
@@ -85,6 +100,8 @@ public class JvmMethod {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result
+				+ ((annotations == null) ? 0 : annotations.hashCode());
 		result = prime * result + Arrays.hashCode(exceptionType);
 		result = prime * result
 				+ ((modifiers == null) ? 0 : modifiers.hashCode());
@@ -103,6 +120,11 @@ public class JvmMethod {
 		if (getClass() != obj.getClass())
 			return false;
 		JvmMethod other = (JvmMethod) obj;
+		if (annotations == null) {
+			if (other.annotations != null)
+				return false;
+		} else if (!annotations.equals(other.annotations))
+			return false;
 		if (!Arrays.equals(exceptionType, other.exceptionType))
 			return false;
 		if (modifiers == null) {
