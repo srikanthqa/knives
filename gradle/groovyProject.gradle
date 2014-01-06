@@ -6,3 +6,7 @@ tasks.withType(GroovyCompile) {
 	options.compilerArgs = ['-Xlint:-options']
 	groovyOptions.encoding = 'utf-8'
 }
+
+dependencies {
+	compile group: 'org.codehaus.groovy', name: 'groovy-all', version: groovyVersion
+}
