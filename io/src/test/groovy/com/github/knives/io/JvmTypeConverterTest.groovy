@@ -4,15 +4,16 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TemporaryFolder
+import org.junit.runner.RunWith
+import org.mockito.Mock
+import org.mockito.runners.MockitoJUnitRunner
+import org.objectweb.asm.tree.ClassNode
 
+@RunWith(MockitoJUnitRunner.class)
 public class JvmTypeConverterTest {
-	@Rule
-	TemporaryFolder folder = new TemporaryFolder();
 	
-	@Before
-	void beforeTest() {
-		
-	}
+	@Mock
+	ClassNode classNode;
 	
 	@Test
 	void testStaticField() {
@@ -79,5 +80,4 @@ public class JvmTypeConverterTest {
 	void testEnum() {
 		
 	}
-
 }

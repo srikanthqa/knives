@@ -45,7 +45,7 @@ public class JvmType {
 		return interfacedType;
 	}
 	
-	public JvmTypeBuilder create() {
+	public static JvmTypeBuilder create() {
 		return new JvmTypeBuilder();
 	}
 	
