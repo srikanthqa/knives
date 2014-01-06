@@ -1,6 +1,6 @@
 package com.github.knives.bean.jvm;
 
-import org.objectweb.asm.Opcodes;
+import org.objectweb.asm.Opcodes
 
 
 public enum JvmKeyword {
@@ -65,5 +65,61 @@ public enum JvmKeyword {
 
 	public boolean isFieldKeyword() {
 		return fieldKeyword;
+	}	
+	
+	private static List<JvmKeyword> translateAccessToModifiers(int access, Closure filter, Closure tweak) {
+		final def keywords = [] as List<JvmKeyword>
+		
+		JvmKeyword.values().grep(filter).each { JvmKeyword keyword ->
+			if ((access & keyword.getOpcode()) != 0) {
+				keywords << keyword
+			}
+		}
+		
+		return tweak.call(keywords)
+	}	
+	
+	private static List<JvmKeyword> translateAccessToModifiers(int access, Closure filter) {
+		translateAccessToModifiers(access, filter) { }
+	}
+	
+	public static List<JvmKeyword> translateAccessToTypeKeywords(int access) {
+		final def filter = { JvmKeyword keyword -> keyword.isTypeKeyword() }
+		
+		return translateAccessToModifiers(access, filter) { List<JvmKeyword> keywords ->
+			
+			// tweak, interface is actually an abstract class
+			if (JvmKeyword.INTERFACE in keywords) {
+				keywords.remove(JvmKeyword.ABSTRACT)
+			}
+			
+			def defaultType = [JvmKeyword.INTERFACE, JvmKeyword.ENUM, JvmKeyword.ANNOTATION]
+			
+			// tweak, there is no class in Opcodes, because it is by default
+			// everything is a class
+			if (keywords.intersect(defaultType).isEmpty()) {
+				keywords << JvmKeyword.CLASS
+			}
+			
+			// tweak, both annotation and interface show up, so we have to remove
+			// interface when have annotation
+			if (JvmKeyword.ANNOTATION in keywords) {
+				keywords.remove(JvmKeyword.INTERFACE)
+			}
+			
+			return keywords
+		}
+	}
+	
+	public static List<JvmKeyword> translateAccessToMethodKeywords(int access) {
+		final def filter = { JvmKeyword keyword -> keyword.isMethodKeyword() }
+		
+		return translateAccessToModifiers(access, filter)
+	}
+	
+	public static List<JvmKeyword> translateAccessToFieldKeywords(int access) {
+		final def filter = { JvmKeyword keyword -> keyword.isFieldKeyword() }
+		
+		return translateAccessToModifiers(access, filter)
 	}	
 }

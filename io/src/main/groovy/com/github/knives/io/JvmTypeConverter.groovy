@@ -1,16 +1,16 @@
 package com.github.knives.io
 
-import java.io.File
-import java.util.List
-
 import org.apache.commons.lang3.StringUtils
 import org.objectweb.asm.ClassReader
 import org.objectweb.asm.Type
+import org.objectweb.asm.tree.AnnotationNode
 import org.objectweb.asm.tree.ClassNode
+import org.objectweb.asm.tree.FieldNode
 
-import com.github.knives.bean.jvm.JvmAnnotation;
+import com.github.knives.bean.jvm.JvmAnnotation
 import com.github.knives.bean.jvm.JvmConstants
 import com.github.knives.bean.jvm.JvmField
+import com.github.knives.bean.jvm.JvmKeyword;
 import com.github.knives.bean.jvm.JvmMethod
 import com.github.knives.bean.jvm.JvmType
 import com.github.knives.bean.jvm.JvmField.JvmFieldBuilder
@@ -49,12 +49,12 @@ class JvmTypeConverter {
 			jvmTypeBuilder.interfacedType( (classNode.interfaces.collect { Type.getObjectType(it).getClassName() }) as String[] )
 		}
 		
-		classNode.visibleAnnotations.each {
-			JvmAnnotation annotation = JvmAnnotation.create()
-				.name(Type.getObjectType(it).getClassName())
-				.build()
-			
-			jvmTypeBuilder.annotate(annotation)
+		buildAnnotations(classNode.visibleAnnotations) {
+			jvmTypeBuilder.annotate(it)
+		}
+		
+		JvmKeyword.translateAccessToTypeKeywords(classNode.access).each {
+			jvmTypeBuilder.modifiers(it)
 		}
 		
 		buildJvmField(classNode).each {
@@ -68,6 +68,16 @@ class JvmTypeConverter {
 		return jvmTypeBuilder.build()
 	}
 	
+	private void buildAnnotations(List<AnnotationNode> annotations, Closure callback) {
+		annotations.each {
+			final JvmAnnotation annotation = JvmAnnotation.create()
+				.name(Type.getObjectType(it).getClassName())
+				.build()
+			
+			callback(annotation)	
+		}
+	}
+	
 	private List<JvmMethod> buildJvmMethod(final ClassNode classNode) {
 		return classNode.methods.collect {
 			JvmMethodBuilder jvmMethodBuilder = JvmMethod.create()
@@ -77,8 +87,18 @@ class JvmTypeConverter {
 	}
 	
 	private List<JvmField> buildJvmField(final ClassNode classNode) {
-		return classNode.fields.collect {
-			JvmFieldBuilder jvmFieldBuilder = JvmField.create()
+		return classNode.fields.collect { final FieldNode field ->
+			final JvmFieldBuilder jvmFieldBuilder = JvmField.create()
+				.type(Type.getObjectType(field.desc).getClassName())
+				.name(field.name)
+			
+			JvmKeyword.translateAccessToFieldKeywords(field.access).each {
+				jvmFieldBuilder.modifiers(it)
+			}
+			
+			buildAnnotations(field.visibleAnnotations) {
+				jvmFieldBuilder.annotate(it)
+			}
 			
 			jvmFieldBuilder.build()
 		}
