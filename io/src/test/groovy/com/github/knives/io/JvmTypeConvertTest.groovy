@@ -1,23 +1,17 @@
 package com.github.knives.io;
 
-import org.junit.Before
-import org.junit.Rule
-import org.junit.Test
-import org.junit.rules.TemporaryFolder
-import org.junit.runner.RunWith
-import org.mockito.Mock
-import org.mockito.runners.MockitoJUnitRunner
-import org.objectweb.asm.tree.ClassNode
+import static org.junit.Assert.*
 
-@RunWith(MockitoJUnitRunner.class)
-public class JvmTypeConverterTest {
-	
-	@Mock
-	ClassNode classNode;
-	
+import org.junit.Test
+
+import com.github.knives.io.ignore.TestClass
+
+public class JvmTypeConvertTest {
+
 	@Test
 	void testStaticField() {
-		// TODO:
+		def jvmType = new JvmTypeConverter().convert(getClass(TestClass.class))
+		assertEquals(TestClass.class.getCanonicalName(), jvmType.getName())
 	}
 	
 	@Test
@@ -72,7 +66,7 @@ public class JvmTypeConverterTest {
 	}
 	
 	@Test
-	public testArgAnnotation() {
+	void testArgAnnotation() {
 		
 	}
 	
@@ -80,4 +74,11 @@ public class JvmTypeConverterTest {
 	void testEnum() {
 		
 	}
+	
+	private InputStream getClass(Class cls) {
+		String name = cls.getCanonicalName()
+		String resName = '/' + name.replaceAll('\\.', '/') + '.class';
+		return cls.getResourceAsStream(resName);
+	}
+
 }
