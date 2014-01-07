@@ -6,6 +6,7 @@ import org.objectweb.asm.Type
 import org.objectweb.asm.tree.AnnotationNode
 import org.objectweb.asm.tree.ClassNode
 import org.objectweb.asm.tree.FieldNode
+import org.objectweb.asm.tree.MethodNode;
 
 import com.github.knives.bean.jvm.JvmAnnotation
 import com.github.knives.bean.jvm.JvmConstants
@@ -79,8 +80,25 @@ class JvmTypeConverter {
 	}
 	
 	private List<JvmMethod> buildJvmMethod(final ClassNode classNode) {
-		return classNode.methods.collect {
-			JvmMethodBuilder jvmMethodBuilder = JvmMethod.create()
+		return classNode.methods.collect { final MethodNode method ->
+			final String[] argTypes = (Type.getArgumentTypes(method.desc).collect { it.getClassName() }) as String[]
+			final String returnType = Type.getReturnType(method.desc).getClassName()
+			
+			final JvmMethodBuilder jvmMethodBuilder = JvmMethod.create()
+				.returnType(returnType)
+				.name(method.name)
+				
+			if (method.exceptions != null && method.exceptions.isEmpty() == false) {
+				jvmMethodBuilder.exceptionType((method.exceptions.collect { Type.getObjectType(it).getClassName() } ) as String[])
+			 }
+				
+			JvmKeyword.translateAccessToMethodKeywords(method.access).each {
+				jvmMethodBuilder.modifiers(it)
+			}
+			
+			buildAnnotations(method.visibleAnnotations) {
+				jvmMethodBuilder.annotate(it)
+			}
 			
 			jvmMethodBuilder.build()
 		}

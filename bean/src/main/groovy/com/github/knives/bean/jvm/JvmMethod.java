@@ -14,15 +14,17 @@ public class JvmMethod {
 	final private Set<JvmKeyword> modifiers;
 	final private String returnType;
 	final private String name;
+	final private String[] argType;
 	final private String[] exceptionType;
 
 	@SuppressWarnings("unchecked")
-	private JvmMethod(List<JvmAnnotation> annotations, Set<JvmKeyword> modifiers, String returnType, String name, String[] exceptionType) {
+	private JvmMethod(List<JvmAnnotation> annotations, Set<JvmKeyword> modifiers, String returnType, String name, String[] argType, String[] exceptionType) {
 		this.modifiers = modifiers;
 		this.name = name;
 		this.returnType = returnType;
 		this.exceptionType = exceptionType;
 		this.annotations = UnmodifiableList.decorate(annotations);
+		this.argType = argType;
 	}
 	
 	public List<JvmAnnotation> getAnnotations() {
@@ -52,8 +54,10 @@ public class JvmMethod {
 		private String name;
 		private Set<JvmKeyword> modifiers;
 		private String returnType;
+		private String[] argType;
 		private String[] exceptionType;
 		private List<JvmAnnotation> annotations = new ArrayList<JvmAnnotation>();
+		
 		private JvmMethodBuilder() { }
 		
 		public JvmMethodBuilder name(String name) {
@@ -76,6 +80,11 @@ public class JvmMethod {
 			return this;
 		}
 		
+		public JvmMethodBuilder argType(String[] argType) {
+			this.argType = argType;
+			return this;
+		}
+		
 		public JvmMethodBuilder exceptionType(String[] exceptionType) {
 			this.exceptionType = exceptionType;
 			return this;
@@ -91,8 +100,9 @@ public class JvmMethod {
 			if (returnType == null) returnType = "void";
 			if (modifiers == null) modifiers = EnumSet.noneOf(JvmKeyword.class);
 			if (exceptionType == null) exceptionType = new String[]{};
+			if (argType == null) argType = new String[]{};
 			
-			return new JvmMethod(annotations, modifiers, returnType, name, exceptionType);
+			return new JvmMethod(annotations, modifiers, returnType, name, argType, exceptionType);
 		}
 	}
 	
