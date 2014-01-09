@@ -71,10 +71,13 @@ public enum JvmKeyword {
 		final def keywords = [] as List<JvmKeyword>
 		
 		JvmKeyword.values().grep(filter).each { JvmKeyword keyword ->
-			if ((access & keyword.getOpcode()) != 0) {
-				keywords << keyword
+			if (keyword.getOpcode() != null) {
+				if ((access & keyword.getOpcode()) != 0) {
+					keywords << keyword
+				}
 			}
 		}
+			
 		
 		return tweak.call(keywords)
 	}	
