@@ -4,74 +4,48 @@ import static org.junit.Assert.*
 
 import org.junit.Test
 
+import com.github.knives.io.ignore.TestAbstractClass;
+import com.github.knives.io.ignore.TestAnnotation;
 import com.github.knives.io.ignore.TestClass
+import com.github.knives.io.ignore.TestEnum
+import com.github.knives.io.ignore.TestInterface
 
 public class JvmTypeConvertTest {
 
 	@Test
-	void testStaticField() {
+	void testType() {
 		def jvmType = new JvmTypeConverter().convert(getClass(TestClass.class))
 		assertEquals(TestClass.class.getCanonicalName(), jvmType.getName())
-	}
-	
-	@Test
-	void testField() {
 		
 	}
 	
 	@Test
-	void testVoidMethod() {
-		
-	}
-	
-	
-	@Test
-	void testSingleArgMethod() {
-		
-	}
-	
-	@Test
-	void testVaragsMethod() {
-		
-	}
-	
-	@Test
-	void testMultipleArgsMethod() {
-		
-	}
-	
-	@Test
-	void testStaticMethod() {
-		
+	void testInterface() {
+		def jvmType = new JvmTypeConverter().convert(getClass(TestInterface.class))
+		assertEquals(TestInterface.class.getCanonicalName(), jvmType.getName())
 	}
 	
 	@Test 
 	void testAnnotation() {
-		
-	}
-	
-	@Test
-	void testTypeAnnotation() {
-		
-	}
-	
-	@Test
-	void testMethodAnnotation() {
-		
-	}
-	
-	@Test
-	void testFieldAnnotation() {
-		
-	}
-	
-	@Test
-	void testArgAnnotation() {
-		
+		def jvmType = new JvmTypeConverter().convert(getClass(TestAnnotation.class))
+		assertEquals(TestAnnotation.class.getCanonicalName(), jvmType.getName())
 	}
 	
 	@Test
 	void testEnum() {
+		def jvmType = new JvmTypeConverter().convert(getClass(TestEnum.class))
+		assertEquals(TestEnum.class.getCanonicalName(), jvmType.getName())
+		
+	}
+	
+	@Test
+	public testAbstractClass() {
+		def jvmType = new JvmTypeConverter().convert(getClass(TestAbstractClass.class))
+		assertEquals(TestAbstractClass.class.getCanonicalName(), jvmType.getName())
+	}
+	
+	@Test
+	public testExtendedClass() {
 		
 	}
 	
