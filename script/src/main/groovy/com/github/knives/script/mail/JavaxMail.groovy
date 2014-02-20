@@ -12,6 +12,8 @@ public class JavaxMail {
 	public static void main(String[] args) {
 		//parseMM7SubmitRequestmultipart('multipart/related; type="text/xml"; boundary="----=_Part_1_3346521.1256243201592"');
 		buildMM7SubmitRequestmultipart();
+		
+		betterParseMM7SubmitRequestmultipart();
 	}
 
 	public static void buildMM7SubmitRequestmultipart() {
@@ -60,6 +62,29 @@ public class JavaxMail {
 		final MimeMultipart multipart = new MimeMultipart(dataSource);
 		
 		writeToSystem(multipart);
+	}
+	
+	/**
+	 * Parse MineBodyPart, because it is just MineMultipart wrapped by MineBodyPart.
+	 *
+	 * The difference is that MineBodyPart have Content-Type header, while
+	 * MineMultipart does not
+	 */
+	public static void betterParseMM7SubmitRequestmultipart() {
+		final MimeBodyPart mineBodyPart = new MimeBodyPart(System.in);
+		
+		// Multipart.writeTo
+		//mineBodyPart.getContent().writeTo(System.out);
+		
+		// MineBodyPart.writeTo
+		//mineBodyPart.writeTo(System.out);
+		
+		final Multipart multipart = (Multipart)mineBodyPart.getContent();
+		
+		println(multipart.getCount());
+		
+		final BodyPart bodyPart = multipart.getBodyPart(0);
+		println(new String(bodyPart.getInputStream().getBytes()));
 	}
 	
 	public static void writeToSystem(MimeMultipart multipart) {
