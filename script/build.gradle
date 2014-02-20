@@ -3,6 +3,7 @@ apply from: 'src/main/gradle/mainExec.gradle'
 
 repositories {
 	maven { url 'https://oss.sonatype.org/content/groups/public' }
+	maven { url 'http://repo.spring.io/milestone' }
 	/*
 	maven { url 'http://repository.jboss.org/maven2-brew/' }
 	maven { url 'http://repository.jboss.org/nexus/content/groups/public/' }
@@ -54,6 +55,7 @@ dependencies {
 	compile group: 'nz.ac.waikato.cms.weka', name: 'weka-stable', version: wekaVersion
 	compile group: 'org.apache.commons', name: 'commons-compress', version: commonsCompressVersion
 	compile group: 'org.apache.commons', name: 'commons-vfs2', version: commonsVfsVersion
+	compile group: 'javax.mail', name: 'mail', version: javaxMailVersion
 	
 	//compile group: 'org.hornetq', name: 'hornetq-jms-server', version: hornetVersion
 	//compile group: 'org.hornetq', name: 'hornetq-commons', version: hornetVersion

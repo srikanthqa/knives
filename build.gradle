@@ -15,7 +15,7 @@ ext {
 	commonsCodecVersion = '1.8'
 	jgitVersion = '3.1.0.201310021548-r'
 	jlineVersion = '2.11'
-	springBootVersion = '0.5.0.M6'
+	springBootVersion = '1.0.0.RC3'
 	httpcomponentsVersion = '4.3.1'
 	guavaVersion = '15.0'
 	seleniumVersion = '2.37.1'
@@ -39,4 +39,5 @@ ext {
 	commonsCompressVersion = '1.6'
 	commonsVfsVersion = '2.0'
 	commonsCollectionVersion = '3.2.1'
+	javaxMailVersion = '1.4'
 }

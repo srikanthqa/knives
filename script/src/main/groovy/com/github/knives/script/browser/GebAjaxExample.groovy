@@ -1,9 +1,4 @@
 package com.github.knives.script.browser
-@Grapes([
-	@Grab(group = 'org.seleniumhq.selenium', module = 'selenium-java', version = '2.37.1'),
-	@Grab(group = 'org.seleniumhq.selenium', module = 'selenium-firefox-driver', version = '2.37.1'),
-	@Grab(group = 'org.gebish', module = 'geb-core', version = '0.9.2')
-])
 
 import geb.Page
 import geb.Browser
