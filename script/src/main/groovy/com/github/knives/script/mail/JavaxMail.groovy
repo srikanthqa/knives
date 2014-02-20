@@ -10,7 +10,8 @@ import javax.activation.DataSource;
 
 public class JavaxMail {
 	public static void main(String[] args) {
-		parseMM7SubmitRequestmultipart('multipart/related; type="text/xml"; boundary="----=_Part_1_3346521.1256243201592"')
+		//parseMM7SubmitRequestmultipart('multipart/related; type="text/xml"; boundary="----=_Part_1_3346521.1256243201592"');
+		buildMM7SubmitRequestmultipart();
 	}
 
 	public static void buildMM7SubmitRequestmultipart() {
@@ -27,6 +28,8 @@ public class JavaxMail {
 		
 		final MimeBodyPart contentPart = new MimeBodyPart();
 		contentPart.setContent(innerMultipart);
+		contentPart.setHeader("Content-Type", normalizeContentType(innerMultipart.getContentType()));
+		contentPart.setContentID("<generic_content_id>");
 
 		final MimeMultipart outerMultipart = new MimeMultipart("related");
 		outerMultipart.addBodyPart(soapPart);

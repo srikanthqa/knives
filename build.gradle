@@ -40,4 +40,5 @@ ext {
 	commonsVfsVersion = '2.0'
 	commonsCollectionVersion = '3.2.1'
 	javaxMailVersion = '1.4'
+	mine4jVersion = '0.7.2'
 }
