@@ -79,12 +79,25 @@ public class JavaxMail {
 		// MineBodyPart.writeTo
 		//mineBodyPart.writeTo(System.out);
 		
-		final Multipart multipart = (Multipart)mineBodyPart.getContent();
+		final MimeMultipart multipart = (MimeMultipart)mineBodyPart.getContent();
+		//println(mineBodyPart.getContent());
+		//println(multipart.getCount());
 		
-		println(multipart.getCount());
+		//final BodyPart bodyPart = multipart.getBodyPart(0);
+		//println(new String(bodyPart.getInputStream().getBytes()));
 		
-		final BodyPart bodyPart = multipart.getBodyPart(0);
-		println(new String(bodyPart.getInputStream().getBytes()));
+		//println(multipart.getBodyPart(1));
+		
+		final MimeBodyPart attachmentPart = (MimeBodyPart)multipart.getBodyPart(1);
+		
+		final MimeMultipart attachmentMultiPart = (MimeMultipart)attachmentPart.getContent();
+		
+		//println(attachmentMultiPart.getCount());
+		//attachmentMultiPart.writeTo(System.out);
+		
+		//println(attachmentMultiPart.getBodyPart(0));
+		
+		println(attachmentMultiPart.getBodyPart(0).getContent());
 	}
 	
 	public static void writeToSystem(MimeMultipart multipart) {
