@@ -1,0 +1,10 @@
+apply from: "$rootDir/gradle/groovyProject.gradle"
+
+dependencies {
+	compile group: 'jline', name: 'jline', version: jlineVersion
+}
+
+task runJShell(type: JavaExec) {
+	main = 'com.github.knives.jline2.JShellExample'
+	classpath = sourceSets.main.runtimeClasspath
+}

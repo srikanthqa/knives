@@ -9,4 +9,5 @@ tasks.withType(GroovyCompile) {
 
 dependencies {
 	compile group: 'org.codehaus.groovy', name: 'groovy-all', version: groovyVersion
+	runtime group: 'commons-cli', name: 'commons-cli', version: commonsCliVersion
 }

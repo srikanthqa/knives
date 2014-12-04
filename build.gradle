@@ -1,15 +1,13 @@
 apply plugin: 'eclipse'
-apply from: 'gradle/wrapper.gradle'
 
 ext {
-	wrapperVersion = '1.10'
+	wrapperVersion = '2.2.1'
 	
-	groovyAllVersion = '2.2.1'
+	groovyAllVersion = '2.3.8'
 	ivyVersion = '2.3.0'
 	antlrVersion = '4.1'
 	asmVersion = '4.2'
 	camelVersion = '2.12.1'
-	slf4jVersion = '1.7.5'
 	commonsIoVersion = '2.4'
 	commonsLangVersion = '3.1'
 	commonsCodecVersion = '1.8'
@@ -42,3 +40,5 @@ ext {
 	javaxMailVersion = '1.4'
 	mine4jVersion = '0.7.2'
 }
+
+apply from: 'gradle/wrapper.gradle'
