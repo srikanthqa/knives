@@ -1,11 +1,13 @@
 apply from: "$rootDir/gradle/javaProject.gradle"
 
-task buildObjectSizeFetcher(type: Jar) {
+task buildAgent(type: Jar) {
 	manifest {
-		attributes('Premain-Class': 'com.github.knives.instrumentation.ObjectSizeFetcher')
+		attributes('Premain-Class': 'com.github.knives.instrumentation.Agent')
 	}
 	
-	classifier = 'ObjectSizeFetcher'
+	include '**/*Agent'
+	
+	classifier = 'agent'
 }
 
 task buildAll { }

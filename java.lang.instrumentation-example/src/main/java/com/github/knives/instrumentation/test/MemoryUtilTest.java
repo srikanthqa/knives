@@ -1,11 +1,11 @@
 package com.github.knives.instrumentation.test;
 
-import com.github.knives.instrumentation.ObjectSizeFetcher;
+import com.github.knives.instrumentation.utils.MemoryUtil;
 
-public class ObjectSizeFetcherTest {
+public class MemoryUtilTest {
 
     public static void main(String [] args) {
-        System.out.println(ObjectSizeFetcher.getObjectSize(new Square(5,5)));
+        System.out.println(MemoryUtil.memoryUsageOf(new Square(5,5)));
     }
     
     public static class Square {

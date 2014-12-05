@@ -7,14 +7,19 @@ import java.lang.instrument.Instrumentation;
  * 
  * Simply get the instrumentation injection
  */
-public class ObjectSizeFetcher {
+public class Agent {
     private static Instrumentation instrumentation;
 
-    public static void premain(String args, Instrumentation inst) {
+	public static void premain(String args, Instrumentation inst) {
         instrumentation = inst;
     }
+	
 
-    public static long getObjectSize(Object o) {
-        return instrumentation.getObjectSize(o);
-    }
+    public static Instrumentation getInstrumentation() {
+    	if (instrumentation == null) {
+    		throw new IllegalStateException("instrumentation is not initialize, please run with -javaagent:Agent.jar");
+    	}
+		return instrumentation;
+	}
+
 }
