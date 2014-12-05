@@ -1,19 +1,21 @@
-package com.github.knives.script.java
+package com.github.knives.javax.tools;
 
-import javax.tools.Diagnostic
+import java.io.IOException;
+import java.net.URI;
+import java.util.Arrays;
+import java.util.Locale;
 
-import javax.tools.Diagnostic
-import javax.tools.DiagnosticCollector
-import javax.tools.JavaCompiler
-import javax.tools.JavaFileObject
-import javax.tools.SimpleJavaFileObject
-import javax.tools.StandardJavaFileManager
-import javax.tools.ToolProvider
-import javax.tools.JavaCompiler.CompilationTask
-import javax.tools.JavaFileObject.Kind
+import javax.tools.Diagnostic;
+import javax.tools.DiagnosticCollector;
+import javax.tools.JavaCompiler;
+import javax.tools.JavaCompiler.CompilationTask;
+import javax.tools.JavaFileObject;
+import javax.tools.SimpleJavaFileObject;
+import javax.tools.StandardJavaFileManager;
+import javax.tools.ToolProvider;
 
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Copy and paste directly from: http://www.accordess.com/wpblog/an-overview-of-java-compilation-api-jsr-199/
@@ -21,8 +23,8 @@ import org.slf4j.LoggerFactory
  * 
   * A test class to test dynamic compilation API.
   */
-public class CompilerAPITest {
-	final private static Logger logger = LoggerFactory.getLogger(CompilerAPITest.class) ;
+public class CompileJavaSource {
+	final private static Logger logger = LoggerFactory.getLogger(CompileJavaSource.class) ;
 
 	/**Java source code to be compiled dynamically*/
 	static String sourceCode = "package com.accordess.ca;" +
@@ -37,7 +39,7 @@ public class CompilerAPITest {
 	public void doCompilation (){
 		/*Creating dynamic java source code file object*/
 		SimpleJavaFileObject fileObject = new DynamicJavaSourceCodeObject ("com.accordess.ca.DynamicCompilationHelloWorld", sourceCode) ;
-		JavaFileObject[] javaFileObjects = [fileObject] as JavaFileObject[];
+		JavaFileObject[] javaFileObjects = new JavaFileObject[] { fileObject };
 		
 		/*Instantiating the java compiler*/
 		JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
@@ -54,7 +56,7 @@ public class CompilerAPITest {
 
 		/*Prepare any compilation options to be used during compilation*/
 		//In this example, we are asking the compiler to place the output files under bin folder.
-		String[] compileOptions = ["-d", "bin"] as String[] ;
+		String[] compileOptions = new String[] {"-d", "bin"};
 		Iterable<String> compilationOptionss = Arrays.asList(compileOptions);
 
 		/*Create a diagnostic controller, which holds the compilation problems*/
@@ -80,7 +82,7 @@ public class CompilerAPITest {
 	}
 
 	public static void main(String[] args){
-		new CompilerAPITest ().doCompilation() ;
+		new CompileJavaSource ().doCompilation() ;
 	}
 
 }
