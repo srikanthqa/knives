@@ -1,10 +1,15 @@
 apply from: "$rootDir/gradle/groovyProject.gradle"
+apply plugin: 'application'
+apply from: "$rootDir/gradle/shadowJar.gradle"
+apply from: "$rootDir/gradle/oneJar.gradle"
+
 
 dependencies {
 	compile group: 'jline', name: 'jline', version: jlineVersion
 }
 
-task runJShell(type: JavaExec) {
-	main = 'com.github.knives.jline2.JShellExample'
-	classpath = sourceSets.main.runtimeClasspath
+mainClassName = 'com.github.knives.jline2.JShell'
+
+task oneJar(type: OneJar) {
+	mainClass = 'com.github.knives.jline2.JShell'
 }

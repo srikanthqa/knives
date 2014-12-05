@@ -1,0 +1,16 @@
+/**
+ * https://github.com/johnrengelman/shadow
+ * 
+ * Create a far jar by repacking all classes in dependencies jar
+ * 
+ * This approach tends to be fragile and slow, and can suffer from duplicate resource issues.
+ * 
+ * @see oneJar.gradle
+ */
+
+buildscript {
+	repositories { jcenter() }
+	dependencies { classpath 'com.github.jengelman.gradle.plugins:shadow:1.2.0' }
+}
+
+apply plugin: com.github.jengelman.gradle.plugins.shadow.ShadowPlugin
