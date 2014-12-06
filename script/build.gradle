@@ -42,8 +42,6 @@ dependencies {
 	compile group: 'commons-codec', name: 'commons-codec', version: commonsCodecVersion
 	compile group: 'com.icegreen', name: 'greenmail', version: iceGreenVersion
 	compile group: 'org.apache.ftpserver', name: 'ftpserver-core', version: ftpServerVersion
-	compile group: 'javax.activation', name: 'activation', version: javaxActivationVersion
-	compile group: 'javax.mail', name: 'mail', version: javaxMailVersion
 	compile group: 'dumbster', name: 'dumbster', version: dumbsterVersion
 	compile group: 'org.apache.sshd', name: 'sshd-core', version: sshdVersion
 	compile group: 'org.apache.httpcomponents', name: 'httpclient', version: httpcomponentsVersion

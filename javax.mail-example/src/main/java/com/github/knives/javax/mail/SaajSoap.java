@@ -1,44 +1,45 @@
-package com.github.knives.script.mail
+package com.github.knives.javax.mail;
+
+import java.util.Iterator;
 
 import javax.xml.soap.MessageFactory;
-import javax.xml.soap.SOAPMessage;
-import javax.xml.soap.SOAPHeader;
-import javax.xml.soap.SOAPBody;
-import javax.xml.soap.SOAPEnvelope;
-import javax.xml.soap.Name;
-import javax.xml.soap.SOAPElement;
-import javax.xml.soap.AttachmentPart;
 import javax.xml.soap.MimeHeaders;
+import javax.xml.soap.SOAPBody;
+import javax.xml.soap.SOAPElement;
+import javax.xml.soap.SOAPEnvelope;
+import javax.xml.soap.SOAPHeader;
+import javax.xml.soap.SOAPMessage;
 import javax.xml.soap.Text;
 
-class SaajSoap {
-	public static void main(String[] args) {
+public class SaajSoap {
+	public static void main(String[] args) throws Exception {
 		//buildMM7Soap();
 		parseMM7Soap();
 	}
 	
-	public static void parseMM7Soap() {
+	public static void parseMM7Soap() throws Exception {
 		final MessageFactory messageFactory = MessageFactory.newInstance();
 		final SOAPMessage soapMessage = messageFactory.createMessage(new MimeHeaders(), System.in);
 		
 		final SOAPHeader soapHeader = soapMessage.getSOAPHeader();
-		soapHeader.getChildElements().each { element ->
-			switch (element) {
-				case Text:
-					println(element.getValue());
-					break;
-				case SOAPElement:
-					println(element.getNodeName())
-				default:
-					println (element.getClass());
-				
+		
+		Iterator<?> iter = soapHeader.getChildElements();
+		
+		while (iter.hasNext()) {
+			Object element = iter.next();
+			if (element instanceof Text) {
+				System.out.println(((Text)element).getValue());
+			} else if (element instanceof SOAPElement) {
+				System.out.println(((SOAPElement) element).getNodeName());
+			} else {
+				System.out.println(element.getClass());				
 			}
 		}
-		
+					
 		soapMessage.writeTo(System.out);
 	}
 	
-	public static void buildMM7Soap() {
+	public static void buildMM7Soap() throws Exception {
 		final MessageFactory messageFactory = MessageFactory.newInstance();
 		final SOAPMessage soapMessage = messageFactory.createMessage();
 		final SOAPEnvelope soapEnvelope = soapMessage.getSOAPPart().getEnvelope();

@@ -1,22 +1,19 @@
-package com.github.knives.script.mail;
+package com.github.knives.javax.mail;
 
-import java.util.Properties;
-
-import javax.mail.*;
-import javax.mail.internet.*;
-import javax.mail.internet.MimeMessage;
-import javax.mail.util.ByteArrayDataSource;
 import javax.activation.DataSource;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMultipart;
+import javax.mail.util.ByteArrayDataSource;
 
 public class JavaxMail {
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		//parseMM7SubmitRequestmultipart('multipart/related; type="text/xml"; boundary="----=_Part_1_3346521.1256243201592"');
 		buildMM7SubmitRequestmultipart();
 		
 		betterParseMM7SubmitRequestmultipart();
 	}
 
-	public static void buildMM7SubmitRequestmultipart() {
+	public static void buildMM7SubmitRequestmultipart() throws Exception {
 		final MimeBodyPart soapPart = new MimeBodyPart();
 		soapPart.setContent("soap part", "text/xml");
 		soapPart.setContentID("<mm7-deliver>");
@@ -40,7 +37,7 @@ public class JavaxMail {
 		writeToSystem(outerMultipart);
 	}
 
-	public static void buildMM7DeliverRequestMultipart() {
+	public static void buildMM7DeliverRequestMultipart() throws Exception {
 		final MimeBodyPart soapPart = new MimeBodyPart();
 		soapPart.setContent("soap part", "text/xml");
 		soapPart.setContentID("<mm7-deliver>");
@@ -57,7 +54,7 @@ public class JavaxMail {
 		return contentType.replaceAll( "\r", "" ).replaceAll( "\n", "" ).replaceAll( "\t", "" );
 	}
 	
-	public static void parseMM7SubmitRequestmultipart(String type) {
+	public static void parseMM7SubmitRequestmultipart(String type) throws Exception {
 		final DataSource dataSource = new ByteArrayDataSource(System.in, type);
 		final MimeMultipart multipart = new MimeMultipart(dataSource);
 		
@@ -70,7 +67,7 @@ public class JavaxMail {
 	 * The difference is that MineBodyPart have Content-Type header, while
 	 * MineMultipart does not
 	 */
-	public static void betterParseMM7SubmitRequestmultipart() {
+	public static void betterParseMM7SubmitRequestmultipart() throws Exception {
 		final MimeBodyPart mineBodyPart = new MimeBodyPart(System.in);
 		
 		// Multipart.writeTo
@@ -80,27 +77,27 @@ public class JavaxMail {
 		//mineBodyPart.writeTo(System.out);
 		
 		final MimeMultipart multipart = (MimeMultipart)mineBodyPart.getContent();
-		//println(mineBodyPart.getContent());
-		//println(multipart.getCount());
+		//System.out.println(mineBodyPart.getContent());
+		//System.out.println(multipart.getCount());
 		
 		//final BodyPart bodyPart = multipart.getBodyPart(0);
-		//println(new String(bodyPart.getInputStream().getBytes()));
+		//System.out.println(new String(bodyPart.getInputStream().getBytes()));
 		
-		//println(multipart.getBodyPart(1));
+		//System.out.println(multipart.getBodyPart(1));
 		
 		final MimeBodyPart attachmentPart = (MimeBodyPart)multipart.getBodyPart(1);
 		
 		final MimeMultipart attachmentMultiPart = (MimeMultipart)attachmentPart.getContent();
 		
-		//println(attachmentMultiPart.getCount());
+		//System.out.println(attachmentMultiPart.getCount());
 		//attachmentMultiPart.writeTo(System.out);
 		
-		//println(attachmentMultiPart.getBodyPart(0));
+		//System.out.println(attachmentMultiPart.getBodyPart(0));
 		
-		println(attachmentMultiPart.getBodyPart(0).getContent());
+		System.out.println(attachmentMultiPart.getBodyPart(0).getContent());
 	}
 	
-	public static void writeToSystem(MimeMultipart multipart) {
+	public static void writeToSystem(MimeMultipart multipart) throws Exception {
 		System.out.println("Content-Type: " + normalizeContentType(multipart.getContentType()));
 		System.out.println();
 		multipart.writeTo(System.out);
