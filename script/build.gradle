@@ -48,7 +48,6 @@ dependencies {
 	compile group: 'net.sf.proguard', name: 'proguard-base', version: proguardVersion
 	compile group: 'org.bouncycastle', name: 'bcprov-jdk15on', version: bouncyCastleVersion
 	compile group: 'commons-cli', name: 'commons-cli', version: commonsCliVersion
-	compile group: 'org.apache.mina', name: 'mina-statemachine', version: minaVersion
 	compile group: 'nz.ac.waikato.cms.weka', name: 'weka-stable', version: wekaVersion
 	compile group: 'org.apache.commons', name: 'commons-compress', version: commonsCompressVersion
 	compile group: 'org.apache.commons', name: 'commons-vfs2', version: commonsVfsVersion

@@ -1,11 +1,11 @@
-package com.github.knives.script.mina
+package com.github.knives.mina;
 
-import org.apache.mina.statemachine.StateMachineFactory
-import org.apache.mina.statemachine.StateMachineProxyBuilder
-import org.apache.mina.statemachine.annotation.State
-import org.apache.mina.statemachine.annotation.Transition
-import org.apache.mina.statemachine.annotation.Transitions
-import org.apache.mina.statemachine.StateMachine
+import org.apache.mina.statemachine.StateMachine;
+import org.apache.mina.statemachine.StateMachineFactory;
+import org.apache.mina.statemachine.StateMachineProxyBuilder;
+import org.apache.mina.statemachine.annotation.State;
+import org.apache.mina.statemachine.annotation.Transition;
+import org.apache.mina.statemachine.annotation.Transitions;
 
 /**
  * http://mina.apache.org/mina-project/userguide/ch14-state-machine/ch14-state-machine.html
@@ -31,10 +31,10 @@ class MinaStateMachine {
 			System.out.println("Tape '" + nameOfTape + "' loaded");
 		}
 	
-		@Transitions([
+		@Transitions({
 			@Transition(on = "play", in = TapeDeckHandler.LOADED, next = TapeDeckHandler.PLAYING),
 			@Transition(on = "play", in = TapeDeckHandler.PAUSED, next = TapeDeckHandler.PLAYING)
-		])
+		})
 		public void playTape() {
 			System.out.println("Playing tape");
 		}
@@ -55,7 +55,7 @@ class MinaStateMachine {
 		}
 	}
 	
-	static main(args) {
+	public static void main(String[] args) {
 		TapeDeckHandler handler = new TapeDeckHandler();
 		StateMachine sm = StateMachineFactory.getInstance(Transition.class).create(TapeDeckHandler.EMPTY, handler);
 		TapeDeck deck = new StateMachineProxyBuilder().create(TapeDeck.class, sm);
@@ -69,3 +69,4 @@ class MinaStateMachine {
 	}
 
 }
+
