@@ -39,6 +39,7 @@ ext {
 	commonsCollectionVersion = '3.2.1'
 	javaxMailVersion = '1.4'
 	mine4jVersion = '0.7.2'
+	functionalJavaVersion = '4.1'
 }
 
 apply from: 'gradle/wrapper.gradle'
