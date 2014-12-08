@@ -28,7 +28,6 @@ dependencies {
 	compile group: 'org.slf4j', name: 'slf4j-simple', version: slf4jVersion
 	compile group: 'commons-io', name: 'commons-io', version: commonsIoVersion
 	compile group: 'org.apache.commons', name: 'commons-lang3', version: commonsLangVersion
-	compile group: 'org.eclipse.jgit', name: 'org.eclipse.jgit', version: jgitVersion
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: springBootVersion
 	compile group: 'org.apache.httpcomponents', name: 'fluent-hc', version: httpcomponentsVersion
 	compile group: 'com.google.guava', name: 'guava', version: guavaVersion

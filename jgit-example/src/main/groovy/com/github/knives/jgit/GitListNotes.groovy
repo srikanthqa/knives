@@ -1,4 +1,4 @@
-package com.github.knives.script.git
+package com.github.knives.jgit
 import org.eclipse.jgit.api.Git
 import org.eclipse.jgit.lib.ObjectLoader
 import org.eclipse.jgit.lib.Repository

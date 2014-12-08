@@ -11,7 +11,7 @@ ext {
 	commonsIoVersion = '2.4'
 	commonsLangVersion = '3.1'
 	commonsCodecVersion = '1.8'
-	jgitVersion = '3.1.0.201310021548-r'
+	jgitVersion = '3.5.2.201411120430-r'
 	jlineVersion = '2.11'
 	springBootVersion = '1.0.0.RC3'
 	httpcomponentsVersion = '4.3.1'

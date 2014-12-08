@@ -1,0 +1,8 @@
+apply from: "$rootDir/gradle/groovyProject.gradle"
+apply from: "$rootDir/gradle/oneJar.gradle"
+
+dependencies {
+	compile group: 'org.eclipse.jgit', name: 'org.eclipse.jgit', version: jgitVersion
+	compile group: 'org.eclipse.jgit', name: 'org.eclipse.jgit.ui', version: jgitVersion
+	testCompile group: 'org.eclipse.jgit', name: 'org.eclipse.jgit.junit', version: jgitVersion
+}
