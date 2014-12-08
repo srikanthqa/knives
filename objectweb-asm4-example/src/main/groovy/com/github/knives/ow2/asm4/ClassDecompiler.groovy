@@ -1,4 +1,4 @@
-package com.github.knives.script.asm
+package com.github.knives.ow2.asm4
 
 import org.apache.commons.lang3.StringUtils
 import org.objectweb.asm.Opcodes

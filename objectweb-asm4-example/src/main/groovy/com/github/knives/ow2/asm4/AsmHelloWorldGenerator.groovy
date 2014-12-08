@@ -1,4 +1,4 @@
-package com.github.knives.script.asm
+package com.github.knives.ow2.asm4
 /**
  * Copy and paste from the following link
  * 

@@ -1,0 +1,8 @@
+apply from: "$rootDir/gradle/groovyProject.gradle"
+apply from: "$rootDir/gradle/oneJar.gradle"
+
+dependencies {
+	compile group: 'org.ow2.asm', name: 'asm', version: asmVersion
+	compile group: 'org.ow2.asm', name: 'asm-util', version: asmVersion
+	compile group: 'org.ow2.asm', name: 'asm-tree', version: asmVersion
+}

@@ -1,4 +1,4 @@
-package com.github.knives.script.asm
+package com.github.knives.ow2.asm4
 /**
  * Copy and paste with minor tweak to show example how to use asm tree api
  * http://www.geekyarticles.com/2011/10/manipulating-java-class-files-with-asm_13.html
