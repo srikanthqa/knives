@@ -51,8 +51,6 @@ dependencies {
 	compile group: 'org.apache.commons', name: 'commons-compress', version: commonsCompressVersion
 	compile group: 'org.apache.commons', name: 'commons-vfs2', version: commonsVfsVersion
 	compile group: 'javax.mail', name: 'mail', version: javaxMailVersion
-	compile group: 'org.apache.james', name: 'apache-mime4j-core', version: mine4jVersion
-	
 	
 	//compile group: 'org.hornetq', name: 'hornetq-jms-server', version: hornetVersion
 	//compile group: 'org.hornetq', name: 'hornetq-commons', version: hornetVersion

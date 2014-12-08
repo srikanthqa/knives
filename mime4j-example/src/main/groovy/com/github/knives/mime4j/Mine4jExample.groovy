@@ -1,4 +1,4 @@
-package com.github.knives.script.mail
+package com.github.knives.mime4j
 
 import org.apache.james.mime4j.MimeException;
 import org.apache.james.mime4j.parser.ContentHandler;
