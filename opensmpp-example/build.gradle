@@ -1,0 +1,10 @@
+apply from: "$rootDir/gradle/groovyProject.gradle"
+apply from: "$rootDir/gradle/oneJar.gradle"
+
+dependencies {
+	compile group: 'org.opensmpp', name: 'opensmpp-core', version: openSmppVersion
+	compile group: 'org.opensmpp', name: 'opensmpp-sim', version: openSmppVersion
+	compile group: 'org.opensmpp', name: 'opensmpp-client', version: openSmppVersion
+	compile group: 'commons-codec', name: 'commons-codec', version: commonsCodecVersion
+	
+}

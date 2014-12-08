@@ -1,4 +1,4 @@
-package com.github.knives.script.smpp
+package com.github.knives.opensmpp
 import org.smpp.pdu.SubmitSM
 import org.smpp.pdu.Address
 import org.smpp.Data

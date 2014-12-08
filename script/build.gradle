@@ -35,9 +35,6 @@ dependencies {
 	compile group: 'org.seleniumhq.selenium', name: 'selenium-firefox-driver', version: seleniumVersion
 	compile group: 'org.gebish', name: 'geb-core', version: gebVersion
 	compile group: 'org.mozilla', name: 'rhino', version: rhinoVersion
-	compile group: 'org.opensmpp', name: 'opensmpp-core', version: openSmppVersion
-	compile group: 'org.opensmpp', name: 'opensmpp-sim', version: openSmppVersion
-	compile group: 'org.opensmpp', name: 'opensmpp-client', version: openSmppVersion
 	compile group: 'commons-codec', name: 'commons-codec', version: commonsCodecVersion
 	compile group: 'com.icegreen', name: 'greenmail', version: iceGreenVersion
 	compile group: 'org.apache.ftpserver', name: 'ftpserver-core', version: ftpServerVersion
