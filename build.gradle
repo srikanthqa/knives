@@ -3,7 +3,8 @@ apply plugin: 'eclipse'
 ext {
 	wrapperVersion = '2.2.1'
 	
-	groovyAllVersion = '2.3.8'
+	groovyVersion = '2.3.8'
+	
 	ivyVersion = '2.3.0'
 	antlrVersion = '4.1'
 	asmVersion = '4.2'
@@ -30,7 +31,6 @@ ext {
 	sshdVersion = '0.9.0'
 	proguardVersion = '4.10'
 	bouncyCastleVersion = '1.49'
-	groovyVersion = '2.2.1'
 	commonsCliVersion = '1.2'
 	minaVersion = '2.0.7'
 	wekaVersion = '3.6.10'

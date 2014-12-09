@@ -1,4 +1,4 @@
-package com.github.knives.script
+package com.github.knives.bouncycastle
 /**
  * http://waheedtechblog.blogspot.com/2012/10/how-to-create-self-signed-certificates.html
  */

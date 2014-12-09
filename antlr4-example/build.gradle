@@ -1,0 +1,17 @@
+apply from: "$rootDir/gradle/javaProject.gradle"
+apply from: "$rootDir/gradle/oneJar.gradle"
+
+dependencies {
+	compile group: 'org.antlr', name: 'antlr4', version: antlrVersion
+	compile group: 'org.antlr', name: 'antlr4-runtime', version: antlrVersion
+}
+
+task antlr4(type: JavaExec) {
+	classpath = configurations.runtime
+	main = 'org.antlr.v4.Tool'
+}
+
+task grun(type: JavaExec) {
+	classpath = configurations.runtime
+	main = 'org.antlr.v4.runtime.misc.TestRig'
+}

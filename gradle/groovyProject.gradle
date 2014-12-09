@@ -7,7 +7,18 @@ tasks.withType(GroovyCompile) {
 	groovyOptions.encoding = 'utf-8'
 }
 
+configurations {
+	groovyClasspath
+}
+
+
 dependencies {
+	groovyClasspath group: 'org.apache.ivy', name: 'ivy', version: ivyVersion
+	
 	compile group: 'org.codehaus.groovy', name: 'groovy-all', version: groovyVersion
 	runtime group: 'commons-cli', name: 'commons-cli', version: commonsCliVersion
+}
+
+compileGroovy {
+	groovyClasspath = configurations.groovyClasspath
 }

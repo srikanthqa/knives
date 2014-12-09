@@ -11,21 +11,13 @@ repositories {
 	*/
 }
 
-configurations {
-	groovyClasspath
-}
+
 
 dependencies {
-	groovyClasspath group: 'org.apache.ivy', name: 'ivy', version: ivyVersion
-	
-	compile group: 'org.codehaus.groovy', name: 'groovy-all', version: groovyVersion
-	compile group: 'org.antlr', name: 'antlr4', version: antlrVersion
-	compile group: 'org.antlr', name: 'antlr4-runtime', version: antlrVersion
 	compile group: 'org.ow2.asm', name: 'asm', version: asmVersion
 	compile group: 'org.ow2.asm', name: 'asm-util', version: asmVersion
 	compile group: 'org.ow2.asm', name: 'asm-tree', version: asmVersion
 	compile group: 'org.apache.camel', name: 'camel-core', version: camelVersion
-	compile group: 'org.slf4j', name: 'slf4j-simple', version: slf4jVersion
 	compile group: 'commons-io', name: 'commons-io', version: commonsIoVersion
 	compile group: 'org.apache.commons', name: 'commons-lang3', version: commonsLangVersion
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: springBootVersion
@@ -42,7 +34,6 @@ dependencies {
 	compile group: 'org.apache.sshd', name: 'sshd-core', version: sshdVersion
 	compile group: 'org.apache.httpcomponents', name: 'httpclient', version: httpcomponentsVersion
 	compile group: 'net.sf.proguard', name: 'proguard-base', version: proguardVersion
-	compile group: 'org.bouncycastle', name: 'bcprov-jdk15on', version: bouncyCastleVersion
 	compile group: 'commons-cli', name: 'commons-cli', version: commonsCliVersion
 	compile group: 'nz.ac.waikato.cms.weka', name: 'weka-stable', version: wekaVersion
 	compile group: 'org.apache.commons', name: 'commons-compress', version: commonsCompressVersion
@@ -54,6 +45,3 @@ dependencies {
 	//compile group: 'com.thinkaurelius.titan', name: 'titan-core', version: titanVersion
 }
 
-compileGroovy {
-	groovyClasspath = configurations.groovyClasspath
-}

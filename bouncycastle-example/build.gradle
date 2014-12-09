@@ -1,0 +1,6 @@
+apply from: "$rootDir/gradle/groovyProject.gradle"
+apply from: "$rootDir/gradle/oneJar.gradle"
+
+dependencies {
+	compile group: 'org.bouncycastle', name: 'bcprov-jdk15on', version: bouncyCastleVersion
+}
