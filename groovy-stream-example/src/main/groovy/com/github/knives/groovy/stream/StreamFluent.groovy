@@ -1,6 +1,4 @@
-@Grapes([
-	@Grab(group='com.bloidonia', module='groovy-stream', version='0.6.2')
-])
+package com.github.knives.groovy.stream
 
 import groovy.stream.Stream
 

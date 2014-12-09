@@ -41,6 +41,7 @@ ext {
 	mine4jVersion = '0.7.2'
 	functionalJavaVersion = '4.1'
 	blueprintsVersion = '2.6.0'
+	groovyStreamVersion = '0.8.1'
 }
 
 apply from: 'gradle/wrapper.gradle'
