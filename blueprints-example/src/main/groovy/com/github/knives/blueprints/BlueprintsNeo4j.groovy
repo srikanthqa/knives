@@ -1,7 +1,4 @@
-@Grapes([
-	@Grab(group='com.tinkerpop.blueprints', module='blueprints-core', version='2.4.0'),
-	@Grab(group='com.tinkerpop.blueprints', module='blueprints-neo4j-graph', version='2.4.0')
-])
+package com.github.knives.blueprints
 
 import com.tinkerpop.blueprints.impls.neo4j.Neo4jGraph
 import com.tinkerpop.blueprints.Graph

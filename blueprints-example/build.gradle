@@ -1,0 +1,7 @@
+apply from: "$rootDir/gradle/groovyProject.gradle"
+apply from: "$rootDir/gradle/oneJar.gradle"
+
+dependencies {
+	compile group: 'com.tinkerpop.blueprints', name: 'blueprints-core', version: blueprintsVersion
+	compile group: 'com.tinkerpop.blueprints', name: 'blueprints-neo4j-graph', version: blueprintsVersion
+}

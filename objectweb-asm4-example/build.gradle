@@ -5,4 +5,6 @@ dependencies {
 	compile group: 'org.ow2.asm', name: 'asm', version: asmVersion
 	compile group: 'org.ow2.asm', name: 'asm-util', version: asmVersion
 	compile group: 'org.ow2.asm', name: 'asm-tree', version: asmVersion
+	compile group: 'org.apache.commons', name: 'commons-lang3', version: commonsLangVersion
+	
 }
