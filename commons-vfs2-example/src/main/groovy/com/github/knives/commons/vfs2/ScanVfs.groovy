@@ -1,4 +1,4 @@
-package com.github.knives.script.vfs
+package com.github.knives.commons.vfs2
 
 import org.apache.commons.vfs2.FileName
 import org.apache.commons.vfs2.FileObject
