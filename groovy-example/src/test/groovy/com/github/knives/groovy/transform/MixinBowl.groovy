@@ -1,3 +1,5 @@
+package com.github.knives.groovy.transform
+
 /**
  * Category annotation can only apply on a single class unlike 'static method way'
  * However, you can still use @Category with 'use' keyword.

@@ -1,3 +1,5 @@
+package com.github.knives.groovy.transform
+
 import groovy.transform.WithReadLock
 import groovy.transform.WithWriteLock
 

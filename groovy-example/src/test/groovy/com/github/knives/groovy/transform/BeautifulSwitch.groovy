@@ -1,3 +1,5 @@
+package com.github.knives.groovy.transform
+
 def testSwitch(val) {
 	def result
 	switch (val) {

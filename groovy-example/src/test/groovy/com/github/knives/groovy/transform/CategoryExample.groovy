@@ -1,3 +1,5 @@
+package com.github.knives.groovy.transform
+
 /**
  * Use unobtrusive category in groovy
  */

@@ -46,3 +46,7 @@ tasks.withType(PlatformJavaCompile) {
 	options.encoding = 'utf-8'
 	options.compilerArgs = ['-Xlint:-options']
 }
+
+test {
+	testLogging.showStandardStreams = true
+}

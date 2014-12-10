@@ -1,3 +1,5 @@
+package com.github.knives.groovy.transform
+
 import groovy.transform.ToString
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.Immutable

@@ -1,3 +1,5 @@
+package com.github.knives.groovy.transform
+
 import java.util.concurrent.locks.Lock
 import java.util.concurrent.locks.ReentrantLock
 

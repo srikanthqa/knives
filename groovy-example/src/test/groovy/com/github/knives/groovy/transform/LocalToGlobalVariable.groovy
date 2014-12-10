@@ -1,3 +1,5 @@
+package com.github.knives.groovy.transform
+
 import groovy.transform.Field
 
 @Field def accessible = 'Yay'

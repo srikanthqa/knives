@@ -1,3 +1,5 @@
+package com.github.knives.groovy.transform
+
 /**
  * No mutators (methods that modify internal state)
  * Class must be final

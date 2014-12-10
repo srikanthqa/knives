@@ -1,3 +1,5 @@
+package com.github.knives.groovy.transform
+
 /**
  * @CompileStatic is to improve performance
  * 

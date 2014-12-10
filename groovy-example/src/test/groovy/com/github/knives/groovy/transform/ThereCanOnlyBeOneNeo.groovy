@@ -1,3 +1,5 @@
+package com.github.knives.groovy.transform
+
 @Singleton 
 class Neo {
 	final def name = "Neo" 
