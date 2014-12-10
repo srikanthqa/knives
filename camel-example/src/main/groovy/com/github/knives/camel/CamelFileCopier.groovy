@@ -1,4 +1,4 @@
-package com.github.knives.script.camel
+package com.github.knives.camel
 import org.apache.camel.CamelContext
 import org.apache.camel.impl.DefaultCamelContext
 import org.apache.camel.builder.RouteBuilder

@@ -1,0 +1,5 @@
+apply from: "$rootDir/gradle/groovyProject.gradle"
+
+dependencies {
+	compile group: 'org.apache.camel', name: 'camel-core', version: camelVersion
+}

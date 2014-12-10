@@ -1,4 +1,4 @@
-package com.github.knives.script.camel
+package com.github.knives.camel
 import org.apache.camel.main.Main
 import org.apache.camel.builder.RouteBuilder
 import org.apache.camel.Processor
