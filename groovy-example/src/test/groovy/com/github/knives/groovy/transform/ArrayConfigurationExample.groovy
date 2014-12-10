@@ -1,9 +1,11 @@
 package com.github.knives.groovy.transform
 
+import org.junit.Test
 import groovy.util.ConfigSlurper
 
 
 class ArrayConfigurationExample {
+	@Test
 	void testConfigSlurper() {
 		def exampleDsl = """
 tests {
