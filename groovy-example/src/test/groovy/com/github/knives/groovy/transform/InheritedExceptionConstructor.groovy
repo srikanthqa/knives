@@ -2,10 +2,18 @@ package com.github.knives.groovy.transform
 
 import groovy.transform.InheritConstructors
 
-@InheritConstructors
-class SomeNewException extends Exception { }
+import org.junit.Test
 
-println new SomeNewException('some message')
-println new SomeNewException('some message', new Exception())
-println new SomeNewException(new Exception())
-println new SomeNewException()
+class InheritedExceptionConstructor {
+
+	@InheritConstructors
+	static class SomeNewException extends Exception { }
+
+	//@Test
+	void testInheritedConstructors() {	
+		println (new SomeNewException('some message'))
+		println new SomeNewException('some message', new Exception())
+		println new SomeNewException(new Exception())
+		println new SomeNewException()
+	}
+}

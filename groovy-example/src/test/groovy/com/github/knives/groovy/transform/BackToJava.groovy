@@ -6,11 +6,18 @@ package com.github.knives.groovy.transform
  * https://sites.google.com/a/athaydes.com/renato-athaydes/posts/experimentingwithgroovycompilestatic
  */
 
+import org.junit.Test
 import groovy.transform.CompileStatic
 
-@CompileStatic
-private double distance(double v1, double v2) {
-	return v2 - v1
+class BackToJava {
+	
+	@CompileStatic
+	private double distance(double v1, double v2) {
+		return v2 - v1
+	}
+	
+	void testStaticDistance() {
+		println distance(2.0, 3.0)
+	}
 }
 
-println distance(2.0, 3.0)

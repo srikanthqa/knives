@@ -1,11 +1,20 @@
 package com.github.knives.groovy.transform
 
-@Singleton 
-class Neo {
-	final def name = "Neo" 
+import org.junit.Test
+
+class ThereCanOnlyBeOneNeo {
+	@Singleton 
+	static class Neo {
+		final def name = "Neo" 
+	}
+	
+	@Test
+	void testSingleton() {
+		assert Neo.getInstance() instanceof Neo
+		assert Neo.instance instanceof Neo
+		
+		try {
+			new Neo()
+		} catch (ignore) { assert true }
+	}
 }
-
-assert Neo.getInstance() instanceof Neo
-assert Neo.instance instanceof Neo
-
-new Neo()

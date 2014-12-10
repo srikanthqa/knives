@@ -1,5 +1,7 @@
 package com.github.knives.groovy.transform
 
+import groovy.transform.ToString
+
 /**
  * @Newify
  * 
@@ -8,32 +10,40 @@ package com.github.knives.groovy.transform
  * 2. ommit new keyword together (but need to specify class)
  */
 
-@Newify([])
-rubyLikeNew() {
-	assert Integer.new(42) == 42
+class TiredOfNewThing {
+	@Newify([])
+	def rubyLikeNew() {
+		assert Integer.new(42) == 42
+	}
+	
+	@ToString
+	static class Tree {
+		def elements
+		Tree(Object... elements) { this.elements = elements as List }
+	}
+	
+	@ToString
+	static class Leaf {
+		def value
+		Leaf(value) { this.value = value }
+	}
+	
+	def buildTree() {
+		new Tree(new Tree(new Leaf(1), new Leaf(2)), new Leaf(3))
+	}
+	
+	@Newify([Tree, Leaf]) 
+	def buildTree2() {
+		Tree(Tree(Leaf(1), Leaf(2)), Leaf(3))
+	}
+	
+	void testBuildTree() {
+		def tree = buildTree()
+		def tree2 = buildTree2()
+		
+		println tree
+		println tree2
+	
+	}
+	
 }
-
-rubyLikeNew()
-
-
-class Tree {
-	def elements
-	Tree(Object... elements) { this.elements = elements as List }
-}
-
-class Leaf {
-	def value
-	Leaf(value) { this.value = value }
-}
-
-def buildTree() {
-	new Tree(new Tree(new Leaf(1), new Leaf(2)), new Leaf(3))
-}
-
-@Newify([Tree, Leaf]) 
-def buildTree2() {
-	Tree(Tree(Leaf(1), Leaf(2)), Leaf(3))
-}
-
-buildTree()
-buildTree2()
