@@ -1,0 +1,7 @@
+apply from: "$rootDir/gradle/groovyProject.gradle"
+
+dependencies {
+	compile group: 'org.gebish', name: 'geb-core', version: gebVersion
+	compile group: 'org.seleniumhq.selenium', name: 'selenium-support', version: seleniumVersion
+	compile group: 'org.seleniumhq.selenium', name: 'selenium-firefox-driver', version: seleniumVersion
+}

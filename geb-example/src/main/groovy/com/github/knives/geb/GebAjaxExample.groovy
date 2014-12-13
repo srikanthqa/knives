@@ -1,4 +1,4 @@
-package com.github.knives.script.browser
+package com.github.knives.geb
 
 import geb.Page
 import geb.Browser
