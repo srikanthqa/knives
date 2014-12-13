@@ -1,6 +1,0 @@
-apply from: "$rootDir/gradle/groovyProject.gradle"
-
-dependencies {
-	compile group: 'org.ow2.asm', name: 'asm', version: asmVersion
-	compile group: 'commons-collections', name: 'commons-collections', version: commonsCollectionVersion
-}
