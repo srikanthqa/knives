@@ -14,17 +14,10 @@ repositories {
 
 
 dependencies {
-	compile group: 'org.ow2.asm', name: 'asm', version: asmVersion
-	compile group: 'org.ow2.asm', name: 'asm-util', version: asmVersion
-	compile group: 'org.ow2.asm', name: 'asm-tree', version: asmVersion
-	compile group: 'org.apache.camel', name: 'camel-core', version: camelVersion
+	compile group: 'org.ow2.asm', name: 'asm-all', version: asmVersion
 	compile group: 'commons-io', name: 'commons-io', version: commonsIoVersion
 	compile group: 'org.apache.commons', name: 'commons-lang3', version: commonsLangVersion
 	compile group: 'org.apache.httpcomponents', name: 'fluent-hc', version: httpcomponentsVersion
-	compile group: 'com.google.guava', name: 'guava', version: guavaVersion
-	compile group: 'org.seleniumhq.selenium', name: 'selenium-support', version: seleniumVersion
-	compile group: 'org.seleniumhq.selenium', name: 'selenium-firefox-driver', version: seleniumVersion
-	compile group: 'org.gebish', name: 'geb-core', version: gebVersion
 	compile group: 'org.mozilla', name: 'rhino', version: rhinoVersion
 	compile group: 'commons-codec', name: 'commons-codec', version: commonsCodecVersion
 	compile group: 'com.icegreen', name: 'greenmail', version: iceGreenVersion
@@ -33,7 +26,6 @@ dependencies {
 	compile group: 'org.apache.sshd', name: 'sshd-core', version: sshdVersion
 	compile group: 'org.apache.httpcomponents', name: 'httpclient', version: httpcomponentsVersion
 	compile group: 'net.sf.proguard', name: 'proguard-base', version: proguardVersion
-	compile group: 'commons-cli', name: 'commons-cli', version: commonsCliVersion
 	compile group: 'nz.ac.waikato.cms.weka', name: 'weka-stable', version: wekaVersion
 	compile group: 'org.apache.commons', name: 'commons-compress', version: commonsCompressVersion
 	compile group: 'org.apache.commons', name: 'commons-vfs2', version: commonsVfsVersion
