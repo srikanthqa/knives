@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.common.base.Function;
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.JdkFutureAdapters;
@@ -44,7 +45,7 @@ public class ListenableFutureTest {
 	}
 	
 	/**
-	 * @throws Exception
+	 * ListeningExecutorService wrapper
 	 */
 	@Test
 	public void testTheListenableFuture() throws Exception {
@@ -79,4 +80,37 @@ public class ListenableFutureTest {
 		result.get();
 	}
 
+	@Test
+	public void testTransform() throws Exception {
+		ListeningExecutorService listeningExecutorService = MoreExecutors.listeningDecorator(
+				Executors.newSingleThreadExecutor(
+					new ThreadFactoryBuilder()
+						.setNameFormat("test-pool-%d")
+						.build()));
+			
+			
+		ListenableFuture<Integer> result = listeningExecutorService.submit(new Callable<Integer>() {
+			@Override
+			public Integer call() throws Exception {
+				Thread.sleep(3000);
+				return new Integer(5);
+			}
+		});
+		
+		Function<Integer, Integer> add5 = adder(5);
+		
+		ListenableFuture<Integer> result2 = Futures.transform(result, add5, listeningExecutorService);
+		
+		LOG.info("Receive result=[{}]", result2.get());
+	}
+	
+	private Function<Integer, Integer> adder(final Integer val) {
+		return new Function<Integer, Integer>() {
+			@Override
+			public Integer apply(Integer input) {
+				return input + val;
+			}
+		};
+	}
+	
 }
