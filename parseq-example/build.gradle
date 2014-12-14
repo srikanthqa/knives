@@ -1,0 +1,7 @@
+apply from: "$rootDir/gradle/javaProject.gradle"
+
+dependencies {
+	compile group: 'com.linkedin.parseq', name: 'parseq', version: parseqVersion
+	compile group: 'com.ning', name: 'async-http-client', version: ningAsyncHttpVersion
+	
+}
