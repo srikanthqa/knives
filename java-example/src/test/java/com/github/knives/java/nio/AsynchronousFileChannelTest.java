@@ -1,4 +1,4 @@
-package com.github.java.nio;
+package com.github.knives.java.nio;
 
 import static org.junit.Assert.*;
 

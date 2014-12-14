@@ -1,4 +1,4 @@
-package com.github.java.listenablefuture;
+package com.github.knives.java.listenablefuture;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
