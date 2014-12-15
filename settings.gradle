@@ -1,8 +1,6 @@
 include 'script'
 include 'liquibase-example'
 include 'gratex'
-include 'custom-sourceset'
-include 'custom-convention'
 include 'project-euler-groovy'
 include 'project-euler-scala'
 include 'javascript-playground'
