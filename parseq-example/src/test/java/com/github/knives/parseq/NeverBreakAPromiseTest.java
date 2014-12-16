@@ -20,6 +20,8 @@ import com.linkedin.parseq.Tasks;
 import com.linkedin.parseq.promise.Promise;
 import com.linkedin.parseq.promise.Promises;
 import com.linkedin.parseq.promise.SettablePromise;
+import com.linkedin.parseq.trace.Trace;
+import com.linkedin.parseq.trace.codec.json.JsonTraceCodec;
 import com.ning.http.client.AsyncCompletionHandler;
 import com.ning.http.client.AsyncHttpClient;
 import com.ning.http.client.Request;
@@ -52,6 +54,9 @@ public class NeverBreakAPromiseTest {
 		// wait to print all the results
 		fetchContentTypes.await(5, TimeUnit.SECONDS);
 		LOG.info("All content-types: [{}]", fetchContentTypes.get());
+		
+		final Trace trace = fetchContentTypes.getTrace();
+		new JsonTraceCodec().encode(trace, System.out);
 	}
 
 	public static Task<String> getContentType(final String url) {
