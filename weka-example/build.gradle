@@ -1,0 +1,5 @@
+apply from: "$rootDir/gradle/javaProject.gradle"
+
+dependencies {
+	compile group: 'nz.ac.waikato.cms.weka', name: 'weka-stable', version: wekaVersion
+}
