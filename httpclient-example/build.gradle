@@ -1,0 +1,9 @@
+apply from: "$rootDir/gradle/javaProject.gradle"
+
+dependencies {
+	compile group: 'org.apache.httpcomponents', name: 'httpclient', version: httpcomponentsVersion
+	compile group: 'org.apache.httpcomponents', name: 'httpclient-cache', version: httpcomponentsVersion
+	compile group: 'org.apache.httpcomponents', name: 'httpmime', version: httpcomponentsVersion
+	compile group: 'org.apache.httpcomponents', name: 'fluent-hc', version: httpcomponentsVersion
+	compile group: 'org.apache.httpcomponents', name: 'httpasyncclient', version: httpasyncclientVersion
+}
