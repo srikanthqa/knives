@@ -3,7 +3,6 @@ apply from: "$rootDir/gradle/oneJar.gradle"
 
 dependencies {
 	compile group: 'org.antlr', name: 'antlr4', version: antlrVersion
-	compile group: 'org.antlr', name: 'antlr4-runtime', version: antlrVersion
 }
 
 task antlr4(type: JavaExec) {
