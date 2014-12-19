@@ -4,6 +4,7 @@ ext {
 	wrapperVersion = '2.2.1'
 	
 	groovyVersion = '2.3.8'
+	scalaVersion = '2.11.4'
 	
 	ivyVersion = '2.3.0'
 	antlrVersion = '4.1'

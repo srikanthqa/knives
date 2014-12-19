@@ -1,15 +1,5 @@
 apply plugin: 'scala'
-apply plugin: 'maven'
-
-repositories {
-	mavenLocal()
-	mavenCentral()
-}
-
-ext {
-	scalaVersion = '2.11.4'
-	junitVersion = '4.11'
-}
+apply from: "$rootDir/gradle/javaProject.gradle"
 
 dependencies {
 	compile group: 'org.scala-lang', group: 'scala-library', version: scalaVersion
