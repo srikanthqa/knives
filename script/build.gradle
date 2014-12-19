@@ -21,7 +21,6 @@ dependencies {
 	compile group: 'org.apache.ftpserver', name: 'ftpserver-core', version: ftpServerVersion
 	compile group: 'dumbster', name: 'dumbster', version: dumbsterVersion
 	compile group: 'org.apache.sshd', name: 'sshd-core', version: sshdVersion
-	compile group: 'net.sf.proguard', name: 'proguard-base', version: proguardVersion
 	compile group: 'org.apache.commons', name: 'commons-compress', version: commonsCompressVersion
 	compile group: 'org.apache.commons', name: 'commons-vfs2', version: commonsVfsVersion
 	
