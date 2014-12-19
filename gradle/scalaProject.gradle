@@ -2,5 +2,5 @@ apply plugin: 'scala'
 apply from: "$rootDir/gradle/javaProject.gradle"
 
 dependencies {
-	compile group: 'org.scala-lang', group: 'scala-library', version: scalaVersion
+	compile group: 'org.scala-lang', name: 'scala-library', version: scalaVersion
 }

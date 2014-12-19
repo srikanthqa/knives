@@ -16,18 +16,14 @@ dependencies {
 	compile group: 'org.ow2.asm', name: 'asm-all', version: asmVersion
 	compile group: 'commons-io', name: 'commons-io', version: commonsIoVersion
 	compile group: 'org.apache.commons', name: 'commons-lang3', version: commonsLangVersion
-	compile group: 'org.apache.httpcomponents', name: 'httpclient', version: httpcomponentsVersion
-	compile group: 'org.apache.httpcomponents', name: 'fluent-hc', version: httpcomponentsVersion
 	compile group: 'org.mozilla', name: 'rhino', version: rhinoVersion
 	compile group: 'commons-codec', name: 'commons-codec', version: commonsCodecVersion
-	compile group: 'com.icegreen', name: 'greenmail', version: iceGreenVersion
 	compile group: 'org.apache.ftpserver', name: 'ftpserver-core', version: ftpServerVersion
 	compile group: 'dumbster', name: 'dumbster', version: dumbsterVersion
 	compile group: 'org.apache.sshd', name: 'sshd-core', version: sshdVersion
 	compile group: 'net.sf.proguard', name: 'proguard-base', version: proguardVersion
 	compile group: 'org.apache.commons', name: 'commons-compress', version: commonsCompressVersion
 	compile group: 'org.apache.commons', name: 'commons-vfs2', version: commonsVfsVersion
-	compile group: 'javax.mail', name: 'mail', version: javaxMailVersion
 	
 	//compile group: 'org.hornetq', name: 'hornetq-jms-server', version: hornetVersion
 	//compile group: 'org.hornetq', name: 'hornetq-commons', version: hornetVersion
