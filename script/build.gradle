@@ -1,5 +1,4 @@
 apply from: "$rootDir/gradle/groovyProject.gradle"
-apply from: 'src/main/gradle/mainExec.gradle'
 
 repositories {
 	maven { url 'https://oss.sonatype.org/content/groups/public' }
