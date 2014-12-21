@@ -1,0 +1,10 @@
+apply from: "$rootDir/gradle/javaProject.gradle"
+
+dependencies {
+	compile group: 'org.apache.ftpserver', name: 'ftpserver-core', version: ftpServerVersion
+	compile group: 'org.apache.ftpserver', name: 'ftplet-api', version: ftpServerVersion
+	compile group: 'org.apache.ftpserver', name: 'ftpserver-examples', version: ftpServerVersion
+	
+	compile group: 'commons-net', name: 'commons-net', version: commonsNetVersion
+	
+}
