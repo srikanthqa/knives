@@ -94,4 +94,22 @@ public class WriteTextToImageTest {
         
         ImageIO.write(finalImg, "png", new File("/tmp/test3.png"));
 	}
+	
+	@Test
+	public void testSplitImage() throws Exception {
+		BufferedImage image = ImageIO.read(new URL("http://sstatic.net/stackoverflow/img/logo.png"));
+		int cx = image.getWidth() / 2;
+		int cy = image.getHeight() / 2;
+		
+		BufferedImage image1 = image.getSubimage(0, 0, cx, cy);
+		BufferedImage image2 = image.getSubimage(cx, 0, image.getWidth() - cx, cy);
+		BufferedImage image3 = image.getSubimage(0, cy, cx, image.getHeight() - cy);
+		BufferedImage image4 = image.getSubimage(cx, cy, image.getWidth() - cx, image.getHeight() - cy);
+		
+		
+        ImageIO.write(image1, "png", new File("/tmp/test1.png"));
+        ImageIO.write(image2, "png", new File("/tmp/test2.png"));
+        ImageIO.write(image3, "png", new File("/tmp/test3.png"));
+        ImageIO.write(image4, "png", new File("/tmp/test4.png"));
+	}
 }
