@@ -3,7 +3,6 @@ package com.github.knives.commons.vfs2;
 import java.util.Arrays;
 
 import org.apache.commons.vfs2.FileDepthSelector;
-import org.apache.commons.vfs2.FileName;
 import org.apache.commons.vfs2.FileObject;
 import org.apache.commons.vfs2.FileSystemException;
 import org.apache.commons.vfs2.FileSystemManager;
@@ -18,7 +17,7 @@ public class FileObjectTest {
 		FileSystemManager fileSystemManager = VFS.getManager();
 		FileSystemOptions opts = new FileSystemOptions(); 
 		// resolveFile
-		FileObject root = fileSystemManager.resolveFile("res:testtar.tar", opts);
+		FileObject root = fileSystemManager.resolveFile("res:testjar.jar", opts);
 		System.out.println(root.getName().getFriendlyURI());
 
 		tranverse(fileSystemManager, root);
