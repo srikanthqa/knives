@@ -1,0 +1,5 @@
+apply from: "$rootDir/gradle/javaProject.gradle"
+
+dependencies {
+	compile group: 'org.apache.commons', name: 'commons-compress', version: commonsCompressVersion
+}
