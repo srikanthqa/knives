@@ -1,0 +1,6 @@
+apply from: "$rootDir/gradle/groovyProject.gradle"
+
+dependencies {
+	compile group: 'org.codehaus.gpars', name: 'gpars', version: gparsVersion
+	
+}

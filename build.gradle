@@ -46,6 +46,7 @@ ext {
 	parseqVersion = '1.4.0'
 	ningAsyncHttpVersion = '1.9.3'
 	greenMailVersion = '1.4.0'
+	gparsVersion = '1.2.1'
 }
 
 apply from: 'gradle/wrapper.gradle'
