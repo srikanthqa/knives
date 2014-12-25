@@ -47,6 +47,7 @@ ext {
 	ningAsyncHttpVersion = '1.9.3'
 	greenMailVersion = '1.4.0'
 	gparsVersion = '1.2.1'
+	hadoopVersion = '2.6.0'
 }
 
 apply from: 'gradle/wrapper.gradle'
