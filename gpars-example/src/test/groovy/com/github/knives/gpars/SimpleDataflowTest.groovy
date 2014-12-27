@@ -1,8 +1,11 @@
 package com.github.knives.gpars
 
 import static groovyx.gpars.dataflow.Dataflow.task
+import groovyx.gpars.dataflow.DataflowBroadcast
 import groovyx.gpars.dataflow.DataflowQueue
+import groovyx.gpars.dataflow.DataflowReadChannel
 import groovyx.gpars.dataflow.DataflowVariable
+import groovyx.gpars.dataflow.DataflowWriteChannel
 import groovyx.gpars.dataflow.Dataflows
 
 import org.junit.Test
@@ -61,5 +64,18 @@ class SimpleDataflowTest {
 		}
 		
 		for (i in 1..words.size()) println buffer.val  //read from the buffer in a loop
+	}
+	
+	@Test
+	void testDataFlowBroadcast() {
+		DataflowWriteChannel broadcastStream = new DataflowBroadcast()
+		DataflowReadChannel stream1 = broadcastStream.createReadChannel()
+		DataflowReadChannel stream2 = broadcastStream.createReadChannel()
+		broadcastStream << 'Message1'
+		broadcastStream << 'Message2'
+		broadcastStream << 'Message3'
+		assert stream1.val == stream2.val
+		assert stream1.val == stream2.val
+		assert stream1.val == stream2.val
 	}
 }
