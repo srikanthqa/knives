@@ -101,28 +101,4 @@ public class PathsTest {
 		assertEquals("/a/c", Paths.get("/a/b").resolveSibling("c").toString());
 	}
 
-	@Test
-	public void testWatchServies() throws IOException {
-		Path path = Paths.get("/tmp");
-		WatchService watchService = FileSystems.getDefault().newWatchService();
-		path.register(watchService, ENTRY_CREATE,
-				ENTRY_DELETE, ENTRY_MODIFY);
-		
-		while (true) {
-			try {
-				WatchKey watchKey = watchService.poll(60, TimeUnit.SECONDS);
-				List<WatchEvent<?>> events = watchKey.pollEvents();
-				for (WatchEvent event : events) {
-					System.out.println("Event " + event.kind() + ", count=" + event.count() + " " + event.context());
-				}
-				
-				if (!watchKey.reset()) {
-				}
-			} catch (InterruptedException e) {
-				Thread.currentThread().interrupt();
-				break;
-			}
-		}
-	}
-
 }
