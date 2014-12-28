@@ -48,6 +48,7 @@ ext {
 	greenMailVersion = '1.4.0'
 	gparsVersion = '1.2.1'
 	hadoopVersion = '2.6.0'
+	cassandraVersion = '2.1.2'
 }
 
 apply from: 'gradle/wrapper.gradle'

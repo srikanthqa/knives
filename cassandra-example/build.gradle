@@ -1,0 +1,5 @@
+apply from: "$rootDir/gradle/javaProject.gradle"
+
+dependencies {
+	compile group: 'org.apache.cassandra', name: 'cassandra-all', version: cassandraVersion
+}
