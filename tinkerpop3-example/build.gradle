@@ -1,0 +1,5 @@
+apply from: "$rootDir/gradle/javaProject.gradle"
+
+dependencies {
+	compile group: 'com.tinkerpop', name: 'gremlin-core', version: tinkerpop3Version
+}

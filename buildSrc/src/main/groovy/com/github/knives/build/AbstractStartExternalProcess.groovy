@@ -79,7 +79,7 @@ class AbstractStartExternalProcess extends DefaultTask {
 						 logger.debug("Event=[{}], count=[{}], context=[{}]", event.kind(), event.count(), event.context());
 						 
 						 if (event.kind().equals(StandardWatchEventKinds.ENTRY_DELETE)) {
-							 if (event.context().equals(stopFileName) {
+							 if (event.context().equals(stopFileName)) {
 								 return
 							 }
 						 }

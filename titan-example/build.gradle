@@ -1,0 +1,6 @@
+apply from: "$rootDir/gradle/javaProject.gradle"
+
+dependencies {
+	// core, all, cassandra, hbase, berkeleyje, es, lucene
+	compile group: 'com.thinkaurelius.titan', name: 'titan-core', version: titanVersion
+}

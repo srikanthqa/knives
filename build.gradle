@@ -32,7 +32,6 @@ ext {
 	rhinoVersion = '1.7R4'
 	openSmppVersion = '3.0.0'
 	ftpServerVersion = '1.0.6'
-	titanVersion = '0.4.1'
 	hornetVersion = '2.4.5.Final'
 	sshdVersion = '0.9.0'
 	proguardVersion = '4.10'
@@ -41,7 +40,6 @@ ext {
 	wekaVersion = '3.6.10'
 	mine4jVersion = '0.7.2'
 	functionalJavaVersion = '4.1'
-	blueprintsVersion = '2.6.0'
 	groovyStreamVersion = '0.8.1'
 	parseqVersion = '1.4.0'
 	ningAsyncHttpVersion = '1.9.3'
@@ -49,6 +47,11 @@ ext {
 	gparsVersion = '1.2.1'
 	hadoopVersion = '2.6.0'
 	cassandraVersion = '2.1.2'
+	blueprintsVersion = '2.6.0'
+	tinkerpop3Version = '3.0.0.M6'
+	titanVersion = '0.5.2'
+	neo4jVersion = '2.2.0-M02'
+	janinoVersion = '2.7.7'
 }
 
 apply from: 'gradle/wrapper.gradle'
