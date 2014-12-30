@@ -47,7 +47,7 @@ ext {
 	gparsVersion = '1.2.1'
 	hadoopVersion = '2.6.0'
 	cassandraVersion = '2.1.2'
-	blueprintsVersion = '2.6.0'
+	tinkerpop2Version = '2.6.0'
 	tinkerpop3Version = '3.0.0.M6'
 	titanVersion = '0.5.2'
 	neo4jVersion = '2.2.0-M02'

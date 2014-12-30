@@ -2,6 +2,9 @@ apply from: "$rootDir/gradle/groovyProject.gradle"
 apply from: "$rootDir/gradle/oneJar.gradle"
 
 dependencies {
-	compile group: 'com.tinkerpop.blueprints', name: 'blueprints-core', version: blueprintsVersion
-	compile group: 'com.tinkerpop.blueprints', name: 'blueprints-neo4j-graph', version: blueprintsVersion
+	compile group: 'com.tinkerpop.blueprints', name: 'blueprints-core', version: tinkerpop2Version
+	compile group: 'com.tinkerpop.blueprints', name: 'blueprints-neo4j-graph', version: tinkerpop2Version
+	compile group: 'com.tinkerpop', name: 'pipes', version: tinkerpop2Version
+	compile group: 'com.tinkerpop.gremlin', name: 'gremlin-groovy', version: tinkerpop2Version
+	compile group: 'com.tinkerpop', name: 'frames', version: tinkerpop2Version
 }
