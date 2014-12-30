@@ -1,5 +1,5 @@
 apply from: "$rootDir/gradle/javaProject.gradle"
 
 dependencies {
-	compile 'org.neo4j:neo4j:2.2.0-M02'
+	compile group: 'org.neo4j', name: 'neo4j', version: neo4jVersion
 }
