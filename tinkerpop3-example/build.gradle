@@ -2,4 +2,8 @@ apply from: "$rootDir/gradle/javaProject.gradle"
 
 dependencies {
 	compile group: 'com.tinkerpop', name: 'gremlin-core', version: tinkerpop3Version
+	compile group: 'com.tinkerpop', name: 'tinkergraph-gremlin', version: tinkerpop3Version
+	compile group: 'com.tinkerpop', name: 'neo4j-gremlin', version: tinkerpop3Version
+	compile group: 'com.tinkerpop', name: 'gremlin-driver', version: tinkerpop3Version
+	compile group: 'com.tinkerpop', name: 'gremlin-algorithm', version: tinkerpop3Version
 }
