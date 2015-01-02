@@ -1,0 +1,9 @@
+apply from: "$rootDir/gradle/javaProject.gradle"
+
+dependencies {
+	compile ( group: 'net.lightbody.bmp', name: 'browsermob-proxy', version: browsermobProxyVersion ) {
+		exclude group: 'org.seleniumhq.selenium', module: 'selenium-api'
+	}
+	compile group: 'org.seleniumhq.selenium', name: 'selenium-support', version: seleniumVersion
+	compile group: 'org.seleniumhq.selenium', name: 'selenium-firefox-driver', version: seleniumVersion
+}
