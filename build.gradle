@@ -54,6 +54,8 @@ ext {
 	neo4jVersion = '2.2.0-M02'
 	janinoVersion = '2.7.7'
 	browsermobProxyVersion = '2.0-beta-9'
+	expect4jVersion = '1.6'
+	jschVersion = '0.1.51'
 }
 
 apply from: 'gradle/wrapper.gradle'

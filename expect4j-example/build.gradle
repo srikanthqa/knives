@@ -1,0 +1,8 @@
+apply from: "$rootDir/gradle/javaProject.gradle"
+
+dependencies {
+	compile group: 'com.github.cverges.expect4j', name: 'expect4j', version: expect4jVersion
+	compile group: 'com.jcraft', name: 'jsch', version: jschVersion
+
+	
+}
