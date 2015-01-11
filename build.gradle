@@ -23,7 +23,7 @@ ext {
 	antlrVersion = '4.1'
 	asmVersion = '5.0.3'
 	camelVersion = '2.14.0'
-	jgitVersion = '3.5.2.201411120430-r'
+	jgitVersion = '3.6.0.201412230720-r'
 	jlineVersion = '2.12'
 	httpcomponentsVersion = '4.3.5'
 	httpasyncclientVersion = '4.0.2'
