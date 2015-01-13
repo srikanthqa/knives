@@ -1,6 +1,8 @@
-apply from: "$rootDir/gradle/groovyProject.gradle"
+apply from: "$rootDir/gradle/javaProject.gradle"
 apply from: "$rootDir/gradle/oneJar.gradle"
 
 dependencies {
 	compile group: 'org.bouncycastle', name: 'bcprov-jdk15on', version: bouncyCastleVersion
+	compile group: 'javax.activation', name: 'activation', version: javaxActivationVersion
+	compile group: 'javax.mail', name: 'mail', version: javaxMailVersion
 }
