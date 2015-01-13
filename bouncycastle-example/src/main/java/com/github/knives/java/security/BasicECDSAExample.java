@@ -6,48 +6,39 @@ import java.security.SecureRandom;
 import java.security.Signature;
 import java.security.spec.ECGenParameterSpec;
 
-import com.github.knives.java.secure.Utils;
-
 /**
  * Simple example showing signature creation and verification using ECDSA
  */
-public class BasicECDSAExample
-{
-    public static void main(
-        String[]    args)
-    	throws Exception
-    {
-        KeyPairGenerator keyGen = KeyPairGenerator.getInstance("ECDSA", "BC");
-        ECGenParameterSpec ecSpec = new ECGenParameterSpec("prime192v1");
-        
-        keyGen.initialize(ecSpec, new SecureRandom());
-        
-        KeyPair             keyPair = keyGen.generateKeyPair();
-        Signature           signature = Signature.getInstance("ECDSA", "BC");
+public class BasicECDSAExample {
+	public static void main(String[] args) throws Exception {
+		KeyPairGenerator keyGen = KeyPairGenerator.getInstance("ECDSA", "BC");
+		ECGenParameterSpec ecSpec = new ECGenParameterSpec("prime192v1");
 
-        // generate a signature
-        
-        signature.initSign(keyPair.getPrivate(), Utils.createFixedRandom());
+		keyGen.initialize(ecSpec, new SecureRandom());
 
-        byte[] message = new byte[] { (byte)'a', (byte)'b', (byte)'c' };
+		KeyPair keyPair = keyGen.generateKeyPair();
+		Signature signature = Signature.getInstance("ECDSA", "BC");
 
-        signature.update(message);
+		// generate a signature
 
-        byte[]  sigBytes = signature.sign();
-        
-        // verify a signature
-        
-        signature.initVerify(keyPair.getPublic());
+		signature.initSign(keyPair.getPrivate(), Utils.createFixedRandom());
 
-        signature.update(message);
+		byte[] message = new byte[] { (byte) 'a', (byte) 'b', (byte) 'c' };
 
-        if (signature.verify(sigBytes))
-        {
-            System.out.println("signature verification succeeded.");
-        }
-        else
-        {
-            System.out.println("signature verification failed.");
-        }
-    }
+		signature.update(message);
+
+		byte[] sigBytes = signature.sign();
+
+		// verify a signature
+
+		signature.initVerify(keyPair.getPublic());
+
+		signature.update(message);
+
+		if (signature.verify(sigBytes)) {
+			System.out.println("signature verification succeeded.");
+		} else {
+			System.out.println("signature verification failed.");
+		}
+	}
 }

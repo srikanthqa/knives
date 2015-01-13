@@ -1,38 +1,32 @@
 package com.github.knives.java.security;
- 
+
 import java.io.ByteArrayInputStream;
 import java.security.cert.CertPath;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 import java.util.Arrays;
 
-import com.github.knives.java.secure.Utils;
-
 /**
  * Basic example of creating and encoding a CertPath.
  */
-public class CertPathExample
-{
-	public static void main(
-		String[] args)
-	    throws Exception
-	{
-        X509Certificate[]   chain = PKCS10CertCreateExample.buildChain();
-		
-        // create the factory and path object
-        CertificateFactory  fact = CertificateFactory.getInstance("X.509", "BC");
-        CertPath            certPath = fact.generateCertPath(Arrays.asList(chain));
+public class CertPathExample {
+	public static void main(String[] args) throws Exception {
+		X509Certificate[] chain = PKCS10CertCreateExample.buildChain();
 
-        byte[] encoded = certPath.getEncoded("PEM");
+		// create the factory and path object
+		CertificateFactory fact = CertificateFactory.getInstance("X.509", "BC");
+		CertPath certPath = fact.generateCertPath(Arrays.asList(chain));
 
-        System.out.println(Utils.toString(encoded));
-		
-        // re-read the CertPath
-        CertPath           newCertPath = fact.generateCertPath(new ByteArrayInputStream(encoded), "PEM");
+		byte[] encoded = certPath.getEncoded("PEM");
 
-        if (newCertPath.equals(certPath))
-        {
-            System.out.println("CertPath recovered correctly");
-        }
-    }
+		System.out.println(Utils.toString(encoded));
+
+		// re-read the CertPath
+		CertPath newCertPath = fact.generateCertPath(new ByteArrayInputStream(
+				encoded), "PEM");
+
+		if (newCertPath.equals(certPath)) {
+			System.out.println("CertPath recovered correctly");
+		}
+	}
 }

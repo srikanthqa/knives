@@ -5,42 +5,33 @@ import java.security.KeyPairGenerator;
 import java.security.SecureRandom;
 import java.security.Signature;
 
-import com.github.knives.java.secure.Utils;
+public class BasicDSAExample {
+	public static void main(String[] args) throws Exception {
+		KeyPairGenerator keyGen = KeyPairGenerator.getInstance("DSA", "BC");
 
-public class BasicDSAExample
-{
-    public static void main(
-        String[]    args)
-        throws Exception
-    {
-        KeyPairGenerator keyGen = KeyPairGenerator.getInstance("DSA", "BC");
-        
-        keyGen.initialize(512, new SecureRandom());
-        
-        KeyPair             keyPair = keyGen.generateKeyPair();
-        Signature           signature = Signature.getInstance("DSA", "BC");
+		keyGen.initialize(512, new SecureRandom());
 
-        // generate a signature
-        signature.initSign(keyPair.getPrivate(), Utils.createFixedRandom());
+		KeyPair keyPair = keyGen.generateKeyPair();
+		Signature signature = Signature.getInstance("DSA", "BC");
 
-        byte[] message = new byte[] { (byte)'a', (byte)'b', (byte)'c' };
+		// generate a signature
+		signature.initSign(keyPair.getPrivate(), Utils.createFixedRandom());
 
-        signature.update(message);
+		byte[] message = new byte[] { (byte) 'a', (byte) 'b', (byte) 'c' };
 
-        byte[]  sigBytes = signature.sign();
-        
-        // verify a signature
-        signature.initVerify(keyPair.getPublic());
+		signature.update(message);
 
-        signature.update(message);
+		byte[] sigBytes = signature.sign();
 
-        if (signature.verify(sigBytes))
-        {
-            System.out.println("signature verification succeeded.");
-        }
-        else
-        {
-            System.out.println("signature verification failed.");
-        }
-    }
+		// verify a signature
+		signature.initVerify(keyPair.getPublic());
+
+		signature.update(message);
+
+		if (signature.verify(sigBytes)) {
+			System.out.println("signature verification succeeded.");
+		} else {
+			System.out.println("signature verification failed.");
+		}
+	}
 }

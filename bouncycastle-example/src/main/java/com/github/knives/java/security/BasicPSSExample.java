@@ -7,45 +7,37 @@ import java.security.Signature;
 import java.security.spec.MGF1ParameterSpec;
 import java.security.spec.PSSParameterSpec;
 
-import com.github.knives.java.secure.Utils;
+public class BasicPSSExample {
+	public static void main(String[] args) throws Exception {
+		KeyPairGenerator keyGen = KeyPairGenerator.getInstance("RSA", "BC");
 
-public class BasicPSSExample
-{
-    public static void main(
-        String[]    args)
-        throws Exception
-    {
-        KeyPairGenerator keyGen = KeyPairGenerator.getInstance("RSA", "BC");
-        
-        keyGen.initialize(512, new SecureRandom());
-        
-        KeyPair             keyPair = keyGen.generateKeyPair();
-        Signature           signature = Signature.getInstance("SHA1withRSAandMGF1", "BC");
+		keyGen.initialize(512, new SecureRandom());
 
-        // generate a signature
-        signature.initSign(keyPair.getPrivate(), Utils.createFixedRandom());
+		KeyPair keyPair = keyGen.generateKeyPair();
+		Signature signature = Signature.getInstance("SHA1withRSAandMGF1", "BC");
 
-        byte[] message = new byte[] { (byte)'a', (byte)'b', (byte)'c' };
+		// generate a signature
+		signature.initSign(keyPair.getPrivate(), Utils.createFixedRandom());
 
-        signature.update(message);
+		byte[] message = new byte[] { (byte) 'a', (byte) 'b', (byte) 'c' };
 
-        byte[]  sigBytes = signature.sign();
-        
-        // verify a signature
-        signature.initVerify(keyPair.getPublic());
-        
-        // set the parameters
-        signature.setParameter(new PSSParameterSpec("SHA-1", "MGF1", MGF1ParameterSpec.SHA1, 20, 1));
+		signature.update(message);
 
-        signature.update(message);
+		byte[] sigBytes = signature.sign();
 
-        if (signature.verify(sigBytes))
-        {
-            System.out.println("signature verification succeeded.");
-        }
-        else
-        {
-            System.out.println("signature verification failed.");
-        }
-    }
+		// verify a signature
+		signature.initVerify(keyPair.getPublic());
+
+		// set the parameters
+		signature.setParameter(new PSSParameterSpec("SHA-1", "MGF1",
+				MGF1ParameterSpec.SHA1, 20, 1));
+
+		signature.update(message);
+
+		if (signature.verify(sigBytes)) {
+			System.out.println("signature verification succeeded.");
+		} else {
+			System.out.println("signature verification failed.");
+		}
+	}
 }

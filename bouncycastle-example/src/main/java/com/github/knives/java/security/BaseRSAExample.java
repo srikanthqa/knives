@@ -9,8 +9,6 @@ import java.security.spec.RSAPublicKeySpec;
 
 import javax.crypto.Cipher;
 
-import com.github.knives.java.secure.Utils;
-
 /**
  * Basic RSA example.
  */
