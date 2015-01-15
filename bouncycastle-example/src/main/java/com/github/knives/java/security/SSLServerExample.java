@@ -1,4 +1,4 @@
-package chapter10;
+package com.github.knives.java.security;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,44 +12,38 @@ import javax.net.ssl.SSLSocket;
 /**
  * Basic SSL Server - using the '!' protocol.
  */
-public class SSLServerExample 
-{
-    /**
-     * Carry out the '!' protocol - server side.
-     */
-    static void doProtocol(
-        Socket sSock)
-        throws IOException
-    {
-        System.out.println("session started.");
-        
-        InputStream in = sSock.getInputStream();
-        OutputStream out = sSock.getOutputStream();
+public class SSLServerExample {
+	/**
+	 * Carry out the '!' protocol - server side.
+	 */
+	static void doProtocol(Socket sSock) throws IOException {
+		System.out.println("session started.");
 
-        out.write(Utils.toByteArray("Hello "));
-        
-        int ch = 0;
-        while ((ch = in.read()) != '!')
-        {
-            out.write(ch);
-        }
-        
-        out.write('!');
+		InputStream in = sSock.getInputStream();
+		OutputStream out = sSock.getOutputStream();
 
-        sSock.close();
-        
-        System.out.println("session closed.");
-    }
-    
-    public static void main(
-        String[] args)
-        throws Exception
-    {
-        SSLServerSocketFactory fact = (SSLServerSocketFactory)SSLServerSocketFactory.getDefault();
-        SSLServerSocket        sSock = (SSLServerSocket)fact.createServerSocket(Utils.PORT_NO);
-        
-        SSLSocket sslSock = (SSLSocket)sSock.accept();
-        
-        doProtocol(sslSock);
-    }
+		out.write(Utils.toByteArray("Hello "));
+
+		int ch = 0;
+		while ((ch = in.read()) != '!') {
+			out.write(ch);
+		}
+
+		out.write('!');
+
+		sSock.close();
+
+		System.out.println("session closed.");
+	}
+
+	public static void main(String[] args) throws Exception {
+		SSLServerSocketFactory fact = (SSLServerSocketFactory) SSLServerSocketFactory
+				.getDefault();
+		SSLServerSocket sSock = (SSLServerSocket) fact
+				.createServerSocket(Utils.PORT_NO);
+
+		SSLSocket sslSock = (SSLSocket) sSock.accept();
+
+		doProtocol(sslSock);
+	}
 }

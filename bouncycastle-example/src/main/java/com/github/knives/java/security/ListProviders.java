@@ -3,8 +3,6 @@ package com.github.knives.java.security;
 import java.security.Provider;
 import java.security.Security;
 
-import com.github.knives.java.secure.Utils;
-
 /**
  * List the currently installed providers in the Java Runtime
  */

@@ -5,45 +5,36 @@ import java.security.KeyPairGenerator;
 import java.security.SecureRandom;
 import java.security.Signature;
 
-import com.github.knives.java.secure.Utils;
-
 /**
  * Generating a PKCS1 v1.5 style signature.
  */
-public class PKCS1SignatureExample
-{
-    public static void main(
-        String[]    args)
-        throws Exception
-    {
-        KeyPairGenerator keyGen = KeyPairGenerator.getInstance("RSA", "BC");
-        
-        keyGen.initialize(512, new SecureRandom());
-        
-        KeyPair             keyPair = keyGen.generateKeyPair();
-        Signature           signature = Signature.getInstance("SHA1withRSA", "BC");
+public class PKCS1SignatureExample {
+	public static void main(String[] args) throws Exception {
+		KeyPairGenerator keyGen = KeyPairGenerator.getInstance("RSA", "BC");
 
-        // generate a signature
-        signature.initSign(keyPair.getPrivate(), Utils.createFixedRandom());
+		keyGen.initialize(512, new SecureRandom());
 
-        byte[] message = new byte[] { (byte)'a', (byte)'b', (byte)'c' };
+		KeyPair keyPair = keyGen.generateKeyPair();
+		Signature signature = Signature.getInstance("SHA1withRSA", "BC");
 
-        signature.update(message);
+		// generate a signature
+		signature.initSign(keyPair.getPrivate(), Utils.createFixedRandom());
 
-        byte[]  sigBytes = signature.sign();
-        
-        // verify a signature
-        signature.initVerify(keyPair.getPublic());
+		byte[] message = new byte[] { (byte) 'a', (byte) 'b', (byte) 'c' };
 
-        signature.update(message);
+		signature.update(message);
 
-        if (signature.verify(sigBytes))
-        {
-            System.out.println("signature verification succeeded.");
-        }
-        else
-        {
-            System.out.println("signature verification failed.");
-        }
-    }
+		byte[] sigBytes = signature.sign();
+
+		// verify a signature
+		signature.initVerify(keyPair.getPublic());
+
+		signature.update(message);
+
+		if (signature.verify(sigBytes)) {
+			System.out.println("signature verification succeeded.");
+		} else {
+			System.out.println("signature verification failed.");
+		}
+	}
 }
