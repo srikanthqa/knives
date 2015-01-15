@@ -1,6 +1,33 @@
+buildscript {
+	repositories { jcenter() }
+	dependencies { classpath "com.github.maiflai:gradle-scalatest:0.6-5-g9065d91" }
+}
+
 apply plugin: 'scala'
-apply from: "$rootDir/gradle/javaProject.gradle"
+apply plugin: 'maven'
+apply plugin: com.github.maiflai.ScalaTestPlugin
+
+repositories {
+	mavenLocal()
+	mavenCentral()
+}
+
+configurations {
+	compile.exclude group: 'commons-logging', module: 'commons-logging'
+	compile.exclude group: 'log4j', module: 'log4j'
+}
 
 dependencies {
 	compile group: 'org.scala-lang', name: 'scala-library', version: scalaVersion
+	compile group: 'org.scalactic', name: 'scalactic_2.11', version: scalacticVersion
+	compile group: 'com.typesafe.scala-logging', name: 'scala-logging_2.11', version: scalaLoggingVersion
+	compile group: 'org.slf4j', name: 'slf4j-api', version: slf4jVersion
+	compile group: 'org.slf4j', name: 'log4j-over-slf4j', version: slf4jVersion
+	compile group: 'org.slf4j', name: 'jcl-over-slf4j', version: slf4jVersion
+	
+	runtime group: 'ch.qos.logback', name: 'logback-classic', version: logbackVersion
+	
+	testCompile group: 'org.scalatest', name: 'scalatest_2.11', version: scalatestVersion
+	// dependencies for scalatest to generate report
+	testCompile group: 'org.pegdown', name: 'pegdown', version: pegdownVersion
 }

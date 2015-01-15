@@ -16,16 +16,6 @@ configurations {
 	compile.exclude group: 'log4j', module: 'log4j'
 }
 
-ext {
-	slf4jVersion = has('slf4jVersion') ? slf4jVersion : '1.7.7'
-	junitVersion = has('junitVersion') ? junitVersion : '4.12'
-	hamcrestVersion = has('hamcrestVersion') ? hamcrestVersion : '1.3'
-	mockitoVersion = has('mockitoVersion') ? mockitoVersion : '1.10.8'
-	objenesisVersion = has('objenesisVersion') ? objenesisVersion : '2.1'
-	logbackVersion = has('logbackVersion') ? logbackVersion : '1.1.2'
-	guavaVersion = has('guavaVersion') ? guavaVersion : '18.0'
-}
-
 dependencies {
 	compile group: 'org.slf4j', name: 'slf4j-api', version: slf4jVersion
 	compile group: 'org.slf4j', name: 'log4j-over-slf4j', version: slf4jVersion

@@ -3,8 +3,21 @@ apply plugin: 'eclipse'
 ext {
 	wrapperVersion = '2.2.1'
 	
+	slf4jVersion = '1.7.7'
+	logbackVersion = '1.1.2'
+	guavaVersion = '18.0'
+	
+	junitVersion = '4.12'
+	hamcrestVersion = '1.3'
+	mockitoVersion = '1.10.8'
+	objenesisVersion = '2.1'
+	
 	groovyVersion = '2.3.8'
 	scalaVersion = '2.11.4'
+	scalatestVersion = '2.2.1'
+	scalacticVersion = '2.2.1'
+	scalaLoggingVersion = '3.1.0'
+	pegdownVersion = '1.4.2'
 	
 	javaxActivationVersion = '1.1.1'
 	javaxMailVersion = '1.4.4'
