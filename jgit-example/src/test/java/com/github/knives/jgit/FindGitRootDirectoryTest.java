@@ -15,7 +15,7 @@ public class FindGitRootDirectoryTest {
 	public void test() throws IOException {
 		final FileRepositoryBuilder builder = new FileRepositoryBuilder();
 		final Repository repository = builder.readEnvironment() 
-				.findGitDir(new File("/tmp")) 
+				.findGitDir() 
 				.build();
 				
 		System.out.println(repository.getDirectory().getCanonicalPath());
