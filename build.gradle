@@ -69,6 +69,7 @@ ext {
 	browsermobProxyVersion = '2.0-beta-9'
 	expect4jVersion = '1.6'
 	jschVersion = '0.1.51'
+	quartzVersion = '2.2.1'
 }
 
 apply from: 'gradle/wrapper.gradle'
