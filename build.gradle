@@ -70,6 +70,8 @@ ext {
 	expect4jVersion = '1.6'
 	jschVersion = '0.1.51'
 	quartzVersion = '2.2.1'
+	
+	osgiVersion = '6.0.0'
 }
 
 apply from: 'gradle/wrapper.gradle'
