@@ -3,7 +3,7 @@ apply plugin: 'eclipse'
 ext {
 	wrapperVersion = '2.2.1'
 	
-	slf4jVersion = '1.7.7'
+	slf4jVersion = '1.7.10'
 	logbackVersion = '1.1.2'
 	guavaVersion = '18.0'
 	
@@ -72,6 +72,7 @@ ext {
 	quartzVersion = '2.2.1'
 	
 	osgiVersion = '6.0.0'
+	felixVersion = '4.6.0'
 }
 
 apply from: 'gradle/wrapper.gradle'

@@ -27,10 +27,3 @@ jar {
 		instruction 'Export-Package', ''
 	}
 }
-/*
-task fooJar(type: Jar) {
-	manifest = osgiManifest {
-		instruction 'Bundle-Vendor', 'MyCompany'
-	}
-}
-*/
