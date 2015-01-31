@@ -1,10 +1,13 @@
-package com.github.knives.instrumentation.test;
+package com.github.knives.instrumentation;
+
+import org.junit.Test;
 
 import com.github.knives.instrumentation.utils.MemoryUtil;
 
 public class MemoryUtilTest {
 
-    public static void main(String [] args) {
+	@Test
+    public void main() {
         System.out.println(MemoryUtil.memoryUsageOf(new Square(5,5)));
     }
     

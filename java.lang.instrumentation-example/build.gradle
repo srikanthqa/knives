@@ -1,15 +1,33 @@
 apply from: "$rootDir/gradle/javaProject.gradle"
 
-task buildAgent(type: Jar) {
-	manifest {
-		attributes('Premain-Class': 'com.github.knives.instrumentation.Agent')
+defaultTasks 'test'
+
+repositories {
+	flatDir {
+		dirs "${System.env.'JAVA_HOME'}/lib/"
 	}
-	
-	include '**/*Agent'
-	
-	classifier = 'agent'
 }
 
-task buildAll { }
+dependencies {
+	compile name: 'tools'
+}
 
-buildAll.dependsOn tasks.withType(Jar)
+jar {
+	manifest {
+		attributes 'Premain-Class' : 'com.github.knives.instrumentation.Agent'
+		attributes 'Agent-Class' : 'com.github.knives.instrumentation.Agent'
+		attributes 'Can-Redefine-Classes' : 'true'
+		attributes 'Can-Retransform-Classes' : 'true'
+	}
+}
+
+test {
+	classpath = files(jar.archivePath, 
+		sourceSets.main.compileClasspath, 
+		sourceSets.test.compileClasspath, 
+		sourceSets.test.output.classesDir)
+	
+	//jvmArgs "-javaagent:${jar.archivePath}"
+}
+
+test.dependsOn jar, compileTestJava
