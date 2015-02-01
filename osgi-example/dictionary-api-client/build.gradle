@@ -14,16 +14,17 @@ repositories {
 
 dependencies {
 	compile group: 'org.osgi', name: 'org.osgi.core', version: osgiVersion
+	compile project(':osgi-example:dictionary-api')
 }
 
 jar {
-	manifest { // the manifest of the default jar is of type OsgiManifest
-		name = 'HelloWorld Plug-in'
+	manifest {
+		name = 'Dictionary Client Plug-in'
 		version = '1.0.0'
-		symbolicName = 'simple-osgi-application'
+		symbolicName = 'dictionary-client'
 		instruction 'Bundle-ManifestVersion', '2'
-		instruction 'Bundle-Activator', 'com.github.knives.osgi.HelloWorldActivator'
-		instruction 'Import-Package', 'org.osgi.framework;version="1.8.0"'
+		instruction 'Bundle-Activator', 'com.github.knives.osgi.service.dictionary.client.DictionaryClientActivator'
+		instruction 'Import-Package', 'org.osgi.framework;version="1.8.0",com.github.knives.osgi.service.dictionary;version="1.0.0"'
 		instruction 'Export-Package', ''
 	}
 }
