@@ -1,0 +1,30 @@
+apply plugin: 'java'
+apply plugin: 'osgi'
+apply plugin: 'maven'
+
+defaultTasks 'clean', 'install'
+
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
+
+repositories {
+	mavenLocal()
+	mavenCentral()
+}
+
+dependencies {
+	compile group: 'org.osgi', name: 'org.osgi.core', version: osgiVersion
+	compile project(':osgi-example:dictionary-api')
+}
+
+jar {
+	manifest {
+		name = 'Dictionary Client Plug-in'
+		version = '1.0.0'
+		symbolicName = 'dictionary-blueprint-client'
+		instruction 'Bundle-ManifestVersion', '2'
+		instruction 'Import-Package', 'com.github.knives.osgi.service.dictionary;version="1.0.0"'
+		instruction 'Import-Package', 'org.osgi.service.blueprint;version="[1.0.0,2.0.0)"'
+		instruction 'Import-Service', 'com.github.knives.osgi.blueprint.service.dictionary.impl.BlueprintDictionaryService;multiple:=false'
+	}
+}

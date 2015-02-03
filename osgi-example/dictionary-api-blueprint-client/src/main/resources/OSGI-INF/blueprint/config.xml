@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
+	<reference id="dictionaryService"
+		interface="com.github.knives.osgi.service.dictionary.DictionaryService" />
+		
+	<bean id="dictionaryServiceClient" 
+		class="com.github.knives.osgi.blueprint.service.dictionary.client.BlueprintDictionaryServiceClient"
+		init-method="startUp">
+		<property name="dictionaryService" ref="dictionaryService" />	
+	</bean>
+</blueprint>
