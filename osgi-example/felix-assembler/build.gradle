@@ -30,7 +30,14 @@ dependencies {
 	bundle group: 'org.apache.felix', name: 'org.apache.felix.http.servlet-api', version: felixServletVersion
 	bundle group: 'org.apache.felix', name: 'org.apache.felix.http.bundle', version: felixHttpVersion
 	bundle group: 'org.osgi', name: 'org.osgi.compendium', version: osgiCompendiumVersion
-	
+
+	bundle group: 'org.slf4j', name: 'osgi-over-slf4j', version: slf4jVersion
+	bundle group: 'org.slf4j', name: 'slf4j-api', version: slf4jVersion
+	bundle group: 'org.slf4j', name: 'log4j-over-slf4j', version: slf4jVersion
+	bundle group: 'org.slf4j', name: 'jcl-over-slf4j', version: slf4jVersion
+	bundle group: 'ch.qos.logback', name: 'logback-classic', version: logbackVersion
+	bundle group: 'ch.qos.logback', name: 'logback-core', version: logbackVersion
+		
 	repack group: 'org.json', name: 'json', version: '20141113'
 }
 
