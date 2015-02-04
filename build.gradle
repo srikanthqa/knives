@@ -79,6 +79,9 @@ ext {
 	orgJsonVersion = '20141113'
 	felixServletVersion = '1.0.1'
 	felixHttpVersion = '2.3.2'
+	ariesBlueprintVersion = '1.1.0'
+	ariesUtilVersion = '1.1.0'
+	ariesProxyVersion = '1.0.1'
 }
 
 apply from: 'gradle/wrapper.gradle'

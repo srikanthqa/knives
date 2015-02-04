@@ -37,7 +37,11 @@ dependencies {
 	bundle group: 'org.slf4j', name: 'jcl-over-slf4j', version: slf4jVersion
 	bundle group: 'ch.qos.logback', name: 'logback-classic', version: logbackVersion
 	bundle group: 'ch.qos.logback', name: 'logback-core', version: logbackVersion
-		
+	
+	bundle group: 'org.apache.aries.blueprint', name: 'org.apache.aries.blueprint', version: ariesBlueprintVersion
+	bundle group: 'org.apache.aries.proxy', name: 'org.apache.aries.proxy', version: ariesProxyVersion
+	bundle group: 'org.apache.aries', name: 'org.apache.aries.util', version: ariesUtilVersion
+	
 	repack group: 'org.json', name: 'json', version: '20141113'
 }
 
@@ -84,6 +88,9 @@ task startFelix(type: JavaExec, dependsOn: [assembleFelix, assembleBundles]) {
 	classpath fileTree("${projectDir}/build/felix/bin/")
 	workingDir = file("${projectDir}/build/felix/")
 	main = 'org.apache.felix.main.Main'
+	systemProperties = [
+			'logback.configurationFile' : "${projectDir}/src/main/resources/logback.xml"
+		]
 }
 
 startFelix.dependsOn tasks.matching { it.name.startsWith('repack') }
