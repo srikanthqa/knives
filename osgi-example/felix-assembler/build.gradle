@@ -7,36 +7,76 @@ repositories {
 }
 
 configurations {
-	felix
-	bundle
+	felix {
+		transitive = false
+	}
 	
-	felix.transitive = false
-	bundle.transitive = false
+	// any that declared as bundle on maven
+	// i.e. everything included, so we don't need to include
+	// transitive dependencies
+	bundle {
+		transitive = false
+	}
 	
-	json 
+	repack 
 }
 
 dependencies {
 	felix group: 'org.apache.felix', name: 'org.apache.felix.main', version: felixVersion
 	
-	bundle group: 'org.apache.felix', name: 'org.apache.felix.webconsole', version: '4.2.4'
-	bundle 'commons-fileupload:commons-fileupload:1.3.1'
-	bundle 'commons-io:commons-io:2.4'
+	bundle group: 'org.apache.felix', name: 'org.apache.felix.webconsole', version: felixWebconsoleVersion
+	bundle group: 'commons-fileupload', name: 'commons-fileupload', version: commonsFileuploadVersion
+	bundle group: 'commons-io', name: 'commons-io', version: commonsIoVersion
+	bundle group: 'org.apache.felix', name: 'org.apache.felix.http.servlet-api', version: felixServletVersion
+	bundle group: 'org.apache.felix', name: 'org.apache.felix.http.bundle', version: felixHttpVersion
+	bundle group: 'org.osgi', name: 'org.osgi.compendium', version: osgiCompendiumVersion
 	
-	json 'org.json:json:20141113'
+	repack group: 'org.json', name: 'json', version: '20141113'
 }
 
-task assembleBundle(type: Copy) {
-	into "build/felix/bundle"
+def findJar(name) {
+	return configurations.repack.filter { it.name.startsWith(name) }
+}
+
+task assembleBundles(type: Copy) {
+	from configurations.bundle
+	into "${projectDir}/build/felix/bundle"
+}
+
+task assembleConfig(type: Copy) {
+	from "${projectDir}/src/main/config/config.properties"
+	into "${projectDir}/build/felix/conf"
+}
+
+task assembleFelix(type: Copy, dependsOn: assembleConfig) {
 	from configurations.felix
+	into "${projectDir}/build/felix/bin"
 }
 
-task assembleFelix(type: Copy) {
-	into "build/felix"
-	from configurations.felix
+task repackJson(type: Jar) {
+	group = "Distribution"
+	description = "Repack org.json:json with Osgi manifest"
+	
+	baseName = 'json'
+	version = orgJsonVersion
+	
+	from zipTree(findJar('json').singleFile)
+	
+	manifest {
+		attributes 'Bundle-Name': "org.json:json:${orgJsonVersion}"
+		attributes 'Bundle-Version': '0'
+		attributes 'Bundle-SymbolicName': 'org.json'
+		attributes 'Bundle-ManifestVersion': '2'
+		attributes 'Export-Package': 'org.json;version=0'
+	}
+	
+	destinationDir = file("${projectDir}/build/felix/bundle")
 }
 
-task startFelix(type: JavaExec) {
-	classpath = configurations.felix
+task startFelix(type: JavaExec, dependsOn: [assembleFelix, assembleBundles]) {
+	classpath fileTree("${projectDir}/build/felix/bin/")
+	workingDir = file("${projectDir}/build/felix/")
 	main = 'org.apache.felix.main.Main'
 }
+
+startFelix.dependsOn tasks.matching { it.name.startsWith('repack') }

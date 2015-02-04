@@ -31,6 +31,7 @@ ext {
 	commonsCollectionVersion = '3.2.1'
 	commonsNetVersion = '3.3'
 	commonsConfigurationVersion = '1.10'
+	commonsFileuploadVersion = '1.3.1'
 	
 	ivyVersion = '2.3.0'
 	antlrVersion = '4.1'
@@ -72,7 +73,12 @@ ext {
 	quartzVersion = '2.2.1'
 	
 	osgiVersion = '6.0.0'
+	osgiCompendiumVersion = '5.0.0'
 	felixVersion = '4.6.0'
+	felixWebconsoleVersion = '4.2.4'
+	orgJsonVersion = '20141113'
+	felixServletVersion = '1.0.1'
+	felixHttpVersion = '2.3.2'
 }
 
 apply from: 'gradle/wrapper.gradle'

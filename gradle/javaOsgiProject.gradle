@@ -18,7 +18,6 @@ configurations {
 }
 
 dependencies {
-	compile group: 'org.osgi', name: 'org.osgi.core', version: osgiVersion
 	compile group: 'org.slf4j', name: 'osgi-over-slf4j', version: slf4jVersion
 	compile group: 'org.slf4j', name: 'slf4j-api', version: slf4jVersion
 	compile group: 'org.slf4j', name: 'log4j-over-slf4j', version: slf4jVersion
@@ -26,6 +25,7 @@ dependencies {
 	compile group: 'com.google.guava', name: 'guava', version: guavaVersion
 	
 	runtime group: 'ch.qos.logback', name: 'logback-classic', version: logbackVersion
+	runtime group: 'org.osgi', name: 'org.osgi.core', version: osgiVersion
 	
 	testCompile group: 'junit', name: 'junit', version: junitVersion
 	testCompile group: 'org.hamcrest', name: 'hamcrest-all', version: hamcrestVersion
