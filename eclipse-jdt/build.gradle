@@ -1,6 +1,0 @@
-apply from: "$rootDir/gradle/javaProject.gradle"
-
-dependencies {
-	compile group: 'org.eclipse.jdt.core.compiler', name: 'ecj', version: '4.4'
-
-}

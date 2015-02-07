@@ -1,4 +1,4 @@
-apply plugin: 'eclipse'
+apply plugin: 'idea'
 
 ext {
 	wrapperVersion = '2.2.1'

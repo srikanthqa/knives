@@ -1,6 +1,6 @@
+# eclipse
 .project
 .settings
-
 *.class
 .classpath
 
@@ -16,3 +16,8 @@
 
 # offline dependency
 lib
+
+# idea file
+*.iml
+*.ipr
+*.iws
