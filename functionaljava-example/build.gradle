@@ -3,4 +3,5 @@ apply plugin: 'application'
 
 dependencies {
 	compile group: 'org.functionaljava', name: 'functionaljava', version: functionalJavaVersion
+	compile group: 'org.functionaljava', name: 'functionaljava-java8', version: functionalJavaVersion
 }

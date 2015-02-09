@@ -1,0 +1,29 @@
+apply plugin: 'java'
+apply plugin: 'osgi'
+apply plugin: 'maven'
+
+defaultTasks 'clean', 'install'
+
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    compile group: 'org.osgi', name: 'org.osgi.core', version: osgiVersion
+}
+
+jar {
+    manifest {
+        name = 'EventAdmin Example'
+        version = '1.0.0'
+        symbolicName = 'osgi-eventadmin'
+        instruction 'Bundle-ManifestVersion', '2'
+        instruction 'Bundle-Activator', 'com.github.knives.osgi.service.dictionary.activator.DictionaryServiceActivator'
+        instruction 'Import-Package', 'org.osgi.framework;version="1.8.0"'
+        instruction 'Export-Package', ''
+    }
+}
