@@ -1,0 +1,16 @@
+apply from: "$rootDir/gradle/javaProject.gradle"
+
+dependencies {
+    compile group: 'org.eclipse.aether', name: 'aether-api', version: aetherEclipseVersion
+    compile group: 'org.eclipse.aether', name: 'aether-util', version: aetherEclipseVersion
+    compile group: 'org.eclipse.aether', name: 'aether-impl', version: aetherEclipseVersion
+    compile group: 'org.eclipse.aether', name: 'aether-spi', version: aetherEclipseVersion
+    compile group: 'org.eclipse.aether', name: 'aether-connector-basic', version: aetherEclipseVersion
+    compile group: 'org.eclipse.aether', name: 'aether-transport-http', version: aetherEclipseVersion
+    compile group: 'org.eclipse.aether', name: 'aether-transport-file', version: aetherEclipseVersion
+    compile group: 'org.eclipse.aether', name: 'aether-transport-wagon', version: aetherEclipseVersion
+    compile group: 'org.eclipse.aether', name: 'aether-transport-classpath', version: aetherEclipseVersion
+    compile group: 'org.apache.maven', name: 'maven-aether-provider', version: mavenAetherVersion
+    compile group: 'org.apache.maven.wagon', name: 'wagon-ssh', version: wagonSshVersion
+
+}
