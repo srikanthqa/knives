@@ -1,0 +1,6 @@
+apply from: "$rootDir/gradle/javaProject.gradle"
+
+dependencies {
+    compile group: 'biz.aQute.bnd', name: 'biz.aQute.bnd', version: bndVersion
+    testCompile project (path: ':aether-eclipse-example', configuration: 'testArtifacts')
+}
