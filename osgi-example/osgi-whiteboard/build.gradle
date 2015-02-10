@@ -20,7 +20,7 @@ jar {
     manifest {
         name = 'Whiteboard Example'
         version = '1.0.0'
-        symbolicName = 'osgi-whiteboard'
+        symbolicName = 'osgi-whiteboard-example'
         instruction 'Bundle-ManifestVersion', '2'
         instruction 'Bundle-Activator', 'com.github.knives.osgi.service.dictionary.activator.DictionaryServiceActivator'
         instruction 'Import-Package', 'org.osgi.framework;version="1.8.0"'
