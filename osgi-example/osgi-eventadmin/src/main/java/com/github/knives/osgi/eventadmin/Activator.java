@@ -10,11 +10,11 @@ public class Activator implements BundleActivator {
 
     @Override
     public void start(BundleContext context) throws Exception {
-
+    	LOG.info("Start EventAdmin example");
     }
 
     @Override
     public void stop(BundleContext context) throws Exception {
-
+    	LOG.info("Stop EventAdmin example");
     }
 }

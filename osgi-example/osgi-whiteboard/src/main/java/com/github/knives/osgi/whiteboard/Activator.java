@@ -12,8 +12,7 @@ import org.slf4j.LoggerFactory;
 public class Activator implements BundleActivator {
     final private static Logger LOG = LoggerFactory.getLogger(Activator.class);
     
-    final private static ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
-    
+    private ScheduledExecutorService executor;
     private DictionaryServiceTracker tracker; 
     
     
@@ -23,6 +22,7 @@ public class Activator implements BundleActivator {
     	tracker = new DictionaryServiceTracker(context);
     	tracker.open();
     	
+    	executor = Executors.newSingleThreadScheduledExecutor();
     	executor.scheduleAtFixedRate(() -> tracker.checkWord("blueprint"), 
     			0, 30, TimeUnit.SECONDS);
     }

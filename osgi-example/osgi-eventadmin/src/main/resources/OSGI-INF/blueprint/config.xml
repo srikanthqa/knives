@@ -1,4 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
+	<reference id="eventAdmin"
+		interface="org.osgi.service.event.EventAdmin"/>
 
+	<bean id="eventSource" 
+		class="com.github.knives.osgi.eventadmin.EventSource"
+		init-method="startUp" destroy-method="shutdown">
+		<property name="eventAdmin" ref="eventAdmin" />	
+	</bean>
+	
+	<bean id="eventReceiver" class="com.github.knives.osgi.eventadmin.EventReceiver"/>
+
+	<service ref="eventReceiver" auto-export="interfaces">
+		<service-properties>
+            <entry key="event.topics" value="broadcast" />
+        </service-properties>
+	</service>
 </blueprint>
