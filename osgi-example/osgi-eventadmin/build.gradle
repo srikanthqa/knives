@@ -14,6 +14,8 @@ repositories {
 
 dependencies {
     compile group: 'org.osgi', name: 'org.osgi.core', version: osgiVersion
+    compile group: 'org.slf4j', name: 'slf4j-api', version: slf4jVersion
+    compile project(':osgi-example:dictionary-api')
 }
 
 jar {
@@ -22,8 +24,8 @@ jar {
         version = '1.0.0'
         symbolicName = 'osgi-eventadmin-example'
         instruction 'Bundle-ManifestVersion', '2'
-        instruction 'Bundle-Activator', 'com.github.knives.osgi.service.dictionary.activator.DictionaryServiceActivator'
+        instruction 'Bundle-Activator', 'com.github.knives.osgi.eventadmin.Activator'
         instruction 'Import-Package', 'org.osgi.framework;version="1.8.0"'
-        instruction 'Export-Package', ''
+        instruction 'Import-Package', 'org.slf4j;version="[1.7.10,2.0.0)"'
     }
 }

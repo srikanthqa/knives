@@ -24,7 +24,7 @@ jar {
 		symbolicName = 'dictionary-client'
 		instruction 'Bundle-ManifestVersion', '2'
 		instruction 'Bundle-Activator', 'com.github.knives.osgi.service.dictionary.client.DictionaryClientActivator'
-		instruction 'Import-Package', 'org.osgi.framework;version="1.8.0",com.github.knives.osgi.service.dictionary;version="1.0.0"'
-		instruction 'Export-Package', ''
-	}
+		instruction 'Import-Package', 'org.osgi.framework;version="1.8.0"'
+        instruction 'Import-Package', 'com.github.knives.osgi.service.dictionary;version="1.0.0"'
+    }
 }

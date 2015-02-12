@@ -52,6 +52,8 @@ dependencies {
     bundle project(':osgi-example:dictionary-api-client')
     bundle project(':osgi-example:dictionary-api-blueprint-impl')
     bundle project(':osgi-example:dictionary-api-blueprint-client')
+    bundle project(':osgi-example:osgi-eventadmin')
+    bundle project(':osgi-example:osgi-whiteboard')
 
     repack group: 'org.json', name: 'json', version: '20141113'
 }
