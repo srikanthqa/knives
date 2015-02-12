@@ -1,0 +1,4 @@
+= Whiteboard Pattern
+
+Whiteboard pattern is simply event source get a snapshot of registered listeners 
+from listener directory, then notify each listener.
