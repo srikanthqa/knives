@@ -46,8 +46,12 @@ dependencies {
 	bundle group: 'org.apache.aries.blueprint', name: 'org.apache.aries.blueprint', version: ariesBlueprintVersion
 	bundle group: 'org.apache.aries.proxy', name: 'org.apache.aries.proxy', version: ariesProxyVersion
 	bundle group: 'org.apache.aries', name: 'org.apache.aries.util', version: ariesUtilVersion
-	
-	repack group: 'org.json', name: 'json', version: '20141113'
+
+    bundle project(':osgi-example:dictionary-api')
+    bundle project(':osgi-example:dictionary-api-impl')
+    bundle project(':osgi-example:dictionary-api-client')
+
+    repack group: 'org.json', name: 'json', version: '20141113'
 }
 
 def findJar(name) {
