@@ -1,8 +1,11 @@
 package com.github.knives.osgi.blueprint.service.dictionary.impl;
 
 import com.github.knives.osgi.service.dictionary.DictionaryService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class BlueprintDictionaryService implements DictionaryService {
+    final private static Logger LOG = LoggerFactory.getLogger(BlueprintDictionaryService.class);
 
 	final private String[] dictionary = { "welcome", 
 			"to", 
@@ -12,7 +15,7 @@ public class BlueprintDictionaryService implements DictionaryService {
 			"tutorial" };
 
 	public void startUp() {
-		System.out.println("Welcome to blueprint dictionary service");
+        LOG.info("Welcome to blueprint dictionary service");
 	}
 	
 	@Override

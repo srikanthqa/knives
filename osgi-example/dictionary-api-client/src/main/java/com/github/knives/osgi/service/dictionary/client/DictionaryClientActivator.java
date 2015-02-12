@@ -54,6 +54,7 @@ public class DictionaryClientActivator implements BundleActivator, ServiceListen
 		try {
 			System.out.println("Enter a blank line to exit.");
 			String word = "";
+            /*
 			BufferedReader in = new BufferedReader(new InputStreamReader(
 					System.in));
 
@@ -79,6 +80,7 @@ public class DictionaryClientActivator implements BundleActivator, ServiceListen
 					System.out.println("Incorrect.");
 				}
 			}
+			*/
 		} catch (Exception ex) {
 		}
 
