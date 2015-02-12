@@ -19,12 +19,11 @@ dependencies {
 
 jar {
 	manifest {
-		name = 'Dictionary Client Plug-in'
+		name = 'Blueprint Dictionary Client Plug-in'
 		version = '1.0.0'
 		symbolicName = 'dictionary-blueprint-client'
 		instruction 'Bundle-ManifestVersion', '2'
 		instruction 'Import-Package', 'com.github.knives.osgi.service.dictionary;version="1.0.0"'
 		instruction 'Import-Package', 'org.osgi.service.blueprint;version="[1.0.0,2.0.0)"'
-		instruction 'Import-Service', 'com.github.knives.osgi.blueprint.service.dictionary.impl.BlueprintDictionaryService;multiple:=false'
 	}
 }
