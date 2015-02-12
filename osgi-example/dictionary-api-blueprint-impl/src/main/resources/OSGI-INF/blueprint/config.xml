@@ -4,7 +4,13 @@
 		class="com.github.knives.osgi.blueprint.service.dictionary.impl.BlueprintDictionaryService"
 		init-method="startUp">
 	</bean>
-	
-	<service ref="dictionaryService"
-		interface="com.github.knives.osgi.service.dictionary.DictionaryService" />
+
+
+	<service ref="dictionaryService" auto-export="interfaces">
+        <service-properties>
+            <entry key="source">
+                <value type="java.lang.String">blueprint</value>
+            </entry>
+        </service-properties>
+    </service>
 </blueprint>
