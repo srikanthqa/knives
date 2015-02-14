@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
+    <reference id="configurationAdmin"
+               interface="org.osgi.service.cm.ConfigurationAdmin" />
+
+    <bean id="configurationProvider"
+          class="com.github.knives.osgi.cm.provider.ConfigurationProvider"
+          init-method="startUp">
+        <property name="configurationAdmin" ref="configurationAdmin" />
+    </bean>
+</blueprint>

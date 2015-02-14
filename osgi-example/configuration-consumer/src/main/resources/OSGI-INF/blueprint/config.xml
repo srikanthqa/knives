@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
+    <bean id="configurationConsumer"
+          class="com.github.knives.osgi.cm.consumer.ConfigurationConsumer" />
+
+    <service ref="configurationConsumer" auto-export="interfaces">
+        <service-properties>
+            <entry key="service.pid" value="configurationConsumer"/>
+        </service-properties>
+    </service>
+</blueprint>
