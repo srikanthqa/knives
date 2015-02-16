@@ -50,6 +50,10 @@ dependencies {
 	bundle group: 'org.apache.aries.proxy', name: 'org.apache.aries.proxy', version: ariesProxyVersion
 	bundle group: 'org.apache.aries', name: 'org.apache.aries.util', version: ariesUtilVersion
 
+    // other jvm languages
+    bundle group: 'org.codehaus.groovy', name: 'groovy-all', version: groovyVersion
+    bundle group: 'org.scala-lang', name: 'scala-library', version: scalaVersion
+
     bundle project(':osgi-example:dictionary-api')
     bundle project(':osgi-example:dictionary-api-impl')
     bundle project(':osgi-example:dictionary-api-client')
