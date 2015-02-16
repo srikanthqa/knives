@@ -36,6 +36,7 @@ dependencies {
 	bundle group: 'org.apache.felix', name: 'org.apache.felix.http.bundle', version: felixHttpVersion
 	bundle group: 'org.apache.felix', name: 'org.apache.felix.eventadmin', version: felixEventAdminVersion
     bundle group: 'org.apache.felix', name: 'org.apache.felix.configadmin', version: felixConfigAdminVersion
+    bundle group: 'org.apache.felix', name: 'org.apache.felix.scr', version: felixScrVersion
 
 
     bundle group: 'org.slf4j', name: 'slf4j-api', version: slf4jVersion
@@ -49,17 +50,18 @@ dependencies {
 	bundle group: 'org.apache.aries.proxy', name: 'org.apache.aries.proxy', version: ariesProxyVersion
 	bundle group: 'org.apache.aries', name: 'org.apache.aries.util', version: ariesUtilVersion
 
-    //bundle project(':osgi-example:dictionary-api')
-    //bundle project(':osgi-example:dictionary-api-impl')
-    //bundle project(':osgi-example:dictionary-api-client')
-    //bundle project(':osgi-example:dictionary-api-blueprint-impl')
-    //bundle project(':osgi-example:dictionary-api-blueprint-client')
+    bundle project(':osgi-example:dictionary-api')
+    bundle project(':osgi-example:dictionary-api-impl')
+    bundle project(':osgi-example:dictionary-api-client')
+    bundle project(':osgi-example:dictionary-api-blueprint-impl')
+    bundle project(':osgi-example:dictionary-api-blueprint-client')
     //bundle project(':osgi-example:osgi-eventadmin')
     //bundle project(':osgi-example:osgi-whiteboard')
-    //bundle project(':osgi-example:osgi-extender')
-    //bundle project(':osgi-example:osgi-extender-client')
+    bundle project(':osgi-example:osgi-extender')
+    bundle project(':osgi-example:osgi-extender-client')
     bundle project(':osgi-example:configuration-consumer')
     bundle project(':osgi-example:configuration-provider')
+    bundle project(':osgi-example:dictionary-api-scr-impl')
 
     repack group: 'org.json', name: 'json', version: '20141113'
 }

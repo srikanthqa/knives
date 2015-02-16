@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" immediate="true"
+               activate="activate" modified="modified" deactivate="deactivate">
+
+    <implementation class="com.github.knives.osgi.scr.service.dictionary.DictionaryComponent" />
+    <service>
+        <scr:provide interface="com.github.knives.osgi.service.dictionary.DictionaryService"/>
+    </service>
+
+    <!-- example of properties -->
+    <property name="service.pid" value="scrDictionaryService" />
+
+    <!-- example of dynamic, optional reference -->
+    <!-- in class, you do a local copy for short hold on the lock -->
+    <!--reference interface="yourinterface" bind="setterMethod" unbind="unsetterMethod"
+               policy="dynamic" cardinality="0..1" /-->
+
+    <!-- dynamic mandatory allows service replacement differ from static mandatory -->
+</scr:component>
