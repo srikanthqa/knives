@@ -23,23 +23,23 @@ public class DictionaryServiceExtender implements BundleTrackerCustomizer<Bundle
 
     @Override
     public Bundle addingBundle(Bundle bundle, BundleEvent event) {
-        LOG.info("adding Bundle event [{}]", bundle.getLocation());
+        LOG.trace("adding Bundle event [{}]", bundle.getLocation());
 
         final String className = (String) bundle.getHeaders().get(DICTIONARY_SERVICE_HEADER);
         if (className == null) {
-            LOG.info("No header found, return null for not track");
+            LOG.trace("No header found, return null for not track");
             return null;
         }
 
         try {
             Class<?> serviceClass = bundle.loadClass(className);
             if (serviceClass == null) {
-                LOG.info("Unable to load class [{}]", className);
+                LOG.warn("Unable to load class [{}]", className);
                 return null;
             }
 
             if (!DictionaryService.class.isAssignableFrom(serviceClass)) {
-                LOG.info("Class [{}] is not a DictionaryService", className);
+                LOG.warn("Class [{}] is not a DictionaryService", className);
                 return null;
             }
 

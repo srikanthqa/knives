@@ -66,6 +66,7 @@ dependencies {
     bundle project(':osgi-example:configuration-consumer')
     bundle project(':osgi-example:configuration-provider')
     bundle project(':osgi-example:dictionary-api-scr-impl')
+    bundle project(':osgi-example:dictionary-api-groovy-impl')
 
     repack group: 'org.json', name: 'json', version: '20141113'
 }
