@@ -23,7 +23,6 @@ jar {
 		symbolicName = 'simple-osgi-application'
 		instruction 'Bundle-ManifestVersion', '2'
 		instruction 'Bundle-Activator', 'com.github.knives.osgi.HelloWorldActivator'
-		instruction 'Import-Package', 'org.osgi.framework;version="1.8.0"'
-		instruction 'Export-Package', ''
+		instruction 'Import-Package', '*'
 	}
 }

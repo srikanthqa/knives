@@ -22,7 +22,6 @@ jar {
 		version = '1.0.0'
 		symbolicName = 'dictionary-api'
 		instruction 'Bundle-ManifestVersion', '2'
-		instruction 'Import-Package', 'org.osgi.framework;version="1.8.0"'
 		instruction 'Export-Package', 'com.github.knives.osgi.service.dictionary;version="1.0.0"'
 	}
 }
