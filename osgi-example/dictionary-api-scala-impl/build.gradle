@@ -1,0 +1,32 @@
+apply plugin: 'scala'
+apply plugin: 'osgi'
+apply plugin: 'maven'
+
+defaultTasks 'clean', 'install'
+
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    compile group: 'org.osgi', name: 'org.osgi.core', version: osgiVersion
+    compile group: 'org.scala-lang', name: 'scala-library', version: scalaVersion
+    compile group: 'org.slf4j', name: 'slf4j-api', version: slf4jVersion
+
+    compile project(':osgi-example:dictionary-api')
+}
+
+jar {
+    manifest {
+        name = 'Dictionary Scala Api Impl Plug-in'
+        version = '1.0.0'
+        symbolicName = 'dictionary-api-scala-impl'
+        instruction 'Bundle-ManifestVersion', '2'
+        instruction 'Import-Package', '*' // allow bnd to import external other package find in classpath
+        instruction 'Import-Package', 'org.osgi.service.blueprint;version="[1.0.0,2.0.0)"'
+    }
+}
