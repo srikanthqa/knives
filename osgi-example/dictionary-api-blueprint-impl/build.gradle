@@ -23,8 +23,5 @@ jar {
 		name = 'Blueprint Dictionary Api Impl Plug-in'
 		version = '1.0.0'
 		symbolicName = 'dictionary-api-blueprint-impl'
-		instruction 'Bundle-ManifestVersion', '2'
-        instruction 'Import-Package', '*'
-        instruction 'Import-Package', 'org.osgi.service.blueprint;version="[1.0.0,2.0.0)"'
 	}
 }

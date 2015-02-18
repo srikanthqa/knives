@@ -1,5 +1,5 @@
 apply from: "$rootDir/gradle/javaProject.gradle"
 
 dependencies {
-	compile group: 'com.typesafe.akka', name: 'akka-actor_2.11', version: '2.3.8'
+	compile group: 'com.typesafe.akka', name: 'akka-actor_2.11', version: akkaVersion
 }

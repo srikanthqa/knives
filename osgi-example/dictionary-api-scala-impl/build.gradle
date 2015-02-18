@@ -25,8 +25,5 @@ jar {
         name = 'Dictionary Scala Api Impl Plug-in'
         version = '1.0.0'
         symbolicName = 'dictionary-api-scala-impl'
-        instruction 'Bundle-ManifestVersion', '2'
-        instruction 'Import-Package', '*' // allow bnd to import external other package find in classpath
-        instruction 'Import-Package', 'org.osgi.service.blueprint;version="[1.0.0,2.0.0)"'
     }
 }

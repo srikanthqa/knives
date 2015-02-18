@@ -16,12 +16,16 @@ dependencies {
     compile group: 'org.osgi', name: 'org.osgi.core', version: osgiVersion
     compile group: 'org.slf4j', name: 'slf4j-api', version: slf4jVersion
     compile group: 'org.osgi', name: 'org.osgi.compendium', version: osgiCompendiumVersion
+
+    compile group: 'org.apache.camel', name: 'camel-core', version: camelVersion
+    compile group: 'org.apache.camel', name: 'camel-core-osgi', version: camelVersion
+    compile group: 'org.apache.camel', name: 'camel-blueprint', version: camelVersion
 }
 
 jar {
     manifest {
-        name = 'Configuration Consumer Plug-in'
+        name = 'Camel Blueprint Example'
         version = '1.0.0'
-        symbolicName = 'configuration-consumer'
+        symbolicName = 'osgi-camel-blueprint-example'
     }
 }

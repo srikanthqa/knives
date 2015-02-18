@@ -1,4 +1,4 @@
-apply plugin: 'groovy'
+apply plugin: 'scala'
 apply plugin: 'osgi'
 apply plugin: 'maven'
 
@@ -14,16 +14,16 @@ repositories {
 
 dependencies {
     compile group: 'org.osgi', name: 'org.osgi.core', version: osgiVersion
-    compile group: 'org.codehaus.groovy', name: 'groovy-all', version: groovyVersion
     compile group: 'org.slf4j', name: 'slf4j-api', version: slf4jVersion
-
-    compile project(':osgi-example:dictionary-api')
+    compile group: 'org.scala-lang', name: 'scala-library', version: scalaVersion
+    compile group: 'com.typesafe.akka', name: 'akka-actor_2.11', version: akkaVersion
+    compile group: 'com.typesafe.akka', name: 'akka-osgi_2.11', version: akkaVersion
 }
 
 jar {
     manifest {
-        name = 'Dictionary Groovy Api Impl Plug-in'
+        name = 'Akka Example'
         version = '1.0.0'
-        symbolicName = 'dictionary-api-groovy-impl'
+        symbolicName = 'osgi-akka-example'
     }
 }

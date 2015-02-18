@@ -21,8 +21,6 @@ jar {
 		name = 'HelloWorld Plug-in'
 		version = '1.0.0'
 		symbolicName = 'simple-osgi-application'
-		instruction 'Bundle-ManifestVersion', '2'
 		instruction 'Bundle-Activator', 'com.github.knives.osgi.HelloWorldActivator'
-		instruction 'Import-Package', '*'
 	}
 }

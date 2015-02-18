@@ -22,8 +22,6 @@ jar {
 		name = 'Dictionary Client Plug-in'
 		version = '1.0.0'
 		symbolicName = 'dictionary-client'
-		instruction 'Bundle-ManifestVersion', '2'
 		instruction 'Bundle-Activator', 'com.github.knives.osgi.service.dictionary.client.DictionaryClientActivator'
-		instruction 'Import-Package', '*'
     }
 }

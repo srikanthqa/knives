@@ -54,6 +54,12 @@ dependencies {
     bundle group: 'org.codehaus.groovy', name: 'groovy-all', version: groovyVersion
     bundle group: 'org.scala-lang', name: 'scala-library', version: scalaVersion
 
+    // camel
+    bundle group: 'org.apache.camel', name: 'camel-core', version: camelVersion
+    bundle group: 'org.apache.camel', name: 'camel-core-osgi', version: camelVersion
+    bundle group: 'org.apache.camel', name: 'camel-blueprint', version: camelVersion
+
+
     bundle project(':osgi-example:dictionary-api')
     bundle project(':osgi-example:dictionary-api-impl')
     bundle project(':osgi-example:dictionary-api-client')
