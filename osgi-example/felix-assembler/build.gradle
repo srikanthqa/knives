@@ -74,7 +74,7 @@ dependencies {
     bundle project(':osgi-example:dictionary-api-scr-impl')
     bundle project(':osgi-example:dictionary-api-groovy-impl')
     bundle project(':osgi-example:dictionary-api-scala-impl')
-    //bundle project(':osgi-example:osgi-camel-blueprint')
+    bundle project(':osgi-example:osgi-camel-blueprint')
 
     repack group: 'org.json', name: 'json', version: '20141113'
 }
