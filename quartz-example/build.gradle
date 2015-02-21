@@ -1,6 +1,15 @@
+buildscript {
+    dependencies {
+        classpath 'com.github.jengelman.gradle.plugins:gradle-processes:0.3.0'
+    }
+}
+
 apply from: "$rootDir/gradle/javaProject.gradle"
+apply plugin: 'com.github.johnrengelman.processes'
+
 
 dependencies {
 	compile group: 'org.quartz-scheduler', name: 'quartz', version: quartzVersion
 	compile group: 'org.quartz-scheduler', name: 'quartz-jobs', version: quartzVersion
+    compile group: 'com.h2database', name:'h2', version: h2Version
 }

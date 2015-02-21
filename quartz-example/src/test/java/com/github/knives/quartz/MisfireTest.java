@@ -16,15 +16,6 @@ import static org.quartz.TriggerBuilder.newTrigger;
 public class MisfireTest {
     final private static Logger LOG = LoggerFactory.getLogger(MisfireTest.class);
 
-    public static class HelloJob implements Job {
-        @Override
-        public void execute(JobExecutionContext context)
-                throws JobExecutionException {
-            LOG.info("hello world");
-
-        }
-    }
-
     @Test
     public void test() throws InterruptedException {
         try {

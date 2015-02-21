@@ -12,15 +12,6 @@ import static org.quartz.TriggerBuilder.newTrigger;
 
 public class QuartzTest {
 
-    public static class HelloJob implements Job {
-        @Override
-        public void execute(JobExecutionContext context)
-                throws JobExecutionException {
-            System.out.println("hello world");
-
-        }
-    }
-
     @Test
     public void test() throws InterruptedException {
         try {
