@@ -1,0 +1,5 @@
+apply from: "$rootDir/gradle/groovyProject.gradle"
+
+dependencies {
+    compile group: 'org.codehaus.groovyfx', name: 'groovyfx', version: groovyFxVersion
+}
