@@ -47,11 +47,29 @@ public class TreeNode<T> {
 
 	@Override
 	public String toString() {
-		if (getValue() != null) {
-			return getValue().toString();
-		}
+        StringBuilder builder = new StringBuilder();
+        builder.append("[")
+                .append("value=")
+                .append(getValue())
+                .append(", left=");
 
-		return "";
+        if (hasLeft()) {
+            builder.append(getLeft());
+        } else {
+            builder.append("null");
+        }
+
+        builder.append(", right=");
+
+        if (hasRight()) {
+            builder.append(getRight());
+        } else {
+            builder.append("null");
+        }
+
+        builder.append("]");
+
+		return builder.toString();
 	}
 
 }
