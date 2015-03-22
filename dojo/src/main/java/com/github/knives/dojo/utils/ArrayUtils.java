@@ -79,14 +79,23 @@ public class ArrayUtils {
 	// comparator passed. If the value exists in the array, returns first index
 	// of occurrence of the value. Otherwise, returns -1.
 	public static <T> int findIndex(T[] array, T value, Comparator<T> comparator) {
-		for (int index = 0; index < array.length; index++) {
-			if (comparator.compare(array[index], value) == 0) {
-				return index;
-			}
-		}
-
-		return -1;
+		return findIndex(array, 0, array.length, value, comparator);
 	}
+
+    // Searches the given array for the occurrence of the value using the
+    // comparator passed. If the value exists in the array, returns first index
+    // of occurrence of the value. Otherwise, returns -1.
+    // startIndex is inclusive
+    // endIndex is exclusive
+    public static <T> int findIndex(T[] array, int startIndex, int endIndex, T value, Comparator<T> comparator) {
+        for (int index = startIndex; index < endIndex; index++) {
+            if (comparator.compare(array[index], value) == 0) {
+                return index;
+            }
+        }
+
+        return -1;
+    }
 
 	// Swaps the value in table[a][b] with the value in table[c][d].
 	public static void swap(Integer[][] table, int a, int b, int c, int d) {
