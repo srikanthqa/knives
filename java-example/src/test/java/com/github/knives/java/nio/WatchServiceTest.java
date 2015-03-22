@@ -28,6 +28,10 @@ public class WatchServiceTest {
 		while (true) {
 			try {
 				WatchKey watchKey = watchService.poll(60, TimeUnit.SECONDS);
+                if (watchKey == null) {
+                    System.out.println("watchKey is null");
+                    break;
+                }
 				List<WatchEvent<?>> events = watchKey.pollEvents();
 				for (WatchEvent<?> event : events) {
 					System.out.println("Event " + event.kind() + ", count=" + event.count() + " " + event.context());
