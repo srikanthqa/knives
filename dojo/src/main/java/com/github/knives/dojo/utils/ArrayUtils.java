@@ -5,7 +5,7 @@ import java.util.Comparator;
 /**
  * Common methods required for manipulating arrays.
  */
-public class ArrayUtils {
+public interface ArrayUtils {
 	// Converts an integer array into Integer array.
 	public static Integer[] autoBox(int[] array) {
 		if (array == null) {
