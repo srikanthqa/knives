@@ -1,12 +1,6 @@
 package com.github.knives.dojo.problem;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
-import java.util.Set;
-import java.util.HashSet;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 /**
  * How many different ways can you make change for an amount, given a list of coins?
@@ -19,44 +13,42 @@ import java.util.stream.IntStream;
  * An amount N and types of infinite available coins M
  * A list of M coins - C={C1,C2,C3,..,CM}
  * Prints out how many different ways you can make change from the coins to STDOUT.
+ *
+ * The problem can be formally stated:
+ *
+ * Given a value N, if we want to make change for N cents, and we have infinite supply of each of C={C1,C2,…,CM} valued coins, how many ways can we make the change? The order of coins doesn’t matter.
+ *
+ * Constraints
+ *
+ * 1≤Ci≤50
+ * 1≤N≤250
+ * 1≤M≤50
+ * The list of coins will contain distinct integers.
  */
 public interface CoinChange {
 
-    public static int compute(int[] coins, int change) {
-        final ArrayList<Set<String>> changes = new ArrayList<Set<String>>(change+1);
-        changes.add(new HashSet<String>() {
-            {
-                add("0");
+    public static long compute(int[] coins, int change) {
+        final long[] changes = new long[change+1];
+        changes[0] = 1;
+
+        // sort in increasing order
+        Arrays.sort(coins);
+
+        for (int i = 0; i < coins.length; i++) {
+            final int coin = coins[i];
+            // set direct change
+            if (coin <= change) {
+                changes[coin] += 1;
             }
-        });
 
-        for (int i = 1; i <= change; i++) {
-            changes.add(new HashSet<String>());
-
-            for (int j = coins.length - 1; j >= 0; j--) {
-                final int coin = coins[j];
-
-                if (i >= coin) {
-
-                    final String additionalChange = "-" + coin;
-                    final int leftOverChange = i - coin;
-
-                    for (final String currentChange : changes.get(leftOverChange)) {
-                        final String totalChange = currentChange + additionalChange;
-                        final String sortedTotalChange = Arrays.stream(totalChange.split("-"))
-                                .mapToInt(Integer::valueOf)
-                                .sorted()
-                                .mapToObj(it -> Integer.toString(it))
-                                .collect(Collectors.joining("-"));
-
-                        changes.get(i).add(sortedTotalChange);
-                    }
-                }
+            // from coin+1 change, start compute way of making change
+            for (int j = coin + 1; j <= change; j++) {
+                changes[j] += changes[j - coin];
             }
         }
 
-        //System.out.println(changes);
+        //System.out.println(Arrays.toString(changes));
 
-        return changes.get(change).size();
+        return changes[change];
     }
 }
