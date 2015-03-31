@@ -5,66 +5,29 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 public class RedJohnIsBackTest {
+    final private RedJohnIsBack john = new RedJohnIsBack();
+
     @Test
     public void test() {
-        //assertEquals(1, RedJohnIsBack.computeArrangement(1));
-        //assertEquals(5, RedJohnIsBack.computeArrangement(7));
-        //assertEquals(7, RedJohnIsBack.computeArrangement(8));
-        //assertEquals(10, RedJohnIsBack.computeArrangement(9));
-        //assertEquals(138588, RedJohnIsBack.computeArrangement(40));
-
-
-        /**
-         34
-         3
-         31
-         35
-         10
-         38
-         18
-         27
-         15
-         3
-         38
-         14
-         18
-         4
-         5
-         23
-         9
-         31
-         10
-         25
-         */
-
         /*
-        3385
-        0
-        1432
-        4522
-        6
-        10794
-        42
-        462
-        19
-        0
-        10794
-        15
-        42
-        1
-        2
-        155
-        4
-        1432
-        6
-        269
-         */
+        System.out.print("new long[] {");
+        for (int i = 1; i <= 40; i++) {
+            System.out.print(john.computeArrangement(i));
+            System.out.print(", ");
+        }
+        System.out.println("};");
+        */
 
-        //assertEquals(0, RedJohnIsBack.compute(1));
-        //assertEquals(3, RedJohnIsBack.compute(7));
-        System.out.println(RedJohnIsBack.choose(22, 4));
-        System.out.println(RedJohnIsBack.computeArrangement(12));
-        assertEquals(3385, RedJohnIsBack.compute(34));
-        //assertEquals(12895, RedJohnIsBack.compute(40));
+        //assertEquals(1, john.computeArrangement(1));
+        //assertEquals(5, john.computeArrangement(7));
+        //assertEquals(7, john.computeArrangement(8));
+        //assertEquals(10, john.computeArrangement(9));
+        //assertEquals(138588, john.computeArrangement(40));
+
+
+        assertEquals(0, john.compute(1));
+        assertEquals(3, john.compute(7));
+        assertEquals(3385, john.compute(34));
+        assertEquals(19385, john.compute(40));
     }
 }

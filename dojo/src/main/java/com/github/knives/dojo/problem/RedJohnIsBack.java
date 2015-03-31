@@ -4,42 +4,56 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
-public interface RedJohnIsBack {
+public class RedJohnIsBack {
 
-    public static long compute(int n) {
-        return countPrimeLessThan(computeArrangement(n));
+    final private static long[] ARRANGE_CACHE = new long[] {1, 1, 1, 2, 3, 4, 5, 7, 10, 14, 19, 26,
+            36, 50, 69, 95, 131, 181, 250, 345, 476, 657, 907, 1252, 1728, 2385, 3292, 4544, 6272,
+            8657, 11949, 16493, 22765, 31422, 43371, 59864, 82629, 114051, 157422, 217286};
+
+    final private ArrayList<Long> knownPrimes = new ArrayList<Long>();
+    private long queryPrimeMaxCeiling = 13;
+
+    public RedJohnIsBack() {
+        knownPrimes.add(2L);
+        knownPrimes.add(3L);
+        knownPrimes.add(5L);
+        knownPrimes.add(7L);
+        knownPrimes.add(11L);
+        knownPrimes.add(13L);
     }
 
+    public long compute(int n) {
+        return countPrimeLessThan(cacheArrange(n));
+    }
 
-    public static long countPrimeLessThan(long n) {
-        if (n < 2L) return 0;
-        if (n < 3L) return 1;
-        if (n < 5L) return 2;
-        if (n < 7L) return 3;
-        if (n < 11L) return 4;
-        if (n < 13L) return 5;
-        if (n == 13L) return 6;
+    public long cacheArrange(int n) {
+        return ARRANGE_CACHE[n-1];
+    }
 
-        final ArrayList<Long> primes = new ArrayList<Long>(10);
-        primes.add(2L);
-        primes.add(3L);
-        primes.add(5L);
-        primes.add(7L);
-        primes.add(11L);
-        primes.add(13L);
-
-        for (long i = 15; i <= n; i += 2) {
-            if (isPrime(i, primes)) {
-                primes.add(i);
+    public long countPrimeLessThan(long n) {
+        if (n <= queryPrimeMaxCeiling) {
+            long count = 0;
+            for (long prime : knownPrimes) {
+                if (prime > n) {
+                    break;
+                }
+                count++;
             }
+
+            return count;
+        } else {
+            // bump the ceiling
+            for (; queryPrimeMaxCeiling <= n; queryPrimeMaxCeiling += 2) {
+                if (isPrime(queryPrimeMaxCeiling)) {
+                    knownPrimes.add(queryPrimeMaxCeiling);
+                }
+            }
+
+            return knownPrimes.size();
         }
-
-        System.out.println(primes);
-
-        return primes.size();
     }
 
-    public static boolean isPrime(long candidate, List<Long> knownPrimes) {
+    public boolean isPrime(long candidate) {
         for (final long prime : knownPrimes) {
             if (candidate % prime == 0) {
                 return false;
@@ -55,7 +69,7 @@ public interface RedJohnIsBack {
      * How many way can you arrange bricks in the given area?
      *
      */
-    public static long computeArrangement(int n) {
+    public long computeArrangement(int n) {
         // treat as dash and dot
         long way = 0;
         for (int i = 0; i <= n / 4; i++) {
@@ -67,22 +81,16 @@ public interface RedJohnIsBack {
         return way;
     }
 
-    public static long choose(long n, long k) {
+    public long choose(long n, long k) {
         BigInteger combination = BigInteger.ONE;
         for (long i = k+1; i <= n; i++) {
-            //System.out.println(n + " choose " + k + " = " + combination);
             combination = combination.multiply(BigInteger.valueOf(i));
-            //combination *= i;
         }
 
-        //System.out.println(n + " choose " + k + " = " + combination);
 
         for (long i = 1; i <= n-k; i++) {
             combination = combination.divide(BigInteger.valueOf(i));
-            //combination /= i;
         }
-
-        //System.out.println(n + " choose " + k + " = " + combination);
 
         return combination.longValue();
     }
