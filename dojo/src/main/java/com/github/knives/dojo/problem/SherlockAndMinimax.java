@@ -39,10 +39,6 @@ public interface SherlockAndMinimax {
                 m = Q;
             }
         } else {
-            if (Math.min(Math.abs(array[qIndex] - Q), Math.abs(array[qIndex-1] - Q)) > maxDistance) {
-                m = Q;
-            }
-
             final int currentDistance = (array[qIndex] - array[qIndex-1]) / 2;
             final int tmp = currentDistance + array[qIndex-1];
             if (tmp <= Q && currentDistance > maxDistance) {
