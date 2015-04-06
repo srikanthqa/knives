@@ -33,4 +33,9 @@ public class GraphNode<T> {
 
 		return graphNode.getValue().equals(value);
 	}
+
+	@Override
+	public int hashCode() {
+		return value.hashCode();
+	}
 }
