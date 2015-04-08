@@ -1,18 +1,12 @@
 package com.github.knives.dojo.problem;
 
+import com.github.knives.dojo.datastructure.Edge;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
 
 public interface EvenTree {
-    public static class Edge {
-        final public int p, q;
-
-        public Edge(int p, int q) {
-            this.p = p;
-            this.q = q;
-        }
-    }
 
     public static class Node {
         final public int n;

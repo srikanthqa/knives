@@ -1,5 +1,6 @@
 package com.github.knives.dojo.problem;
 
+import com.github.knives.dojo.datastructure.Edge;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -13,7 +14,7 @@ public class EvenTreeTest {
             graph[i] = new EvenTree.Node(i);
         }
 
-        final EvenTree.Edge[] edges = new EvenTree.Edge[9];
+        final Edge[] edges = new Edge[9];
         insertEdge(graph, edges, 0, 2, 1);
         insertEdge(graph, edges, 1, 3, 1);
         insertEdge(graph, edges, 2, 4, 3);
@@ -27,9 +28,9 @@ public class EvenTreeTest {
         assertEquals(2, EvenTree.compute(edges, graph));
     }
 
-    public static void insertEdge(EvenTree.Node[] graph, EvenTree.Edge[] edges, int i, int q, int p) {
+    public static void insertEdge(EvenTree.Node[] graph, Edge[] edges, int i, int q, int p) {
         graph[q-1].neighbors.add(graph[p-1]);
         graph[p-1].neighbors.add(graph[q-1]);
-        edges[i] = new EvenTree.Edge(q-1, p-1);
+        edges[i] = new Edge(q-1, p-1);
     }
 }
