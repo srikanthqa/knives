@@ -1,5 +1,14 @@
 apply from: "$rootDir/gradle/javaProject.gradle"
 
 dependencies {
-    compile group: 'org.apache.jmeter', name: 'ApacheJMeter_java', version: ApacheJMeter_java
+    compile group: 'org.apache.jmeter', name: 'ApacheJMeter_java', version: jmeterVersion
+    compile group: 'org.apache.jmeter', name: 'ApacheJMeter_http', version: jmeterVersion
+    compile group: 'org.apache.jmeter', name: 'ApacheJMeter_tcp', version: jmeterVersion
+    compile group: 'org.apache.jmeter', name: 'ApacheJMeter_jdbc', version: jmeterVersion
+    compile group: 'org.apache.jmeter', name: 'ApacheJMeter_functions', version: jmeterVersion
+    compile group: 'org.apache.jmeter', name: 'ApacheJMeter_native', version: jmeterVersion
+    compile group: 'org.apache.jmeter', name: 'ApacheJMeter_jms', version: jmeterVersion
+    compile group: 'org.apache.jmeter', name: 'ApacheJMeter_monitors', version: jmeterVersion
+    compile group: 'org.apache.jmeter', name: 'ApacheJMeter_config', version: jmeterVersion
+    compile group: 'org.apache.jmeter', name: 'ApacheJMeter_ldap', version: jmeterVersion
 }
