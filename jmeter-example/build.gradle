@@ -1,0 +1,5 @@
+apply from: "$rootDir/gradle/javaProject.gradle"
+
+dependencies {
+    compile group: 'org.apache.jmeter', name: 'ApacheJMeter_java', version: ApacheJMeter_java
+}
