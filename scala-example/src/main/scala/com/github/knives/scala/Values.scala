@@ -7,5 +7,7 @@ object Values {
     val words = "A value"
 
     println(whole, fractional, words)
+    
+    println(words)
   }
 }
