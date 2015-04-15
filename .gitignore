@@ -22,3 +22,6 @@ lib
 *.ipr
 *.iws
 .idea
+
+# cache
+.cache
