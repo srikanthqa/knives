@@ -11,6 +11,7 @@ object Expressions {
     println(c)
     
     val f = {}
+    // f:Unit
     println(f)
   }
 }
