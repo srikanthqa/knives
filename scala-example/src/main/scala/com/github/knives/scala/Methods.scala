@@ -6,8 +6,11 @@ object Methods {
     x * 2
   }
   
+  def square(x: Int):Int = x * x
+  
   def main(args: Array[String]) {
     val r = multiplyByTwo(5)
     println(r)
+    println(square(5))
   }
 }
