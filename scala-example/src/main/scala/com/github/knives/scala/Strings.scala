@@ -23,5 +23,9 @@ object Strings {
     } else {
       println("x3 " + x3 + " and x2 " +  x2 + " are not equal")
     }
+    
+    val stringInterpolation = s"$x1 $x2 $x3"
+    println(stringInterpolation)
+    
   }
 }
