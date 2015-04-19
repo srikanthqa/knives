@@ -21,7 +21,7 @@ public interface Flower {
     // The group rotately buy the flowers in order of highest cost to lowest cost
     // when anyone hold less flower should buy the next highest cost flower. Otherwise, the payment is higher.
     public static long totalCost(int k, List<Long> costs) {
-        costs.sort(((Comparator<Long>) (Comparator.naturalOrder())).reversed());
+        costs.sort((Comparator.<Long>naturalOrder()).reversed());
 
         long totalCost = 0;
         int i = 0;
