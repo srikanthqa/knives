@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:si="http://www.springframework.org/schema/integration"
+	xmlns:http="http://www.springframework.org/schema/integration/http"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration-1.0.xsd	
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+	http://www.springframework.org/schema/integration/http http://www.springframework.org/schema/integration/http/spring-integration-http-1.0.xsd
+	">
+
+	<context:property-placeholder />
+	<si:channel id="enter" />
+
+	<si:channel id="exit" />
+
+	<si:gateway id="reportGenerator" default-request-channel="enter"
+		default-reply-channel="exit" service-interface="org.bk.report.ReportGenerator" />
+
+	<si:channel id="sectionRequestToXMLChannel" />
+	<si:splitter id="sectionRequestSplitter" input-channel="enter"
+		ref="sectionRequestSplitterBean" method="split" output-channel="sectionRequestToXMLChannel" />
+
+	<si:channel id="sectionRequestChannel" />
+	<si:transformer input-channel="sectionRequestToXMLChannel"
+		ref="sectionRequestToXMLBean" method="transform" output-channel="sectionRequestChannel" />
+
+	<si:channel id="sectionXMLResponseChannel" />
+	<http:outbound-gateway id="httpHeaderGateway"
+		request-channel="sectionRequestChannel" reply-channel="sectionXMLResponseChannel"
+		default-url="${sectionBaseURL}/section" extract-request-payload="true"
+		charset="UTF-8" request-timeout="1200" />
+
+	<si:channel id="sectionResponseChannel" />
+	<si:transformer input-channel="sectionXMLResponseChannel"
+		ref="sectionResponseXMLToSectionBean" method="transform" output-channel="sectionResponseChannel" />
+
+	<si:aggregator input-channel="sectionResponseChannel"
+		output-channel="exit" ref="sectionResponseAggregator" method="aggregate" />
+
+	<bean id="sectionRequestSplitterBean" class="org.bk.report.common.SectionRequestSplitter" />
+	<bean id="sectionRequestToXMLBean" class="org.bk.report.common.SectionRequestToXMLTransformer" />
+	<bean id="sectionResponseXMLToSectionBean" class="org.bk.report.common.SectionResponseXMLToSectionTransformer" />
+	<bean id="sectionResponseAggregator" class="org.bk.report.common.SectionResponseAggregator" />
+		
+</beans>
