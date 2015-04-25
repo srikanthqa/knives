@@ -2,6 +2,7 @@ package com.github.knives.dojo.algorithm;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.IntStream;
 
@@ -71,6 +72,10 @@ public interface Combination {
 	 * i.e. set[i+1] = set[i]+1 
 	 */
     static List<int[]> choose(final int n, final int k) {
+        if (k < 0 || n < 0 || k > n) {
+            return Collections.emptyList();
+        }
+        
         final List<int[]> sets = new ArrayList<int[]>();
         final int[] set = IntStream.range(0, k).toArray();
 
@@ -81,12 +86,10 @@ public interface Combination {
         return sets;
     }
 
-    static boolean next(int[] set, int n, int k) {
-    	// start with the innermost loop index
-        int i = k - 1; 
-        while(i > 0) {
-            if (set[i] == n-1) {
-                set[i] = 0;
+   static boolean next(int[] set, int n, int k) {
+        int i = k - 1;
+        while (i >= 0) {
+            if (set[i] == n-k+i) {
                 i--;
             } else {
                 set[i]++;
@@ -97,15 +100,6 @@ public interface Combination {
             }
         }
 
-        if (set[i] == n-k) {
-            return false;
-        }
-
-        set[i]++;
-        for (; i < k-1; i++) {
-            set[i+1] = set[i]+1;
-        }
-
-        return true;
+        return false;
     }
 }
