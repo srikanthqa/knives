@@ -6,6 +6,8 @@ buildscript {
 apply plugin: 'scala'
 apply plugin: 'maven'
 apply plugin: com.github.maiflai.ScalaTestPlugin
+apply plugin: 'eclipse'
+apply plugin: 'idea'
 
 repositories {
 	mavenLocal()

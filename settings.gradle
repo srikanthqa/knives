@@ -1,8 +1,6 @@
 include 'config'
 include 'liquibase-example'
 include 'gratex'
-include 'project-euler-groovy'
-include 'project-euler-scala'
 include 'javascript-playground'
 include 'jline2-example'
 include 'javax.tools-example'
