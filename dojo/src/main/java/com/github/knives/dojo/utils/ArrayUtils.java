@@ -1,11 +1,17 @@
 package com.github.knives.dojo.utils;
 
+import java.util.Arrays;
 import java.util.Comparator;
+import java.util.stream.Collectors;
 
 /**
  * Common methods required for manipulating arrays.
  */
 public interface ArrayUtils {
+	public static void printArray(int[] array) {
+		System.out.println(Arrays.stream(array).mapToObj(i -> Integer.toString(i)).collect(Collectors.joining(" ")));
+	}
+	
 	// Converts an integer array into Integer array.
 	public static Integer[] autoBox(int[] array) {
 		if (array == null) {
