@@ -7,8 +7,8 @@ public interface InsertionSort {
 			// find the index j to insert in increasing order
 			for (int j = i; j > 0 && array[j-1] > array[j]; j--) {
 				int tmp = array[j];
-				array[j-1] = array[j];
-				array[j] = tmp;
+				array[j] = array[j-1];
+				array[j-1] = tmp;
 			}
 		}
 	}
