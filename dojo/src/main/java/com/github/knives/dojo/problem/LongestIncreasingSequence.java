@@ -14,7 +14,7 @@ public interface LongestIncreasingSequence {
      * 3. If A[i] is in between, we will find a list with largest end element that is smaller than A[i].
      * Clone and extend this list by A[i]. We will discard all other lists of same length as that of this modified list.
      */
-    public static int length(int[] sequence) {
+    static int length(int[] sequence) {
         final int[] tailIndices = new int[sequence.length];
 
         // it will always point to empty location
@@ -39,7 +39,7 @@ public interface LongestIncreasingSequence {
         return len;
     }
 
-    public static int binarySearch(int[] sequence, int[] tailIndices, int l, int r, int key) {
+    static int binarySearch(int[] sequence, int[] tailIndices, int l, int r, int key) {
         int m;
 
         while( r - l > 1 ) {
