@@ -45,4 +45,9 @@ public class FCBinarySearchTest {
     public void testNotFound() {
         assertEquals(-1, BinarySearch.fcLookup(new int[]{2}, 1));
     }
+    
+    @Test
+    public void testDuplicate() {
+        assertEquals(3, BinarySearch.fcLookup(new int[]{1,2,2,2,3,3,4,5,6,7}, 2));
+    }
 }

@@ -45,4 +45,9 @@ public class BinarySearchTest {
     public void testNotFound() {
         assertEquals(-1, BinarySearch.lookup(new int[]{2}, 1));
     }
+    
+    @Test
+    public void testDupLookup() {
+        assertEquals(1, BinarySearch.dupLookup(new int[]{1,2,2,2,3,3,4,5,6,7}, 2));
+    }
 }

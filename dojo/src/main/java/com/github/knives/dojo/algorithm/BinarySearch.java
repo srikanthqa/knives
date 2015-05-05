@@ -115,6 +115,7 @@ public interface BinarySearch {
 	        if( low == high )
 	            return low;
 	 
+	        // looking for pulse
 			int mid = (low + high) / 2;
 	 
 	        if( array[mid] < array[high] )
@@ -128,5 +129,26 @@ public interface BinarySearch {
 	    }
 	 
 	    return -1;
+	}
+	
+	// return the first element of the value
+	static int dupLookup(int[] array, int value) {
+		if (array.length == 0) return -1;
+		
+		int low = 0;
+		int high = array.length;
+		
+		while (high - low > 1) {
+			int mid = (low + high)/2;
+			
+			// first element can't be in array[low...mid]
+			if (array[mid] < value) {
+				low = mid+1;
+			} else {
+				high = mid;
+			}
+		}
+		
+		return high;
 	}
 }
