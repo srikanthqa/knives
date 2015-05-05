@@ -1,4 +1,4 @@
-package com.github.knives.dojo.problem;
+package com.github.knives.dojo.algorithm;
 
 import com.github.knives.dojo.algorithm.BinarySearch;
 import org.junit.Test;
