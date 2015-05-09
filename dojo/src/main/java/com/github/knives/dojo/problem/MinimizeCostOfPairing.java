@@ -1,5 +1,7 @@
 package com.github.knives.dojo.problem;
 
+import java.util.Arrays;
+
 import com.github.knives.dojo.datastructure.IntPair;
 
 /**
@@ -12,18 +14,61 @@ import com.github.knives.dojo.datastructure.IntPair;
  * 0 <= x,y <= 1000
  *
  */
-public class MinimizeCostOfPairing {
+public interface MinimizeCostOfPairing {
 
-    private final IntPair[] coordinates;
-    private final double[][] distance;
+	// Example of dynamic program with bitset / hash index
+    static double compute(IntPair[] coordinates) {
+        final int N = coordinates.length;
 
-    public MinimizeCostOfPairing(IntPair[] coordinates) {
-        this.coordinates = coordinates;
-        this.distance = new double[coordinates.length][coordinates.length];
+        final double[][] distance = new double[N][N];
+        
+        computeDistance(coordinates, distance);
+        
+        final double[] minDistance = new double[1 << N];
+        Arrays.fill(minDistance, -1.0d);
+        
+        return computeDistance(0, (1<<N)-1, N, distance, minDistance);
     }
 
-    public double solve() {
-        return 0.0d;
+    static void computeDistance(IntPair[] coordinates, double[][] distance) {
+    	for (int i = 0; i < coordinates.length; i++) {
+    		for (int j = i+1; j < coordinates.length; j++) {
+    			distance[i][j] 
+					= distance[j][i] 
+					= Math.hypot(coordinates[i].getFirst() - coordinates[j].getFirst() , 
+								 coordinates[i].getSecond() - coordinates[j].getSecond());
+    		}
+    	}
     }
-
+    
+    static double computeDistance(int currentSet, int targetSet, int N, double[][] distance, double[] minDistance) {
+    	if (minDistance[currentSet] > -0.5) {
+    		return minDistance[currentSet];
+    	}
+    	
+    	if (currentSet == targetSet) {
+    		return minDistance[targetSet] = 0.0d;
+    	}
+    	
+    	double answer = Double.MAX_VALUE;
+    	
+    	int p1, p2;
+    	// find the first p1
+    	for (p1 = 0; p1 < N; p1++) {
+    		int mask = 1 << p1;
+    		if ((currentSet & mask) == 0) {
+    			break;
+    		}
+    	}
+    	
+    	for (p2 = p1+1; p2 < N; p2++) {
+    		int mask = 1 << p2;
+    		if ((currentSet & mask) == 0) {
+    			answer = Math.min(answer, distance[p1][p2] + 
+    					computeDistance(currentSet | (1<<p1) | (1<<p2), targetSet, N, distance, minDistance));
+    		}
+    	}
+    	
+    	return minDistance[currentSet] = answer;
+    }
 }
