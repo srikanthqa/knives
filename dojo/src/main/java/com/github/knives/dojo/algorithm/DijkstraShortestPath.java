@@ -8,7 +8,7 @@ import com.github.knives.dojo.datastructure.graph.GridWeightedGraph;
 public interface DijkstraShortestPath {
 	static class Node {
 		private final int distTo;
-		private int node;
+		private final int node;
 		
 		public Node(int node, int distTo) {
 			this.node = node;
