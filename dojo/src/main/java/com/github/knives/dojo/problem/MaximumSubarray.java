@@ -20,11 +20,11 @@ public interface MaximumSubarray {
             return Arrays.stream(array).max().getAsLong();
         }
 
-        long maxSumSoFar, maxSumEndingHere;
+        long maxSumSoFar = 0;
+        long maxSumEndingHere = 0;
 
-        maxSumSoFar = maxSumEndingHere = array[0];
 
-        for (int i =  1; i < array.length; i++) {
+        for (int i =  0; i < array.length; i++) {
             maxSumEndingHere = Math.max(0, maxSumEndingHere + array[i]);
             maxSumSoFar = Math.max(maxSumSoFar, maxSumEndingHere);
         }
