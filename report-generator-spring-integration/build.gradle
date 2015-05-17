@@ -1,5 +1,10 @@
 apply from: "$rootDir/gradle/javaProject.gradle"
 
 dependencies {
-	
+	compile group: 'dom4j', name: 'dom4j', version: dom4jVersion
+	compile group: 'jaxen', name: 'jaxen', version: jaxenVersion
+	compile group: 'org.springframework.integration', name: 'spring-integration-core', version: springIntegrationVersion
+	compile group: 'org.springframework.integration', name: 'spring-integration-http', version: springIntegrationVersion
+
+	testCompile group: 'org.eclipse.jetty', name: 'jetty-util', version: jettyVersion
 }
