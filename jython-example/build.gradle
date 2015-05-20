@@ -1,5 +1,5 @@
 apply from: "$rootDir/gradle/javaProject.gradle"
 
 dependencies {
-	compile group: 'org.python', name: 'jython', version: jythonVersion
+	compile group: 'org.python', name: 'jython-standalone', version: jythonVersion
 }
