@@ -1,6 +1,6 @@
 package org.bk.report;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,8 +10,7 @@ import org.bk.report.domain.Section;
 import org.bk.report.dummyservice.SectionService;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.mortbay.jetty.testing.ServletTester;
-
+import org.eclipse.jetty.servlet.ServletTester;
 
 
 public class TestIntegrationReportGenerator {
@@ -22,7 +21,7 @@ public class TestIntegrationReportGenerator {
         ServletTester tester = new ServletTester();
         tester.setContextPath("/");
         tester.addServlet(SectionService.class, "/section");
-        baseURL = tester.createSocketConnector(true);
+        baseURL = tester.createConnector(true);
         System.setProperty("sectionBaseURL", baseURL);
         tester.start();
     }    

@@ -6,5 +6,6 @@ dependencies {
 	compile group: 'org.springframework.integration', name: 'spring-integration-core', version: springIntegrationVersion
 	compile group: 'org.springframework.integration', name: 'spring-integration-http', version: springIntegrationVersion
 
+	testCompile group: 'org.eclipse.jetty', name: 'jetty-servlet', version: jettyVersion
 	testCompile group: 'org.eclipse.jetty', name: 'jetty-util', version: jettyVersion
 }

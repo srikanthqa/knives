@@ -10,5 +10,6 @@ dependencies {
 	compile group: 'org.springframework', name: 'spring-core', version: springVersion
 	compile group: 'org.springframework', name: 'spring-context', version: springVersion
 
+	testCompile group: 'org.eclipse.jetty', name: 'jetty-servlet', version: jettyVersion
 	testCompile group: 'org.eclipse.jetty', name: 'jetty-util', version: jettyVersion
 }
