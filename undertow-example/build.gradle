@@ -1,0 +1,6 @@
+apply from: "$rootDir/gradle/javaProject.gradle"
+
+
+dependencies {
+	compile group: 'io.undertow', name: 'undertow-core', version: undertowVersion
+}
