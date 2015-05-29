@@ -1,0 +1,10 @@
+apply from: "$rootDir/gradle/javaProject.gradle"
+
+dependencies {
+    compile group: 'org.springframework', name: 'spring-core', version: springVersion
+    compile group: 'org.springframework', name: 'spring-context', version: springVersion
+    compile group: 'org.springframework', name: 'spring-beans', version: springVersion
+    compile group: 'org.springframework', name: 'spring-test', version: springVersion
+    compile group: 'javax.inject', name: 'javax.inject', version: '1'
+
+}
