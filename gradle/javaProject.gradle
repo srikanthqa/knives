@@ -11,6 +11,9 @@ targetCompatibility = '1.8'
 repositories { 
 	mavenLocal()
 	mavenCentral() 
+	flatDir {
+		dirs "$rootDir/libs"
+	}
 }
 
 configurations {

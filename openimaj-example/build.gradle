@@ -1,0 +1,7 @@
+apply from: "$rootDir/gradle/javaProject.gradle"
+
+dependencies {
+	compile name: 'bezier-utils'
+	compile group: 'gov.nist.math', name: 'jama', version: jamaVersion
+	compile group: 'org.openimaj', name: 'image-processing', version: openimajVersion
+}

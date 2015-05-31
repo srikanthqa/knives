@@ -26,3 +26,6 @@ lib
 # cache
 .cache
 *~
+
+# except libs to store dependencies that is not on maven
+!/libs
