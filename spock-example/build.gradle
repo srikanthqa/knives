@@ -1,0 +1,5 @@
+apply from: "$rootDir/gradle/groovyProject.gradle"
+
+dependencies {
+    testCompile group: 'org.spockframework', name: 'spock-core', version: spockVersion
+}
