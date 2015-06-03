@@ -2,4 +2,6 @@ apply from: "$rootDir/gradle/javaProject.gradle"
 
 dependencies {
     compile group: 'info.cukes', name: 'cucumber-java', version: cucumberVersion
+	
+	testCompile group: 'info.cukes', name: 'cucumber-junit', version: cucumberVersion
 }
