@@ -1,0 +1,10 @@
+apply from: "$rootDir/gradle/javaProject.gradle"
+
+dependencies {
+	compile group: 'org.jbehave', name: 'jbehave-core', version: jbehaveVersion
+	compile group: 'org.jbehave', name: 'jbehave-spring', version: jbehaveVersion
+	compile group: 'org.springframework', name: 'spring-core', version: springVersion
+	compile group: 'org.springframework', name: 'spring-context', version: springVersion
+	compile group: 'org.springframework', name: 'spring-beans', version: springVersion
+	compile group: 'org.springframework', name: 'spring-aop', version: springVersion
+}
