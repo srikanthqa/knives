@@ -7,4 +7,7 @@ dependencies {
 	compile group: 'org.springframework', name: 'spring-context', version: springVersion
 	compile group: 'org.springframework', name: 'spring-beans', version: springVersion
 	compile group: 'org.springframework', name: 'spring-aop', version: springVersion
+	compile group: 'org.springframework', name: 'spring-test', version: springVersion
+    compile group: 'junit', name: 'junit', version: junitVersion
+	compile group: 'javax.inject', name: 'javax.inject', version: '1'
 }
