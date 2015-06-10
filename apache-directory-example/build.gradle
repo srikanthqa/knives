@@ -1,0 +1,6 @@
+apply from: "$rootDir/gradle/javaProject.gradle"
+
+dependencies {
+    compile group: 'org.apache.directory.server', name: 'apacheds-all', version: apacheDirectoryVersion
+
+}
