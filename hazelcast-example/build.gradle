@@ -2,4 +2,6 @@ apply from: "$rootDir/gradle/javaProject.gradle"
 
 dependencies {
     compile group: 'com.hazelcast', name: 'hazelcast', version: hazelcastVersion
+	compile group: 'com.hazelcast', name: 'hazelcast-client', version: hazelcastVersion
+	
 }
