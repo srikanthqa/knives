@@ -3,11 +3,17 @@ apply plugin: 'eclipse'
 
 apply from: 'gradle/wrapper.gradle'
 
-allprojects {
-    buildscript {
-        repositories {
-            jcenter()
-            mavenCentral()
-        }
-    }
+buildscript {
+	repositories {
+		mavenLocal()
+		maven {
+			url "https://raw.github.com/khaing211/maven-repo/master/releases"
+		}
+	}
+	
+	dependencies {
+		classpath group: 'com.github.kn.gradle-integration', name: 'java-project-plugin', version: javaProjectPluginVersion
+		classpath group: 'com.github.kn.gradle-integration', name: 'groovy-project-plugin', version: groovyProjectPluginVersion
+		
+	}
 }

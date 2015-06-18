@@ -1,0 +1,5 @@
+apply plugin: 'java-project'
+
+dependencies {
+	compile group: 'com.google.code.tempus-fugit', name: 'tempus-fugit', version: tempusFugitVersion
+}
