@@ -11,13 +11,15 @@ public class CalculatorParser extends BaseParser<Object> {
         Var<Character> op = new Var<Character>();
 
         return Sequence(
+        		WhiteSpace(),
                 Term(),
                 ZeroOrMore(
                         Sequence(
                                 FirstOf("+ ", "- "), op.set(matchedChar()),
                                 Term()
                         )
-                )
+                ),
+                EOI
         );
     }
  
