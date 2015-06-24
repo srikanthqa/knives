@@ -1,11 +1,11 @@
+Meta:
+@author Mauro
+@themes UI Usability
+
 Narrative:
 In order to play,
 As a jbehave engineer,
 I want to test meta
-
-Meta:
-@author Mauro
-@themes UI Usability
 
 Scenario: stack is first-in last-out order
 

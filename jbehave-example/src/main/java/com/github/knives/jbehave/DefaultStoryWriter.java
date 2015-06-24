@@ -49,9 +49,17 @@ public class DefaultStoryWriter implements StoryWriter {
 	
 	protected void writeMeta(StringBuilder builder, Meta meta) {
 		if (!meta.isEmpty()) {
-			builder.append(meta.asString(keywords))
-				.append(NEWLINE)
-				.append(NEWLINE);		
+			builder.append(keywords.meta())
+				.append(NEWLINE);
+				
+			for (String name : meta.getPropertyNames()) {
+				builder.append(keywords.metaProperty())
+					.append(name).append(SPACE)
+					.append(meta.getProperty(name))
+					.append(NEWLINE);
+			}	
+				
+			builder.append(NEWLINE);
 		}
 	}
 

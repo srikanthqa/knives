@@ -15,6 +15,7 @@ public class DefaultStoryWriterTest {
 	private final StoryLoader storyLoader = new LoadFromClasspath();
 	private final StoryParser storyParser = new RegexStoryParser();
 	private final StoryWriter storyWriter = new DefaultStoryWriter(new Keywords());
+	private final static Keywords keywords = new Keywords();
 	
 	private Story loadStory(String storyPath) {
 		String storyAsText = storyLoader.loadStoryAsText(storyPath);
@@ -29,10 +30,8 @@ public class DefaultStoryWriterTest {
 		
 		Story dupStory = storyParser.parseStory(storyAsText);
 		
+		System.out.println(storyAsText);
 		assertEqualsStory(story, dupStory);
-		
-		//System.out.println(storyAsText);
-		
 	}
 	
 	@Test
@@ -43,9 +42,8 @@ public class DefaultStoryWriterTest {
 		
 		Story dupStory = storyParser.parseStory(storyAsText);
 		
+		System.out.println(storyAsText);
 		assertEqualsStory(story, dupStory);
-		
-		//System.out.println(storyAsText);
 	}
 	
 	@Test
@@ -56,12 +54,34 @@ public class DefaultStoryWriterTest {
 		
 		Story dupStory = storyParser.parseStory(storyAsText);
 		
+		System.out.println(storyAsText);
 		assertEqualsStory(story, dupStory);
 	}
 	
 	
 	public static void assertEqualsStory(Story expected, Story actual) {
 		assertEquals(expected.getDescription().asString(), actual.getDescription().asString());
+		
+		assertEquals(expected.getMeta().isEmpty(), actual.getMeta().isEmpty());
+		
+		if (!expected.getMeta().isEmpty()) {
+			assertEquals(expected.getMeta().getPropertyNames(),
+						 actual.getMeta().getPropertyNames());
+			
+			for (String name : expected.getMeta().getPropertyNames()) {
+				assertEquals(expected.getMeta().getProperty(name), actual.getMeta().getProperty(name));
+			}
+		}
+		
+		assertEquals(expected.getNarrative().isEmpty(), actual.getNarrative().isEmpty());
+		
+		if (!expected.getNarrative().isEmpty()) {
+			assertEquals(expected.getNarrative().asString(keywords), actual.getNarrative().asString(keywords));
+		}
+		
+		assertEquals(expected.getGivenStories().asString(), actual.getGivenStories().asString());
+		
+		assertEquals(expected.getLifecycle().isEmpty(), actual.getLifecycle().isEmpty());
 		
 	}
 }
