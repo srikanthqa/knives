@@ -1,0 +1,7 @@
+apply from: "$rootDir/gradle/javaProject.gradle"
+
+dependencies {
+	compile group: 'org.openjdk.jmh', name: 'jmh-core', version: jmhVersion
+	// use reflection, instead of bytecode inspection, asm, or anntation processor
+	compile group: 'org.openjdk.jmh', name: 'jmh-generator-reflection', version: jmhVersion
+}
