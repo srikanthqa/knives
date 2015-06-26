@@ -3,6 +3,8 @@ package com.github.knives.jgit;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import org.apache.commons.io.FileUtils;
 import org.eclipse.jgit.api.Git;
@@ -27,7 +29,10 @@ public class GitPushTest {
 	public void test() throws GitAPIException, IOException {
 		System.out.println(repository.getRepository());
 		
-		File newFile = repository.newFile();
+		File newFolder = repository.newFolder();
+		File newFile = Files.createTempFile(Paths.get(newFolder.getAbsolutePath()), "", ".txt")
+				.toFile();
+		
 		FileUtils.write(newFile, "test file");
 		
 		String relativePath = repository.relative(newFile).toString();
