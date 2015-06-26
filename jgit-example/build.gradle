@@ -3,5 +3,7 @@ apply from: "$rootDir/gradle/javaProject.gradle"
 dependencies {
 	compile group: 'org.eclipse.jgit', name: 'org.eclipse.jgit', version: jgitVersion
 	compile group: 'org.eclipse.jgit', name: 'org.eclipse.jgit.ui', version: jgitVersion
+	compile group: 'commons-io', name: 'commons-io', version: commonsIoVersion
+	
 	testCompile group: 'org.eclipse.jgit', name: 'org.eclipse.jgit.junit', version: jgitVersion
 }

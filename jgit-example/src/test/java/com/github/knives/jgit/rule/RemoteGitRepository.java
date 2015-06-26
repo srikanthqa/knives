@@ -1,6 +1,10 @@
 package com.github.knives.jgit.rule;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
@@ -35,7 +39,7 @@ public class RemoteGitRepository extends TemporaryFolder {
 			.setCloneAllBranches(true)
 			.setURI(remoteUri)
 			.setDirectory(getRoot())
-			.setProgressMonitor(new TextProgressMonitor())
+			.setProgressMonitor(new TextProgressMonitor(new PrintWriter(System.out)))
 			.call()
 			.getRepository();
 	}
@@ -46,5 +50,11 @@ public class RemoteGitRepository extends TemporaryFolder {
 	
 	public Repository getRepository() {
 		return repository;
+	}
+	
+	public Path relative(File childFile) {
+		Path rootPath = Paths.get(getRoot().getAbsolutePath());
+		Path childPath = Paths.get(childFile.getAbsolutePath());
+		return rootPath.relativize(childPath);
 	}
 }
