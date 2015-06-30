@@ -20,8 +20,8 @@ import com.google.api.services.drive.model.FileList;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 
 public class DriveQuickstart {
     /** Application name. */
@@ -46,7 +46,7 @@ public class DriveQuickstart {
     private static HttpTransport HTTP_TRANSPORT;
 
     /** Global instance of the scopes required by this quickstart. */
-    private static final Set<String> SCOPES = DriveScopes.all();
+    private static final List<String> SCOPES = Arrays.asList(DriveScopes.DRIVE_READONLY);
 
     static {
         try {
