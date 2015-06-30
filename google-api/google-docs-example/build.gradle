@@ -1,5 +1,0 @@
-apply from: "$rootDir/gradle/javaProject.gradle"
-
-dependencies {
-
-}
