@@ -6,20 +6,22 @@ import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
 import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
+import com.google.api.client.http.GenericUrl;
+import com.google.api.client.http.HttpResponse;
 import com.google.api.client.http.HttpTransport;
-import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.json.JsonFactory;
+import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.util.store.FileDataStoreFactory;
-
-import com.google.api.services.drive.DriveScopes;
-import com.google.api.services.drive.model.*;
 import com.google.api.services.drive.Drive;
+import com.google.api.services.drive.DriveScopes;
+import com.google.api.services.drive.model.File;
+import com.google.api.services.drive.model.FileList;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 public class DriveQuickstart {
     /** Application name. */
@@ -44,8 +46,7 @@ public class DriveQuickstart {
     private static HttpTransport HTTP_TRANSPORT;
 
     /** Global instance of the scopes required by this quickstart. */
-    private static final List<String> SCOPES =
-            Arrays.asList(DriveScopes.DRIVE_METADATA_READONLY);
+    private static final Set<String> SCOPES = DriveScopes.all();
 
     static {
         try {
@@ -106,19 +107,43 @@ public class DriveQuickstart {
         // Build a new authorized API client service.
         Drive service = getDriveService();
 
-        // Print the names and IDs for up to 10 files.
         FileList result = service.files().list()
-                .setMaxResults(10)
                 .execute();
+
         List<File> files = result.getItems();
+
         if (files == null || files.size() == 0) {
             System.out.println("No files found.");
         } else {
             System.out.println("Files:");
             for (File file : files) {
-                System.out.printf("%s (%s)\n", file.getTitle(), file.getId());
+                System.out.printf("%s (%s) (%s) (%s)\n", file.getTitle(), file.getId(), file.getMimeType(), file.getDownloadUrl());
+                System.out.println(file.getExportLinks());
+
+                /*
+                if (file.getDownloadUrl() != null && file.getDownloadUrl().length() > 0) {
+                    service.files().get(file.getId()).executeMediaAndDownloadTo(System.out);
+                    break;
+                }
+                */
             }
         }
     }
 
+    private static InputStream downloadFile(Drive service, File file) throws IOException {
+        if (file.getDownloadUrl() != null && file.getDownloadUrl().length() > 0) {
+            //String downloadUrl = file.getExportLinks().get("application/pdf");
+            String downloadUrl = file.getDownloadUrl();
+
+            HttpResponse resp = service
+                    .getRequestFactory()
+                    .buildGetRequest(new GenericUrl(file.getDownloadUrl()))
+                    .execute();
+
+            return resp.getContent();
+        } else {
+            // The file doesn't have any content stored on Drive.
+            return null;
+        }
+    }
 }
