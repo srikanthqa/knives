@@ -1,5 +1,17 @@
 package com.github.kn.knives.google.drive;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInstalledApp;
 import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver;
@@ -17,13 +29,9 @@ import com.google.api.services.drive.DriveScopes;
 import com.google.api.services.drive.model.File;
 import com.google.api.services.drive.model.FileList;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.Arrays;
-import java.util.List;
-
 public class DriveQuickstart {
+	private static final Logger LOG = LoggerFactory.getLogger(DriveQuickstart.class);
+	
     /** Application name. */
     private static final String APPLICATION_NAME =
             "Drive API Java Quickstart";
@@ -83,9 +91,8 @@ public class DriveQuickstart {
                 flow, new LocalServerReceiver())
                 .authorize(USER);
 
-        System.out.println("Credentials saved to " + DATA_STORE_DIR.getAbsolutePath());
-        System.out.println("Credentials refreshToken " + credential.getRefreshToken());
-
+        LOG.info("Credentials saved to {}", DATA_STORE_DIR.getAbsolutePath());
+        LOG.info("Credentials refreshToken {}",  credential.getRefreshToken());
 
         return credential;
     }
@@ -113,31 +120,25 @@ public class DriveQuickstart {
         List<File> files = result.getItems();
 
         if (files == null || files.size() == 0) {
-            System.out.println("No files found.");
+            LOG.info("No files found.");
         } else {
-            System.out.println("Files:");
-            for (File file : files) {
-                System.out.printf("%s (%s) (%s) (%s)\n", file.getTitle(), file.getId(), file.getMimeType(), file.getDownloadUrl());
-                System.out.println(file.getExportLinks());
-
-                /*
-                if (file.getDownloadUrl() != null && file.getDownloadUrl().length() > 0) {
-                    service.files().get(file.getId()).executeMediaAndDownloadTo(System.out);
-                    break;
-                }
-                */
-            }
+        	 final Map<String, File> idToFileMap = files.stream()
+        			 .collect(Collectors.toMap(File::getId, Function.identity()));
+        	 
+        	 // using this id to build hierarchy of files
+        	 // download and zip?
         }
     }
+    
+    
 
-    private static InputStream downloadFile(Drive service, File file) throws IOException {
+    private static InputStream downloadFile(Drive service, File file, String exportMimeType) throws IOException {
         if (file.getDownloadUrl() != null && file.getDownloadUrl().length() > 0) {
-            //String downloadUrl = file.getExportLinks().get("application/pdf");
-            String downloadUrl = file.getDownloadUrl();
+            final String downloadUrl = file.getExportLinks().getOrDefault(exportMimeType, file.getDownloadUrl());
 
             HttpResponse resp = service
                     .getRequestFactory()
-                    .buildGetRequest(new GenericUrl(file.getDownloadUrl()))
+                    .buildGetRequest(new GenericUrl(downloadUrl))
                     .execute();
 
             return resp.getContent();
