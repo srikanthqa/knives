@@ -1,0 +1,6 @@
+apply from: "$rootDir/gradle/javaProject.gradle"
+
+dependencies {
+	compile group: 'org.uncommons.watchmaker', name: 'watchmaker-framework', version: watchmakerVersion
+
+}
